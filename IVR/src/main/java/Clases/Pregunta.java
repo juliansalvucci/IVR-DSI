@@ -8,6 +8,17 @@ package Clases;
  *
  * @author jlssa
  */
-public class Opcion {
+public class Pregunta 
+{
+    public String descripcion;
     
+    public String getDescripcion() 
+    {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) 
+    {
+        this.descripcion = descripcion;
+    }
 }

@@ -8,6 +8,6 @@ package Clases;
  *
  * @author jlssa
  */
-public class Categoria {
+public class RespuestaPosible {
     
 }
