@@ -8,6 +8,17 @@ package Clases;
  *
  * @author jlssa
  */
-public class RespuestaDeCliente {
+public class RespuestaDeCliente 
+{
+    public String descripcion;
     
+    public String getDescripcionRTA() 
+    {
+        return descripcion;
+    }
+
+    public void setDescripcionRTA(String descripcion) 
+    {
+        this.descripcion = descripcion;
+    }
 }
