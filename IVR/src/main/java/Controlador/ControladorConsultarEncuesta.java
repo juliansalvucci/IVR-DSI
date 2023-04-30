@@ -4,10 +4,34 @@
  */
 package Controlador;
 
+import java.util.List;
+
+import Clases.Llamada;
+
 /**
  *
  * @author jlssa
  */
-public class ControladorConsultarEncuesta {
+public class ControladorConsultarEncuesta 
+{
+    public String fechaInicio;
+    public String fechaFin;
+    public List<Llamada> listaLlamadas;
+
+    public List<Llamada> getListaLlamadas() 
+    {
+        return listaLlamadas;
+    }
+
+    public void tomarFechas(String fechaInicio, String fechaFin)
+    {
+      this.fechaInicio = fechaInicio;
+      this.fechaFin = fechaFin; 
+    }
+
+    public List<Llamada> buscarLlamadasSinEncuesta(){
+        return listaLlamadas;
+    }
+
     
 }

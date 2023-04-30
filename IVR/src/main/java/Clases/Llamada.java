@@ -53,5 +53,9 @@ public class Llamada
     public void setRespuestaDeEncuesta(List<RespuestaDeCliente> respuestaDeEncuesta) 
     {
         this.respuestaDeEncuesta = respuestaDeEncuesta;
-    }      
+    }   
+    
+    public void esDePeriodo(String fechaInicio, String fechaFin){
+
+    }
 }
