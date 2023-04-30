@@ -4,14 +4,29 @@
  */
 package Clases;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 /**
  *
  * @author jlssa
  */
+
+@Entity
 public class RespuestaPosible 
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     public String descripcion;
     public String valor; //Puede ser un puntaje del 1 al 10 o un SI o NO.
+    
+    @ManyToOne
+    @JoinColumn(name = "pregunta_id")
     public Pregunta pregunta;
     
     public String getDescripcionRTA() 

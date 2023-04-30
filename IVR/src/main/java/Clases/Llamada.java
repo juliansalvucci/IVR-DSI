@@ -6,15 +6,32 @@ package Clases;
 
 import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
 /**
  *
  * @author jlssa
  */
+@Entity
 public class Llamada 
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String duracion;
     private Cliente cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "estado_id")
     private Estado estadoActual;
+
+    @OneToMany(mappedBy = "respuestaDeCliente")
     private List<RespuestaDeCliente> respuestaDeEncuesta;
 
     public String getDuracion() 
