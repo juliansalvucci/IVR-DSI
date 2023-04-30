@@ -55,7 +55,21 @@ public class Llamada
         this.respuestaDeEncuesta = respuestaDeEncuesta;
     }   
     
-    public void esDePeriodo(String fechaInicio, String fechaFin){
+    //MÉTODOS DE LÓGICA DE NEGOCIO.
+    public void esDePeriodo(String fechaInicio, String fechaFin)
+    {
 
+    }
+
+    public Boolean tieneEncuestaRespondida()
+    {
+        if(this.respuestaDeEncuesta.size() != 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

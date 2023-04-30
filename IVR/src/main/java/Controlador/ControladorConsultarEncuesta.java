@@ -17,6 +17,7 @@ public class ControladorConsultarEncuesta
     public String fechaInicio;
     public String fechaFin;
     public List<Llamada> listaLlamadas;
+    public Llamada llamadaSeleccionada;
 
     public List<Llamada> getListaLlamadas() 
     {
@@ -29,9 +30,38 @@ public class ControladorConsultarEncuesta
       this.fechaFin = fechaFin; 
     }
 
-    public List<Llamada> buscarLlamadasSinEncuesta(){
+    public List<Llamada> buscarLlamadasSinEncuesta()
+    {
         return listaLlamadas;
     }
 
-    
+    public void tomarSeleccionLlamadaConEncuesta()
+    {
+
+    }
+
+    public void buscarDatosClientes()
+    {
+
+    }
+
+    public void getEstadoLlamada()
+    {
+
+    }
+
+    public void getRTACliente()
+    {
+
+    }
+
+    public void generarCSV()
+    {
+
+    }
+
+    public void finCU()
+    {
+        
+    }
 }
