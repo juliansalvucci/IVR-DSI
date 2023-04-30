@@ -10,7 +10,7 @@ package Clases;
  */
 public class Estado 
 {
-   private String nombre;    
+    private String nombre;    
 
     public String getNombre() 
     {
