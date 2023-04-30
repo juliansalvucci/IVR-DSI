@@ -12,6 +12,7 @@ public class RespuestaDeCliente
 {
     public String fechaEncuesta;
     public String descripcion;
+    public RespuestaPosible respuestaSeleccionada;
 
     public String getFechaEncuesta() 
     {
@@ -31,5 +32,15 @@ public class RespuestaDeCliente
     public void setDescripcionRTA(String descripcion) 
     {
         this.descripcion = descripcion;
+    }
+
+    public RespuestaPosible getRespuestaSeleccionada()
+    {
+        return respuestaSeleccionada;
+    }
+
+    public void setRespuestaSeleccionada(RespuestaPosible respuestaSeleccionada) 
+    {
+        this.respuestaSeleccionada = respuestaSeleccionada;
     }
 }

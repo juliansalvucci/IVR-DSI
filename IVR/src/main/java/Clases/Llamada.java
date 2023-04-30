@@ -4,6 +4,8 @@
  */
 package Clases;
 
+import java.util.List;
+
 /**
  *
  * @author jlssa
@@ -13,7 +15,7 @@ public class Llamada
     private String duracion;
     private Cliente cliente;
     private Estado estadoActual;
-    private RespuestaDeCliente rtaCliente;
+    private List<RespuestaDeCliente> rtaCliente;
 
     public String getDuracion() 
     {
