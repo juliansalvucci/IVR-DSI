@@ -4,6 +4,8 @@
  */
 package Clases;
 
+import java.util.List;
+
 /**
  *
  * @author jlssa
@@ -12,6 +14,8 @@ public class Pregunta
 {
     public String pregunta;
     public String descripcion;
+    public List<RespuestaPosible> respuesta;
+    public Encuesta encuesta;
     
     public String getPregunta() 
     {
@@ -32,4 +36,25 @@ public class Pregunta
     {
         this.descripcion = descripcion;
     }
+
+    public List<RespuestaPosible> getRespuesta() 
+    {
+        return respuesta;
+    }
+
+    public void setRespuesta(List<RespuestaPosible> respuesta) 
+    {
+        this.respuesta = respuesta;
+    }
+
+    public Encuesta getEncuesta() 
+    {
+        return encuesta;
+    }
+
+    public void setEncuesta(Encuesta encuesta) 
+    {
+        this.encuesta = encuesta;
+    }
+
 }

@@ -15,7 +15,7 @@ public class Llamada
     private String duracion;
     private Cliente cliente;
     private Estado estadoActual;
-    private List<RespuestaDeCliente> rtaCliente;
+    private List<RespuestaDeCliente> respuestaDeEncuesta;
 
     public String getDuracion() 
     {
@@ -45,13 +45,13 @@ public class Llamada
         this.estadoActual = estadoActual;
     }
 
-    public RespuestaDeCliente getRespuestas() 
+    public List<RespuestaDeCliente> getRespuestaDeEncuesta() 
     {
-        return rtaCliente;
+        return respuestaDeEncuesta;
     }
 
-    public void setRespuestas(RespuestaDeCliente rtaCliente) 
+    public void setRespuestaDeEncuesta(List<RespuestaDeCliente> respuestaDeEncuesta) 
     {
-        this.rtaCliente = rtaCliente;
-    }       
+        this.respuestaDeEncuesta = respuestaDeEncuesta;
+    }      
 }

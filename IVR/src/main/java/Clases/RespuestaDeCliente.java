@@ -13,6 +13,7 @@ public class RespuestaDeCliente
     public String fechaEncuesta;
     public String descripcion;
     public RespuestaPosible respuestaSeleccionada;
+    public Llamada llamada;
 
     public String getFechaEncuesta() 
     {
@@ -42,5 +43,15 @@ public class RespuestaDeCliente
     public void setRespuestaSeleccionada(RespuestaPosible respuestaSeleccionada) 
     {
         this.respuestaSeleccionada = respuestaSeleccionada;
+    }
+
+    public Llamada getLlamada() 
+    {
+        return llamada;
+    }
+
+    public void setLlamada(Llamada llamada) 
+    {
+        this.llamada = llamada;
     }
 }
