@@ -45,12 +45,12 @@ public class Llamada
         this.estadoActual = estadoActual;
     }
 
-    public List<RespuestaDeCliente> getRespuestaDeEncuesta() 
+    public List<RespuestaDeCliente> getRespuestas() 
     {
         return respuestaDeEncuesta;
     }
 
-    public void setRespuestaDeEncuesta(List<RespuestaDeCliente> respuestaDeEncuesta) 
+    public void setRespuestas(List<RespuestaDeCliente> respuestaDeEncuesta) 
     {
         this.respuestaDeEncuesta = respuestaDeEncuesta;
     }   
