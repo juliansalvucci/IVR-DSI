@@ -11,6 +11,7 @@ import java.util.List;
 import Clases.Cliente;
 import Clases.Llamada;
 import Clases.RespuestaDeCliente;
+import Clases.RespuestaPosible;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -26,6 +27,8 @@ public class ControladorConsultarEncuesta
     public Date fechaInicio;
     public Date fechaFin;
     public List<Llamada> listaLlamadas;
+    public List<RespuestaDeCliente> respuestaDeClientes;
+    public List<RespuestaPosible> respuestasPosibles;
     public Llamada llamadaSeleccionada;
 
     EntityManager em;
@@ -85,7 +88,18 @@ public class ControladorConsultarEncuesta
 
     public List<RespuestaDeCliente> getRTACliente()
     {
-        return llamadaSeleccionada.getRespuestas();
+        this.respuestaDeClientes = llamadaSeleccionada.getRespuestas();
+        return this.respuestaDeClientes;  
+    }
+
+    public List<RespuestaPosible> getRespuestasPosibles()
+    {
+        for(RespuestaDeCliente respuestaDeCliente : this.respuestaDeClientes)
+        {
+            this.respuestasPosibles.add(respuestaDeCliente.getRespuestaSeleccionada());
+        }
+
+        return this.respuestasPosibles;
     }
 
     public void generarCSV()
