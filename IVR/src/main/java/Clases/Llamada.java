@@ -4,6 +4,7 @@
  */
 package Clases;
 
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -25,6 +26,7 @@ public class Llamada
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String duracion;
+    private Date fechaLlamada;
     private Cliente cliente;
 
     @ManyToOne
@@ -73,9 +75,16 @@ public class Llamada
     }   
     
     //MÉTODOS DE LÓGICA DE NEGOCIO.
-    public void esDePeriodo(String fechaInicio, String fechaFin)
+    public Boolean esDePeriodo(Date fechaInicio, Date fechaFin)
     {
-
+        if(this.fechaLlamada.before(fechaFin) && this.fechaLlamada.after(fechaInicio))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public Boolean tieneEncuestaRespondida()

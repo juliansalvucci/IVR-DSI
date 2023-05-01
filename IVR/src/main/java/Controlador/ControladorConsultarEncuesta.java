@@ -55,27 +55,37 @@ public class ControladorConsultarEncuesta
         cq.select(root);
 
         TypedQuery<Llamada> query = em.createQuery(cq);
-        return query.getResultList();
+        var llamadas = query.getResultList();
+
+        for (Llamada llamada : llamadas) 
+        {
+            if(llamada.esDePeriodo(this.fechaInicio, this.fechaFin) && llamada.tieneEncuestaRespondida())
+            {
+                this.listaLlamadas.add(llamada);
+            }   
+        }
+
+        return this.listaLlamadas;
     }
 
-    public Llamada tomarSeleccionLlamadaConEncuesta()
+    public void tomarSeleccionLlamadaConEncuesta(Llamada llamada)
     {
-        return null;
+        this.llamadaSeleccionada = llamada;
     }
 
     public Cliente buscarDatosClientes()
     {
-        return null;
+        return this.llamadaSeleccionada.getCliente();
     }
 
     public String getEstadoLlamada()
     {
-        return "";
+        return this.llamadaSeleccionada.getEstadoActual().getNombre();
     }
 
-    public RespuestaDeCliente getRTACliente()
+    public List<RespuestaDeCliente> getRTACliente()
     {
-        return null;
+        return llamadaSeleccionada.getRespuestas();
     }
 
     public void generarCSV()
