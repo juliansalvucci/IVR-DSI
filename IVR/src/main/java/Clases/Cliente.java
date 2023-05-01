@@ -44,7 +44,8 @@ public class Cliente
         this.nombreCompleto = nombreCompleto;
     }
 
-    public String getNroCelular() {
+    public String getNroCelular() 
+    {
         return nroCelular;
     }
 

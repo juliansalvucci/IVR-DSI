@@ -8,12 +8,17 @@ import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 
 /**
  *
@@ -36,6 +41,13 @@ public class Llamada
     @OneToMany(mappedBy = "respuestaDeCliente")
     private List<RespuestaDeCliente> respuestaDeEncuesta;
 
+    EntityManager em;
+
+    public Llamada(EntityManager em)
+    {
+        this.em = em;
+    }
+
     public String getDuracion() 
     {
         return duracion;
@@ -46,11 +58,13 @@ public class Llamada
         this.duracion = duracion;
     }
 
-    public Cliente getCliente() {
+    public Cliente getCliente() 
+    {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(Cliente cliente)
+    {
         this.cliente = cliente;
     }
     
@@ -67,7 +81,16 @@ public class Llamada
     //TERMINAR
     public List<RespuestaDeCliente> getRespuestas() 
     {
-        return respuestaDeEncuesta;
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<RespuestaDeCliente> cq = cb.createQuery(RespuestaDeCliente.class);
+        Root<RespuestaDeCliente> root = cq.from(RespuestaDeCliente.class);
+
+        cq.select(root);
+
+        TypedQuery<RespuestaDeCliente> query = em.createQuery(cq);
+        var respuestas = query.getResultList();
+
+        return respuestas;
     }
 
     public void setRespuestas(List<RespuestaDeCliente> respuestaDeEncuesta) 
