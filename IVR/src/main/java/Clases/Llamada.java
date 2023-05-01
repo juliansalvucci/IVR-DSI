@@ -64,6 +64,7 @@ public class Llamada
         this.estadoActual = estadoActual;
     }
 
+    //TERMINAR
     public List<RespuestaDeCliente> getRespuestas() 
     {
         return respuestaDeEncuesta;
