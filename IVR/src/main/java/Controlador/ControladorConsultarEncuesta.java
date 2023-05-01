@@ -4,9 +4,18 @@
  */
 package Controlador;
 
+import java.util.Date;
 import java.util.List;
 
+
+import Clases.Cliente;
 import Clases.Llamada;
+import Clases.RespuestaDeCliente;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 
 /**
  *
@@ -14,45 +23,59 @@ import Clases.Llamada;
  */
 public class ControladorConsultarEncuesta 
 {
-    public String fechaInicio;
-    public String fechaFin;
+    public Date fechaInicio;
+    public Date fechaFin;
     public List<Llamada> listaLlamadas;
     public Llamada llamadaSeleccionada;
+
+    EntityManager em;
+
+    public ControladorConsultarEncuesta(EntityManager em)
+    {
+        this.em = em;
+    }
 
     public List<Llamada> getListaLlamadas() 
     {
         return listaLlamadas;
     }
 
-    public void tomarFechas(String fechaInicio, String fechaFin)
+    public void tomarFechas(Date fechaInicio, Date fechaFin)
     {
       this.fechaInicio = fechaInicio;
       this.fechaFin = fechaFin; 
     }
 
-    public List<Llamada> buscarLlamadasSinEncuesta()
+    public List<Llamada> buscarLlamadasSinEncuesta() 
     {
-        return listaLlamadas;
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Llamada> cq = cb.createQuery(Llamada.class);
+        Root<Llamada> root = cq.from(Llamada.class);
+
+        cq.select(root);
+
+        TypedQuery<Llamada> query = em.createQuery(cq);
+        return query.getResultList();
     }
 
-    public void tomarSeleccionLlamadaConEncuesta()
+    public Llamada tomarSeleccionLlamadaConEncuesta()
     {
-
+        return null;
     }
 
-    public void buscarDatosClientes()
+    public Cliente buscarDatosClientes()
     {
-
+        return null;
     }
 
-    public void getEstadoLlamada()
+    public String getEstadoLlamada()
     {
-
+        return "";
     }
 
-    public void getRTACliente()
+    public RespuestaDeCliente getRTACliente()
     {
-
+        return null;
     }
 
     public void generarCSV()
