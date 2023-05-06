@@ -7,7 +7,9 @@ package Controlador;
 import java.util.Date;
 import java.util.List;
 
-
+import java.io.FileWriter;
+import java.io.IOException;
+import com.opencsv.CSVWriter;
 import Clases.Cliente;
 import Clases.Llamada;
 import Clases.RespuestaDeCliente;
@@ -104,11 +106,33 @@ public class ControladorConsultarEncuesta
 
     public void generarCSV()
     {
+        String csvFile = "ruta/al/archivo.csv";
+        try 
+        {
+            FileWriter writer = new FileWriter(csvFile);
+            CSVWriter csvWriter = new CSVWriter(writer);
 
+            // Escribir los encabezados
+            String[] encabezados = {"Nombre", "Apellido", "Edad"};
+            csvWriter.writeNext(encabezados);
+
+            // Escribir los datos
+            String[] datos1 = {"Juan", "Pérez", "30"};
+            csvWriter.writeNext(datos1);
+
+            String[] datos2 = {"María", "Gómez", "25"};
+            csvWriter.writeNext(datos2);
+
+            csvWriter.close();
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
     }
 
     public void finCU()
     {
-        
+        System.exit(0); //Finaliza la ejecución del programa sin errores. 
     }
 }
