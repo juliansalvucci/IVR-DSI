@@ -90,7 +90,13 @@ public class Llamada
         TypedQuery<RespuestaDeCliente> query = em.createQuery(cq);
         var respuestas = query.getResultList();
 
-        return respuestas;
+        for(RespuestaDeCliente respuestaDeCliente : respuestas)
+        {
+            respuestaDeCliente.getDescripcionRTA();
+            respuestaDeCliente.getRespuestaSeleccionada().getDescripcionRTA();
+        }
+
+        return null;
     }
 
     public void setRespuestas(List<RespuestaDeCliente> respuestaDeEncuesta) 
