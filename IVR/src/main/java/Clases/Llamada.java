@@ -12,8 +12,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -34,9 +32,8 @@ public class Llamada
     private Date fechaLlamada;
     private Cliente cliente;
 
-    @ManyToOne
-    @JoinColumn(name = "estado_id")
-    private Estado estadoActual;
+    @OneToMany(mappedBy = "cambioEstado")
+    private List<CambioEstado> cambioEstado;
 
     @OneToMany(mappedBy = "respuestaDeCliente")
     private List<RespuestaDeCliente> respuestaDeEncuesta;
@@ -68,14 +65,24 @@ public class Llamada
         this.cliente = cliente;
     }
     
-    public Estado getEstadoActual() 
+    public List<CambioEstado> getCambioEstado() 
     {
-        return estadoActual;
+        return cambioEstado;
     }
 
-    public void setEstadoActual(Estado estadoActual) 
+    public void setCambioEstado(List<CambioEstado> cambioEstado) 
     {
-        this.estadoActual = estadoActual;
+        this.cambioEstado = cambioEstado;
+    }
+
+    public void determinarEstadoInicial()
+    {
+
+    }
+
+    public String getNombreClienteDeLlamada()
+    {
+        return cliente.getNombreCompleto();
     }
 
     //TERMINAR

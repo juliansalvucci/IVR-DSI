@@ -45,7 +45,7 @@ public class ControladorConsultarEncuesta
         return listaLlamadas;
     }
 
-    public void tomarFechas(Date fechaInicio, Date fechaFin)
+    public void tomarPeriodo(Date fechaInicio, Date fechaFin)
     {
       this.fechaInicio = fechaInicio;
       this.fechaFin = fechaFin; 
@@ -64,7 +64,7 @@ public class ControladorConsultarEncuesta
 
         for (Llamada llamada : llamadas) 
         {
-            if(llamada.esDePeriodo(this.fechaInicio, this.fechaFin) && llamada.tieneEncuestaRespondida())
+            if(llamada.esDePeriodo(this.fechaInicio, this.fechaFin))
             {
                 this.listaLlamadas.add(llamada);
             }   
@@ -83,10 +83,7 @@ public class ControladorConsultarEncuesta
         return this.llamadaSeleccionada.getCliente();
     }
 
-    public String getEstadoLlamada()
-    {
-        return this.llamadaSeleccionada.getEstadoActual().getNombre();
-    }
+    
 
     public List<RespuestaDeCliente> getRTACliente()
     {
@@ -102,6 +99,11 @@ public class ControladorConsultarEncuesta
         }
 
         return this.respuestasPosibles;
+    }
+
+    public void obtenerDatosEncuestas(Llamada llamada)
+    {
+        llamada.getRespuestas();
     }
 
     public void generarCSV()
