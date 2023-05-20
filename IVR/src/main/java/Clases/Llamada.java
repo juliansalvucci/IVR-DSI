@@ -77,8 +77,13 @@ public class Llamada
 
     public void determinarEstadoInicial()
     {
-
+        for(CambioEstado cambioEstado : cambioEstado)
+        {
+            cambioEstado.getFechaHoraInicio();
+        }
     }
+
+    public void determinarUltimoEstado(){}
 
     public String getNombreClienteDeLlamada()
     {

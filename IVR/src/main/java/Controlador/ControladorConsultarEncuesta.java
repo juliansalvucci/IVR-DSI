@@ -66,12 +66,15 @@ public class ControladorConsultarEncuesta
         {
             if(llamada.esDePeriodo(this.fechaInicio, this.fechaFin))
             {
+                llamada.determinarEstadoInicial();
                 this.listaLlamadas.add(llamada);
             }   
         }
 
         return this.listaLlamadas;
     }
+
+    public void obtenerDatosLlamada(){}
 
     public void tomarSeleccionLlamadaConEncuesta(Llamada llamada)
     {
