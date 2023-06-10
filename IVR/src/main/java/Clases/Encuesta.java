@@ -57,4 +57,9 @@ public class Encuesta
     {
         this.pregunta = pregunta;
     }
+
+    public Boolean esEncuestaDeCliente(Cliente cliente)
+    {
+        return false;
+    }
 }

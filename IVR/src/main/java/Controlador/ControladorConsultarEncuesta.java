@@ -86,26 +86,10 @@ public class ControladorConsultarEncuesta
     }
 
     
-
-    public List<RespuestaDeCliente> getRTACliente()
-    {
-        this.respuestaDeClientes = llamadaSeleccionada.getRespuestas();
-        return this.respuestaDeClientes;  
-    }
-
-    public List<RespuestaPosible> getRespuestasPosibles()
-    {
-        for(RespuestaDeCliente respuestaDeCliente : this.respuestaDeClientes)
-        {
-            this.respuestasPosibles.add(respuestaDeCliente.getRespuestaSeleccionada());
-        }
-
-        return this.respuestasPosibles;
-    }
-
     public void obtenerDatosEncuestas(Llamada llamada)
     {
         llamada.getRespuestas();
+        
     }
 
     public void generarCSV()
