@@ -10,6 +10,8 @@ import java.util.List;
 import java.io.FileWriter;
 import java.io.IOException;
 import com.opencsv.CSVWriter;
+
+import Clases.Encuesta;
 import Clases.Llamada;
 import Clases.RespuestaDeCliente;
 import Clases.RespuestaPosible;
@@ -86,10 +88,14 @@ public class ControladorConsultarEncuesta
     }
 
     
-    public void obtenerDatosEncuestas(Llamada llamada)
+    public void obtenerDatosEncuestas(Llamada llamada, Encuesta encuesta)
     {
         llamada.getRespuestas();
-        
+        Boolean esEncuesta = encuesta.esEncuestaDeCliente(null);
+        if(esEncuesta)
+        {
+            encuesta.getDescripcionEncuesta();
+        }
     }
 
     public void generarCSV()

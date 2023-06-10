@@ -20,8 +20,7 @@ import jakarta.persistence.OneToMany;
  * @author jlssa
  */
 @Entity
-public class Pregunta 
-{
+public class Pregunta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,45 +33,46 @@ public class Pregunta
     @ManyToOne
     @JoinColumn(name = "encuesta_id")
     public Encuesta encuesta;
-    
-    public String getPregunta() 
-    {
+
+    public String getPregunta() {
         return pregunta;
     }
 
-    public void setPregunta(String pregunta) 
-    {
+    public void setPregunta(String pregunta) {
         this.pregunta = pregunta;
     }
 
-    public String getDescripcion() 
-    {
+    public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescripcion(String descripcion) 
-    {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
-    public List<RespuestaPosible> getRespuesta() 
-    {
+    public List<RespuestaPosible> getRespuesta() {
         return respuesta;
     }
 
-    public void setRespuesta(List<RespuestaPosible> respuesta) 
-    {
+    public void setRespuesta(List<RespuestaPosible> respuesta) {
         this.respuesta = respuesta;
     }
 
-    public Encuesta getEncuesta() 
-    {
+    public Encuesta getEncuesta() {
         return encuesta;
     }
 
-    public void setEncuesta(Encuesta encuesta) 
-    {
+    public void setEncuesta(Encuesta encuesta) {
         this.encuesta = encuesta;
+    }
+
+    public Boolean esEncuestaCliente(RespuestaPosible respuestaPosible) {
+        for (RespuestaPosible respuesta : respuesta) {
+            if (respuesta.equals(respuestaPosible)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

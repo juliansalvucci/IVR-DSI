@@ -58,8 +58,8 @@ public class Encuesta
         this.pregunta = pregunta;
     }
 
-    public Boolean esEncuestaDeCliente(Cliente cliente)
+    public Boolean esEncuestaDeCliente(RespuestaPosible respuestaPosible)
     {
-        return false;
+        return respuestaPosible.getPregunta().esEncuestaCliente(respuestaPosible);
     }
 }
