@@ -63,17 +63,26 @@ public class Llamada {
         return cambioEstado;
     }
 
-    public void setCambioEstado(List<CambioEstado> cambioEstado) {
+    public void setCambioEstado(List<CambioEstado> cambioEstado) 
+    {
         this.cambioEstado = cambioEstado;
     }
 
-    public void determinarEstadoInicial() {
-        for (CambioEstado cambioEstado : cambioEstado) {
-            cambioEstado.getFechaHoraInicio();
+    public String determinarEstadoInicial() //Cambiar Nombre Ej: determinar fechaInicioLlamada.
+    {
+        CambioEstado primerCambioEstado = null;
+        if (!cambioEstado.isEmpty()) 
+        {
+            primerCambioEstado = cambioEstado.get(0);
         }
+
+        Date fechaHoraInicio = primerCambioEstado.getFechaHoraInicio();
+
+        return fechaHoraInicio.toString();
     }
 
-    public void determinarUltimoEstado() {
+    public void determinarUltimoEstado() 
+    {
         CambioEstado ultimoCambioEstado = null;
         if (!cambioEstado.isEmpty()) 
         {
