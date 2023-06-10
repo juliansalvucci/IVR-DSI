@@ -24,7 +24,6 @@ public class Llamada {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String duracion;
-    private Date fechaLlamada;
     private Cliente cliente;
 
     @OneToMany(mappedBy = "cambioEstado")
@@ -64,7 +63,7 @@ public class Llamada {
         this.cambioEstado = cambioEstado;
     }
 
-    public String determinarEstadoInicial() //Cambiar Nombre Ej: determinar fechaInicioLlamada.
+    public Date determinarEstadoInicial() //Cambiar Nombre Ej: determinar fechaInicioLlamada.
     {
         CambioEstado primerCambioEstado = null;
         if (!cambioEstado.isEmpty()) 
@@ -74,10 +73,10 @@ public class Llamada {
 
         Date fechaHoraInicio = primerCambioEstado.getFechaHoraInicio();
 
-        return fechaHoraInicio.toString();
+        return fechaHoraInicio;
     }
 
-    public void determinarUltimoEstado() 
+    public String determinarUltimoEstado() 
     {
         CambioEstado ultimoCambioEstado = null;
         if (!cambioEstado.isEmpty()) 
@@ -86,7 +85,7 @@ public class Llamada {
             ultimoCambioEstado = cambioEstado.get(lastIndex);
         }
         //DESCARTARÍA EL MÉTODO getFechaHoraInicio porque estoy tomando precisamente el último elemento.
-        ultimoCambioEstado.getNombreEstado();
+        return ultimoCambioEstado.getNombreEstado();
     }
 
     public String getNombreClienteDeLlamada() {
@@ -127,7 +126,8 @@ public class Llamada {
 
     // MÉTODOS DE LÓGICA DE NEGOCIO.
     public Boolean esDePeriodo(Date fechaInicio, Date fechaFin) {
-        if (this.fechaLlamada.before(fechaFin) && this.fechaLlamada.after(fechaInicio)) {
+        Date fechaDeEstado = determinarEstadoInicial();
+        if (fechaDeEstado.before(fechaFin) && fechaDeEstado.after(fechaInicio)) {
             return true;
         } else {
             return false;

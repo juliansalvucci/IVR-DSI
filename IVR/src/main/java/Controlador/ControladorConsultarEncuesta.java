@@ -25,35 +25,29 @@ import jakarta.persistence.criteria.Root;
  *
  * @author jlssa
  */
-public class ControladorConsultarEncuesta 
-{
+public class ControladorConsultarEncuesta {
     public Date fechaInicio;
     public Date fechaFin;
     public List<Llamada> listaLlamadas;
     public List<RespuestaDeCliente> respuestaDeClientes;
     public List<RespuestaPosible> respuestasPosibles;
     public Llamada llamadaSeleccionada;
+    public String nombreCliente;
+    public String ultimoEstadoLlamada;
+    public String duracionLlamada;
 
     EntityManager em;
 
-    public ControladorConsultarEncuesta(EntityManager em)
-    {
+    public ControladorConsultarEncuesta(EntityManager em) {
         this.em = em;
     }
 
-    public List<Llamada> getListaLlamadas() 
-    {
-        return listaLlamadas;
+    public void tomarPeriodo(Date fechaInicio, Date fechaFin) {
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
     }
 
-    public void tomarPeriodo(Date fechaInicio, Date fechaFin)
-    {
-      this.fechaInicio = fechaInicio;
-      this.fechaFin = fechaFin; 
-    }
-
-    public List<Llamada> buscarLlamadasSinEncuesta() 
-    {
+    public List<Llamada> buscarLlamadasSinEncuesta() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Llamada> cq = cb.createQuery(Llamada.class);
         Root<Llamada> root = cq.from(Llamada.class);
@@ -63,70 +57,57 @@ public class ControladorConsultarEncuesta
         TypedQuery<Llamada> query = em.createQuery(cq);
         var llamadas = query.getResultList();
 
-        for (Llamada llamada : llamadas) 
-        {
-            if(llamada.esDePeriodo(this.fechaInicio, this.fechaFin))
-            {
-                llamada.determinarEstadoInicial();
+        for (Llamada llamada : llamadas) {
+            if (llamada.esDePeriodo(this.fechaInicio, this.fechaFin)) {
                 this.listaLlamadas.add(llamada);
-            }   
+            }
         }
 
         return this.listaLlamadas;
     }
 
-    public void obtenerDatosLlamada(Llamada llamada)
-    {
-        llamada.getCliente().getNombreCompleto();
-        llamada.determinarUltimoEstado();
-        llamada.getDuracion();
-    }
-
-    public void tomarSeleccionLlamadaConEncuesta(Llamada llamada)
-    {
+    public void tomarSeleccionLlamadaConEncuesta(Llamada llamada) {
         this.llamadaSeleccionada = llamada;
     }
 
-    
-    public void obtenerDatosEncuestas(Llamada llamada, Encuesta encuesta)
-    {
-        llamada.getRespuestas();
+    public void obtenerDatosLlamada() {
+        this.nombreCliente = this.llamadaSeleccionada.getCliente().getNombreCompleto();
+        this.ultimoEstadoLlamada = this.llamadaSeleccionada.determinarUltimoEstado();
+        this.duracionLlamada = this.llamadaSeleccionada.getDuracion();
+    }
+
+    public void obtenerDatosEncuestas(Encuesta encuesta) {
+        this.llamadaSeleccionada.getRespuestas();
         Boolean esEncuesta = encuesta.esEncuestaDeCliente(null);
-        if(esEncuesta)
-        {
+        if (esEncuesta) {
             encuesta.getDescripcionEncuesta();
         }
     }
 
-    public void generarCSV()
-    {
+    public void generarCSV() {
         String csvFile = "ruta/al/archivo.csv";
-        try 
-        {
+        try {
             FileWriter writer = new FileWriter(csvFile);
             CSVWriter csvWriter = new CSVWriter(writer);
 
             // Escribir los encabezados
-            String[] encabezados = {"Nombre", "Apellido", "Edad"};
+            String[] encabezados = { "Nombre", "Apellido", "Edad" };
             csvWriter.writeNext(encabezados);
 
             // Escribir los datos
-            String[] datos1 = {"Juan", "Pérez", "30"};
+            String[] datos1 = { "Juan", "Pérez", "30" };
             csvWriter.writeNext(datos1);
 
-            String[] datos2 = {"María", "Gómez", "25"};
+            String[] datos2 = { "María", "Gómez", "25" };
             csvWriter.writeNext(datos2);
 
             csvWriter.close();
-        } 
-        catch (IOException e) 
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void finCU()
-    {
-        System.exit(0); //Finaliza la ejecución del programa sin errores. 
+    public void finCU() {
+        System.exit(0); // Finaliza la ejecución del programa sin errores.
     }
 }
