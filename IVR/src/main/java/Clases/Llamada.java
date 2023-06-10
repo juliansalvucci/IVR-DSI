@@ -13,10 +13,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
 
 /**
  *
@@ -35,7 +31,7 @@ public class Llamada {
     private List<CambioEstado> cambioEstado;
 
     @OneToMany(mappedBy = "respuestaDeCliente")
-    private List<RespuestaDeCliente> respuestaDeEncuesta;
+    private List<RespuestaDeCliente> respuestaDeCliente;
 
     EntityManager em;
 
@@ -98,6 +94,15 @@ public class Llamada {
     }
 
     // TERMINAR
+    public void getRespuestas()
+    {
+        for(RespuestaDeCliente respuestaDeCliente : this.respuestaDeCliente)
+        {
+            respuestaDeCliente.getDescripcionRTA();
+            respuestaDeCliente.getRespuestaSeleccionada().getDescripcionRTA();
+        }
+    }
+    /* 
     public List<RespuestaDeCliente> getRespuestas() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<RespuestaDeCliente> cq = cb.createQuery(RespuestaDeCliente.class);
@@ -115,9 +120,9 @@ public class Llamada {
 
         return null;
     }
-
-    public void setRespuestas(List<RespuestaDeCliente> respuestaDeEncuesta) {
-        this.respuestaDeEncuesta = respuestaDeEncuesta;
+    */
+    public void setRespuestas(List<RespuestaDeCliente> respuestaDeCliente) {
+        this.respuestaDeCliente = respuestaDeCliente;
     }
 
     // MÉTODOS DE LÓGICA DE NEGOCIO.
@@ -130,7 +135,7 @@ public class Llamada {
     }
 
     public Boolean tieneEncuestaRespondida() {
-        if (this.respuestaDeEncuesta.size() != 0) {
+        if (this.respuestaDeCliente.size() != 0) {
             return true;
         } else {
             return false;
