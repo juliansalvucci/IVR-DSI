@@ -4,6 +4,7 @@
  */
 package Clases;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,16 +59,14 @@ public class Llamada {
         return cambioEstado;
     }
 
-    public void setCambioEstado(List<CambioEstado> cambioEstado) 
-    {
+    public void setCambioEstado(List<CambioEstado> cambioEstado) {
         this.cambioEstado = cambioEstado;
     }
 
-    public Date determinarEstadoInicial() //Cambiar Nombre Ej: determinar fechaInicioLlamada.
+    public Date determinarEstadoInicial() // Cambiar Nombre Ej: determinar fechaInicioLlamada.
     {
         CambioEstado primerCambioEstado = null;
-        if (!cambioEstado.isEmpty()) 
-        {
+        if (!cambioEstado.isEmpty()) {
             primerCambioEstado = cambioEstado.get(0);
         }
 
@@ -76,15 +75,14 @@ public class Llamada {
         return fechaHoraInicio;
     }
 
-    public String determinarUltimoEstado() 
-    {
+    public String determinarUltimoEstado() {
         CambioEstado ultimoCambioEstado = null;
-        if (!cambioEstado.isEmpty()) 
-        {
+        if (!cambioEstado.isEmpty()) {
             int lastIndex = cambioEstado.size() - 1;
             ultimoCambioEstado = cambioEstado.get(lastIndex);
         }
-        //DESCARTARÍA EL MÉTODO getFechaHoraInicio porque estoy tomando precisamente el último elemento.
+        // DESCARTARÍA EL MÉTODO getFechaHoraInicio porque estoy tomando precisamente el
+        // último elemento.
         return ultimoCambioEstado.getNombreEstado();
     }
 
@@ -93,33 +91,15 @@ public class Llamada {
     }
 
     // TERMINAR
-    public void getRespuestas()
-    {
-        for(RespuestaDeCliente respuestaDeCliente : this.respuestaDeCliente)
-        {
-            respuestaDeCliente.getDescripcionRTA();
-            respuestaDeCliente.getRespuestaSeleccionada().getDescripcionRTA();
-        }
-    }
-    /* 
-    public List<RespuestaDeCliente> getRespuestas() {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<RespuestaDeCliente> cq = cb.createQuery(RespuestaDeCliente.class);
-        Root<RespuestaDeCliente> root = cq.from(RespuestaDeCliente.class);
-
-        cq.select(root);
-
-        TypedQuery<RespuestaDeCliente> query = em.createQuery(cq);
-        var respuestas = query.getResultList();
-
-        for (RespuestaDeCliente respuestaDeCliente : respuestas) {
-            respuestaDeCliente.getDescripcionRTA();
-            respuestaDeCliente.getRespuestaSeleccionada().getDescripcionRTA();
+    public List<String> getRespuestas() {
+        List<String> respuestas = new ArrayList<String>();
+        for (RespuestaDeCliente respuestaDeCliente : this.respuestaDeCliente) {
+            respuestas.add(respuestaDeCliente.getDescripcionRTA());
         }
 
-        return null;
+        return respuestas;
     }
-    */
+
     public void setRespuestas(List<RespuestaDeCliente> respuestaDeCliente) {
         this.respuestaDeCliente = respuestaDeCliente;
     }
@@ -141,9 +121,4 @@ public class Llamada {
             return false;
         }
     }
-
-    public String getNombreDeClienteLlamada() {
-        return cliente.getNombreCompleto();
-    }
-
 }

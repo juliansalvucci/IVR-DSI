@@ -58,7 +58,7 @@ public class ControladorConsultarEncuesta {
         var llamadas = query.getResultList();
 
         for (Llamada llamada : llamadas) {
-            if (llamada.esDePeriodo(this.fechaInicio, this.fechaFin)) {
+            if (llamada.esDePeriodo(this.fechaInicio, this.fechaFin) && llamada.tieneEncuestaRespondida()) { //FALTA VERIFICAR SI TIENE ENCUESTA RESPONDIDA
                 this.listaLlamadas.add(llamada);
             }
         }
@@ -76,7 +76,7 @@ public class ControladorConsultarEncuesta {
         this.duracionLlamada = this.llamadaSeleccionada.getDuracion();
     }
 
-    public void obtenerDatosEncuestas(Encuesta encuesta) {
+    public void obtenerDatosEncuesta(Encuesta encuesta) {
         this.llamadaSeleccionada.getRespuestas();
         Boolean esEncuesta = encuesta.esEncuestaDeCliente(null);
         if (esEncuesta) {
