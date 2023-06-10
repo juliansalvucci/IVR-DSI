@@ -89,7 +89,7 @@ public class Llamada {
             int lastIndex = cambioEstado.size() - 1;
             ultimoCambioEstado = cambioEstado.get(lastIndex);
         }
-
+        //DESCARTARÍA EL MÉTODO getFechaHoraInicio porque estoy tomando precisamente el último elemento.
         ultimoCambioEstado.getNombreEstado();
     }
 

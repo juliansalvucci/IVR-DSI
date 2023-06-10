@@ -10,7 +10,6 @@ import java.util.List;
 import java.io.FileWriter;
 import java.io.IOException;
 import com.opencsv.CSVWriter;
-import Clases.Cliente;
 import Clases.Llamada;
 import Clases.RespuestaDeCliente;
 import Clases.RespuestaPosible;
@@ -76,17 +75,14 @@ public class ControladorConsultarEncuesta
 
     public void obtenerDatosLlamada(Llamada llamada)
     {
-        
+        llamada.getCliente().getNombreCompleto();
+        llamada.determinarUltimoEstado();
+        llamada.getDuracion();
     }
 
     public void tomarSeleccionLlamadaConEncuesta(Llamada llamada)
     {
         this.llamadaSeleccionada = llamada;
-    }
-
-    public Cliente buscarDatosClientes()
-    {
-        return this.llamadaSeleccionada.getCliente();
     }
 
     
