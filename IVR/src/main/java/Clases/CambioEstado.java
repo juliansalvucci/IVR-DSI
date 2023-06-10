@@ -31,10 +31,16 @@ public class CambioEstado
     {
         this.fechaHoraFin = fechaHoraFin;
     }
-    public Estado getEstado() 
+    public String getNombreEstado() 
+    {
+        return estado.getNombre();
+    }
+
+    public Estado getEstado()
     {
         return estado;
     }
+
     public void setEstado(Estado estado) 
     {
         this.estado = estado;

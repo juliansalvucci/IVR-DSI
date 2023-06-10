@@ -74,7 +74,10 @@ public class ControladorConsultarEncuesta
         return this.listaLlamadas;
     }
 
-    public void obtenerDatosLlamada(){}
+    public void obtenerDatosLlamada(Llamada llamada)
+    {
+        
+    }
 
     public void tomarSeleccionLlamadaConEncuesta(Llamada llamada)
     {
