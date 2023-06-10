@@ -12,8 +12,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -25,8 +23,7 @@ import jakarta.persistence.criteria.Root;
  * @author jlssa
  */
 @Entity
-public class Llamada 
-{
+public class Llamada {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,53 +31,65 @@ public class Llamada
     private Date fechaLlamada;
     private Cliente cliente;
 
-    @ManyToOne
-    @JoinColumn(name = "estado_id")
-    private Estado estadoActual;
+    @OneToMany(mappedBy = "cambioEstado")
+    private List<CambioEstado> cambioEstado;
 
     @OneToMany(mappedBy = "respuestaDeCliente")
     private List<RespuestaDeCliente> respuestaDeEncuesta;
 
     EntityManager em;
 
-    public Llamada(EntityManager em)
-    {
+    public Llamada(EntityManager em) {
         this.em = em;
     }
 
-    public String getDuracion() 
-    {
+    public String getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(String duracion) 
-    {
+    public void setDuracion(String duracion) {
         this.duracion = duracion;
     }
 
-    public Cliente getCliente() 
-    {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente)
-    {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
-    public Estado getEstadoActual() 
-    {
-        return estadoActual;
+
+    public List<CambioEstado> getCambioEstado() {
+        return cambioEstado;
     }
 
-    public void setEstadoActual(Estado estadoActual) 
-    {
-        this.estadoActual = estadoActual;
+    public void setCambioEstado(List<CambioEstado> cambioEstado) {
+        this.cambioEstado = cambioEstado;
     }
 
-    //TERMINAR
-    public List<RespuestaDeCliente> getRespuestas() 
-    {
+    public void determinarEstadoInicial() {
+        for (CambioEstado cambioEstado : cambioEstado) {
+            cambioEstado.getFechaHoraInicio();
+        }
+    }
+
+    public void determinarUltimoEstado() {
+        CambioEstado ultimoCambioEstado = null;
+        if (!cambioEstado.isEmpty()) 
+        {
+            int lastIndex = cambioEstado.size() - 1;
+            ultimoCambioEstado = cambioEstado.get(lastIndex);
+        }
+
+        ultimoCambioEstado.getNombreEstado();
+    }
+
+    public String getNombreClienteDeLlamada() {
+        return cliente.getNombreCompleto();
+    }
+
+    // TERMINAR
+    public List<RespuestaDeCliente> getRespuestas() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<RespuestaDeCliente> cq = cb.createQuery(RespuestaDeCliente.class);
         Root<RespuestaDeCliente> root = cq.from(RespuestaDeCliente.class);
@@ -90,36 +99,37 @@ public class Llamada
         TypedQuery<RespuestaDeCliente> query = em.createQuery(cq);
         var respuestas = query.getResultList();
 
-        return respuestas;
+        for (RespuestaDeCliente respuestaDeCliente : respuestas) {
+            respuestaDeCliente.getDescripcionRTA();
+            respuestaDeCliente.getRespuestaSeleccionada().getDescripcionRTA();
+        }
+
+        return null;
     }
 
-    public void setRespuestas(List<RespuestaDeCliente> respuestaDeEncuesta) 
-    {
+    public void setRespuestas(List<RespuestaDeCliente> respuestaDeEncuesta) {
         this.respuestaDeEncuesta = respuestaDeEncuesta;
-    }   
-    
-    //MÉTODOS DE LÓGICA DE NEGOCIO.
-    public Boolean esDePeriodo(Date fechaInicio, Date fechaFin)
-    {
-        if(this.fechaLlamada.before(fechaFin) && this.fechaLlamada.after(fechaInicio))
-        {
+    }
+
+    // MÉTODOS DE LÓGICA DE NEGOCIO.
+    public Boolean esDePeriodo(Date fechaInicio, Date fechaFin) {
+        if (this.fechaLlamada.before(fechaFin) && this.fechaLlamada.after(fechaInicio)) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 
-    public Boolean tieneEncuestaRespondida()
-    {
-        if(this.respuestaDeEncuesta.size() != 0)
-        {
+    public Boolean tieneEncuestaRespondida() {
+        if (this.respuestaDeEncuesta.size() != 0) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
+
+    public String getNombreDeClienteLlamada() {
+        return cliente.getNombreCompleto();
+    }
+
 }
