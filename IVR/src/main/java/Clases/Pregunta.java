@@ -66,10 +66,12 @@ public class Pregunta {
         this.encuesta = encuesta;
     }
 
-    public Boolean esEncuestaCliente(RespuestaPosible respuestaPosible) {
+    public Boolean esEncuestaCliente(String respuestaPosible) {
         for (RespuestaPosible respuesta : respuesta) {
-            if (respuesta.equals(respuestaPosible)) {
+            if (respuesta.getDescripcionRTA() == respuestaPosible) {
                 return true;
+            } else {
+                return false;
             }
         }
         return false;

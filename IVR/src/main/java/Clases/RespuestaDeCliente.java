@@ -44,8 +44,8 @@ public class RespuestaDeCliente
     
     public String getDescripcionRTA() 
     {
-        String descripcionRespuestaPosible = this.respuestaSeleccionada.getDescripcionRTA();
-        return descripcion + "_" + descripcionRespuestaPosible;
+        String descripcionRespuestaSeleccionada = this.respuestaSeleccionada.getDescripcionRTA();
+        return descripcion + " _ " + descripcionRespuestaSeleccionada;
     }
 
     public void setDescripcionRTA(String descripcion) 

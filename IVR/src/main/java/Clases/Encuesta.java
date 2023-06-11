@@ -17,8 +17,7 @@ import jakarta.persistence.OneToMany;
  * @author jlssa
  */
 @Entity
-public class Encuesta 
-{
+public class Encuesta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,40 +25,41 @@ public class Encuesta
     public String descripcion;
 
     @OneToMany(mappedBy = "pregunta")
-    public List<Pregunta> pregunta;
-    
-    public String getDescripcionEncuesta() 
-    {
+    public List<Pregunta> preguntas;
+
+    public String getDescripcionEncuesta() {
         return descripcion;
     }
 
-    public void setDescripcionEncuesta(String descripcion) 
-    {
+    public void setDescripcionEncuesta(String descripcion) {
         this.descripcion = descripcion;
     }
-    
-    public String getFechaEncuesta() 
-    {
+
+    public String getFechaEncuesta() {
         return fechaEncuesta;
     }
 
-    public void setFechaEncuesta(String fechaEncuesta) 
-    {
+    public void setFechaEncuesta(String fechaEncuesta) {
         this.fechaEncuesta = fechaEncuesta;
     }
 
-    public List<Pregunta> getPregunta()
-    {
-        return pregunta;
+    public List<Pregunta> getPregunta() {
+        return preguntas;
     }
 
-    public void setPregunta(List<Pregunta> pregunta) 
-    {
-        this.pregunta = pregunta;
+    public void setPregunta(List<Pregunta> preguntas) {
+        this.preguntas = preguntas;
     }
 
-    public Boolean esEncuestaDeCliente(RespuestaPosible respuestaPosible)
-    {
-        return respuestaPosible.getPregunta().esEncuestaCliente(respuestaPosible);
+    public Boolean esEncuestaDeCliente(String respuestaPosible) {
+        for (Pregunta pregunta : preguntas) {
+            Boolean esEncuesta = pregunta.esEncuestaCliente(respuestaPosible);
+            if (esEncuesta) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 }

@@ -37,6 +37,7 @@ public class ControladorConsultarEncuesta {
     public String ultimoEstadoLlamada;
     public String duracionLlamada;
     public String descripcionEncuesta;
+    public List<String> respuestas;
 
     EntityManager em;
 
@@ -83,12 +84,15 @@ public class ControladorConsultarEncuesta {
     }
 
     public void obtenerDatosEncuesta() {
-        this.llamadaSeleccionada.getRespuestas();
+        this.respuestas = this.llamadaSeleccionada.getRespuestas();
     }
 
-    public void buscarEncuestaAsociada() {
+    public void buscarEncuestaAsociada() { 
+        String respuesta = this.respuestas.get(0);
+        String[] partes = respuesta.split("_");      
+        String parte = partes[1]; 
         for (Encuesta encuesta : encuestasDeLlamadas) {
-            Boolean esEncuesta = encuesta.esEncuestaDeCliente(null);
+            Boolean esEncuesta = encuesta.esEncuestaDeCliente(parte);
             if (esEncuesta) {
                 this.descripcionEncuesta = encuesta.getDescripcionEncuesta();
             }
