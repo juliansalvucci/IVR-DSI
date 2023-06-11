@@ -82,7 +82,6 @@ public class Llamada {
             ultimoCambioEstado = cambioEstado.get(lastIndex);
         }
         // DESCARTARÍA EL MÉTODO getFechaHoraInicio porque estoy tomando precisamente el
-        // último elemento.
         return ultimoCambioEstado.getNombreEstado();
     }
 
@@ -98,10 +97,6 @@ public class Llamada {
         }
 
         return respuestas;
-    }
-
-    public void setRespuestas(List<RespuestaDeCliente> respuestaDeCliente) {
-        this.respuestaDeCliente = respuestaDeCliente;
     }
 
     // MÉTODOS DE LÓGICA DE NEGOCIO.

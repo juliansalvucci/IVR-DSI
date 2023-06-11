@@ -31,10 +31,12 @@ public class ControladorConsultarEncuesta {
     public List<Llamada> listaLlamadas;
     public List<RespuestaDeCliente> respuestaDeClientes;
     public List<RespuestaPosible> respuestasPosibles;
+    public List<Encuesta> encuestasDeLlamadas;
     public Llamada llamadaSeleccionada;
     public String nombreCliente;
     public String ultimoEstadoLlamada;
     public String duracionLlamada;
+    public String descripcionEncuesta;
 
     EntityManager em;
 
@@ -58,7 +60,11 @@ public class ControladorConsultarEncuesta {
         var llamadas = query.getResultList();
 
         for (Llamada llamada : llamadas) {
-            if (llamada.esDePeriodo(this.fechaInicio, this.fechaFin) && llamada.tieneEncuestaRespondida()) { //FALTA VERIFICAR SI TIENE ENCUESTA RESPONDIDA
+            if (llamada.esDePeriodo(this.fechaInicio, this.fechaFin) && llamada.tieneEncuestaRespondida()) { // FALTA
+                                                                                                             // VERIFICAR
+                                                                                                             // SI TIENE
+                                                                                                             // ENCUESTA
+                                                                                                             // RESPONDIDA
                 this.listaLlamadas.add(llamada);
             }
         }
@@ -76,11 +82,16 @@ public class ControladorConsultarEncuesta {
         this.duracionLlamada = this.llamadaSeleccionada.getDuracion();
     }
 
-    public void obtenerDatosEncuesta(Encuesta encuesta) {
+    public void obtenerDatosEncuesta() {
         this.llamadaSeleccionada.getRespuestas();
-        Boolean esEncuesta = encuesta.esEncuestaDeCliente(null);
-        if (esEncuesta) {
-            encuesta.getDescripcionEncuesta();
+    }
+
+    public void buscarEncuestaAsociada() {
+        for (Encuesta encuesta : encuestasDeLlamadas) {
+            Boolean esEncuesta = encuesta.esEncuestaDeCliente(null);
+            if (esEncuesta) {
+                this.descripcionEncuesta = encuesta.getDescripcionEncuesta();
+            }
         }
     }
 
