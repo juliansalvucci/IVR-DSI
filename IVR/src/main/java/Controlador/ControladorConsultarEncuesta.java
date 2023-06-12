@@ -89,7 +89,7 @@ public class ControladorConsultarEncuesta {
     public void buscarEncuestaAsociada() {
         String respuesta = this.respuestas.get(0);
         String[] partes = respuesta.split("_");
-        String parte = partes[1];
+        String respuestaPosible = partes[1];
 
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Encuesta> cq = cb.createQuery(Encuesta.class);
@@ -101,7 +101,7 @@ public class ControladorConsultarEncuesta {
         var this.encuestasDeLlamadas = query.getResultList();
 
         for (Encuesta encuesta : this.encuestasDeLlamadas) {
-            Boolean esEncuesta = encuesta.esEncuestaDeCliente(parte);
+            Boolean esEncuesta = encuesta.esEncuestaDeCliente(respuestaPosible);
             if (esEncuesta) {
                 this.encuesta = encuesta;
             }
