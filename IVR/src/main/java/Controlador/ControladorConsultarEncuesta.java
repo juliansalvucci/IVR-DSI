@@ -90,7 +90,17 @@ public class ControladorConsultarEncuesta {
         String respuesta = this.respuestas.get(0);
         String[] partes = respuesta.split("_");
         String parte = partes[1];
-        for (Encuesta encuesta : encuestasDeLlamadas) {
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Encuesta> cq = cb.createQuery(Encuesta.class);
+        Root<Encuesta> root = cq.from(Encuesta.class);
+
+        cq.select(root);
+
+        TypedQuery<Encuesta> query = em.createQuery(cq);
+        var this.encuestasDeLlamadas = query.getResultList();
+
+        for (Encuesta encuesta : this.encuestasDeLlamadas) {
             Boolean esEncuesta = encuesta.esEncuestaDeCliente(parte);
             if (esEncuesta) {
                 this.encuesta = encuesta;
