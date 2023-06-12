@@ -41,6 +41,7 @@ public class ControladorConsultarEncuesta {
     public List<String> respuestas;
     public List<String> preguntas;
     public Encuesta encuesta;
+    public String opcion;
 
     EntityManager em;
 
@@ -111,6 +112,13 @@ public class ControladorConsultarEncuesta {
     public void armarEncuesta() {
         this.descripcionEncuesta = this.encuesta.getDescripcionEncuesta();
         this.preguntas = this.encuesta.armarEncuesta();
+    }
+
+    public void tomarSalida(String opcion){
+        this.opcion = opcion;
+        if(opcion.equals("CSV")){
+            generarCSV()
+        }
     }
 
     public void generarCSV() {
