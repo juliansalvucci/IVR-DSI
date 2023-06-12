@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +39,8 @@ public class ControladorConsultarEncuesta {
     public String duracionLlamada;
     public String descripcionEncuesta;
     public List<String> respuestas;
+    public List<String> preguntas;
+    public Encuesta encuesta;
 
     EntityManager em;
 
@@ -61,11 +64,7 @@ public class ControladorConsultarEncuesta {
         var llamadas = query.getResultList();
 
         for (Llamada llamada : llamadas) {
-            if (llamada.esDePeriodo(this.fechaInicio, this.fechaFin) && llamada.tieneEncuestaRespondida()) { // FALTA
-                                                                                                             // VERIFICAR
-                                                                                                             // SI TIENE
-                                                                                                             // ENCUESTA
-                                                                                                             // RESPONDIDA
+            if (llamada.esDePeriodo(this.fechaInicio, this.fechaFin) && llamada.tieneEncuestaRespondida()) { 
                 this.listaLlamadas.add(llamada);
             }
         }
@@ -87,16 +86,21 @@ public class ControladorConsultarEncuesta {
         this.respuestas = this.llamadaSeleccionada.getRespuestas();
     }
 
-    public void buscarEncuestaAsociada() { 
+    public void buscarEncuestaAsociada() {
         String respuesta = this.respuestas.get(0);
-        String[] partes = respuesta.split("_");      
-        String parte = partes[1]; 
+        String[] partes = respuesta.split("_");
+        String parte = partes[1];
         for (Encuesta encuesta : encuestasDeLlamadas) {
             Boolean esEncuesta = encuesta.esEncuestaDeCliente(parte);
             if (esEncuesta) {
-                this.descripcionEncuesta = encuesta.getDescripcionEncuesta();
+                this.encuesta = encuesta;
             }
         }
+    }
+
+    public void armarEncuesta() {
+        this.descripcionEncuesta = this.encuesta.getDescripcionEncuesta();
+        this.preguntas = this.encuesta.armarEncuesta();
     }
 
     public void generarCSV() {
@@ -106,15 +110,24 @@ public class ControladorConsultarEncuesta {
             CSVWriter csvWriter = new CSVWriter(writer);
 
             // Escribir los encabezados
-            String[] encabezados = { "Nombre", "Apellido", "Edad" };
+            String[] encabezados = { this.nombreCliente, this.ultimoEstadoLlamada, this.duracionLlamada };
             csvWriter.writeNext(encabezados);
 
-            // Escribir los datos
+             ArrayList<String> datos = new ArrayList<>();
+
+            for(int i = 0; i < this.respuestas.size(); i++){
+                String fila = this.respuestas.get(i);
+                datos.add(fila);
+                csvWriter.writeNext(datos.toArray(new String[0]));
+            }
+  
+            /* 
             String[] datos1 = { "Juan", "Pérez", "30" };
             csvWriter.writeNext(datos1);
 
             String[] datos2 = { "María", "Gómez", "25" };
             csvWriter.writeNext(datos2);
+            */
 
             csvWriter.close();
         } catch (IOException e) {

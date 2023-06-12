@@ -4,6 +4,7 @@
  */
 package Clases;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -61,5 +62,13 @@ public class Encuesta {
             }
         }
         return false;
+    }
+
+    public List<String> armarEncuesta(){
+        List<String> descripcionPreguntas = new ArrayList<String>();
+        for(Pregunta pregunta : preguntas){
+            descripcionPreguntas.add(pregunta.getDescripcion());
+        }
+        return descripcionPreguntas;
     }
 }
