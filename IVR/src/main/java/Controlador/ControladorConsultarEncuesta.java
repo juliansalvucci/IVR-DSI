@@ -65,7 +65,7 @@ public class ControladorConsultarEncuesta {
         var llamadas = query.getResultList();
 
         for (Llamada llamada : llamadas) {
-            if (llamada.esDePeriodo(this.fechaInicio, this.fechaFin) && llamada.tieneEncuestaRespondida()) { 
+            if (llamada.esDePeriodo(this.fechaInicio, this.fechaFin) && llamada.tieneEncuestaRespondida()) {
                 this.listaLlamadas.add(llamada);
             }
         }
@@ -114,9 +114,9 @@ public class ControladorConsultarEncuesta {
         this.preguntas = this.encuesta.armarEncuesta();
     }
 
-    public void tomarSalida(String opcion){
+    public void tomarSalida(String opcion) {
         this.opcion = opcion;
-        if(opcion.equals("CSV")){
+        if (opcion.equals("CSV")) {
             generarCSV();
         }
     }
@@ -131,21 +131,21 @@ public class ControladorConsultarEncuesta {
             String[] encabezados = { this.nombreCliente, this.ultimoEstadoLlamada, this.duracionLlamada };
             csvWriter.writeNext(encabezados);
 
-             ArrayList<String> datos = new ArrayList<>();
+            ArrayList<String> datos = new ArrayList<>();
 
-            for(int i = 0; i < this.respuestas.size(); i++){
+            for (int i = 0; i < this.respuestas.size(); i++) {
                 String fila = this.respuestas.get(i);
                 datos.add(fila);
                 csvWriter.writeNext(datos.toArray(new String[0]));
             }
-  
-            /* 
-            String[] datos1 = { "Juan", "Pérez", "30" };
-            csvWriter.writeNext(datos1);
 
-            String[] datos2 = { "María", "Gómez", "25" };
-            csvWriter.writeNext(datos2);
-            */
+            /*
+             * String[] datos1 = { "Juan", "Pérez", "30" };
+             * csvWriter.writeNext(datos1);
+             * 
+             * String[] datos2 = { "María", "Gómez", "25" };
+             * csvWriter.writeNext(datos2);
+             */
 
             csvWriter.close();
         } catch (IOException e) {
