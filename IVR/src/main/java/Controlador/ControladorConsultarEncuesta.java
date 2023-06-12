@@ -117,7 +117,7 @@ public class ControladorConsultarEncuesta {
     public void tomarSalida(String opcion){
         this.opcion = opcion;
         if(opcion.equals("CSV")){
-            generarCSV()
+            generarCSV();
         }
     }
 
