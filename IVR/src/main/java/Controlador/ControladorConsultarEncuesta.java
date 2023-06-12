@@ -99,7 +99,7 @@ public class ControladorConsultarEncuesta {
         cq.select(root);
 
         TypedQuery<Encuesta> query = em.createQuery(cq);
-        var this.encuestasDeLlamadas = query.getResultList();
+        this.encuestasDeLlamadas = query.getResultList();
 
         for (Encuesta encuesta : this.encuestasDeLlamadas) {
             Boolean esEncuesta = encuesta.esEncuestaDeCliente(respuestaPosible);
