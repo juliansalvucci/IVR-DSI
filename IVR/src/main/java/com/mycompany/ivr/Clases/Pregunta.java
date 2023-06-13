@@ -4,7 +4,6 @@
  */
 package com.mycompany.ivr.Clases;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -14,12 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author jlssa
  */
 @Entity
+@Table(name = "pregunta")
 public class Pregunta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +28,8 @@ public class Pregunta {
     public String pregunta;
     public String descripcion;
 
-    @OneToMany(mappedBy = "respuestaPosible")
-    public List<RespuestaPosible> respuesta = new ArrayList<>();
+    @OneToMany(mappedBy = "pregunta")
+    public List<RespuestaPosible> respuesta;
 
     @ManyToOne
     @JoinColumn(name = "encuesta_id")

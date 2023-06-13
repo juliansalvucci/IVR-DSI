@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +20,11 @@ public class CambioEstado
     private Long id;
     private Date fechaHoraInicio;
     private Date fechaHoraFin;
-    private Estado estado;
+    @OneToOne private Estado estado;
+
+    @ManyToOne()
+    @JoinColumn(name = "llamada_id")
+    private Llamada llamada;
 
     public Date getFechaHoraInicio() 
     {

@@ -12,12 +12,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author jlssa
  */
 @Entity
+@Table(name = "encuesta")
 public class Encuesta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +27,7 @@ public class Encuesta {
     public String fechaEncuesta;
     public String descripcion;
 
-    @OneToMany(mappedBy = "pregunta")
+    @OneToMany(mappedBy = "encuesta")
     public List<Pregunta> preguntas;
 
     public String getDescripcionEncuesta() {

@@ -9,11 +9,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -27,19 +27,13 @@ public class Llamada {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String duracion;
-    private Cliente cliente;
+    @OneToOne private Cliente cliente;
 
-    @OneToMany(mappedBy = "cambioEstado")
+    @OneToMany(mappedBy = "llamada")
     private List<CambioEstado> cambioEstado;
 
-    @OneToMany(mappedBy = "respuestaDeCliente")
+    @OneToMany(mappedBy = "llamada")
     private List<RespuestaDeCliente> respuestaDeCliente;
-
-    EntityManager em;
-
-    public Llamada(EntityManager em) {
-        this.em = em;
-    }
 
     public String getDuracion() {
         return duracion;

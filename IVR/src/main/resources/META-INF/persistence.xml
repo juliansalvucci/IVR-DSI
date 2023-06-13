@@ -9,7 +9,14 @@
  
     <!-- Add any additional entity classes here -->
     <class>com.mycompany.ivr.IVR.Clases.Estado</class>
-
+    <class>com.mycompany.ivr.IVR.Clases.CambioEstado</class>
+    <class>com.mycompany.ivr.IVR.Clases.Cliente</class>
+    <class>com.mycompany.ivr.IVR.Clases.Encuesta</class>
+    <class>com.mycompany.ivr.IVR.Clases.Llamada</class>
+    <class>com.mycompany.ivr.IVR.Clases.Pregunta</class>
+    <class>com.mycompany.ivr.IVR.Clases.RespuestaDeCliente</class>
+    <class>com.mycompany.ivr.IVR.Clases.RespuestaPosible</class>
+  
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/IVR"/>
