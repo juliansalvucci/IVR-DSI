@@ -2,10 +2,14 @@ package com.mycompany.ivr.Clases;
 
 import java.util.Date;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "cambioEstado")
 public class CambioEstado 
 {
     @Id
