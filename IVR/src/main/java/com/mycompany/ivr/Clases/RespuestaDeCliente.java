@@ -18,8 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "respuestaDeCliente")
-public class RespuestaDeCliente 
-{
+public class RespuestaDeCliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,44 +33,48 @@ public class RespuestaDeCliente
     @JoinColumn(name = "llamada_id")
     public Llamada llamada;
 
-    public String getFechaEncuesta() 
-    {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFechaEncuesta() {
         return fechaEncuesta;
     }
 
-    public void setFechaEncuesta(String fechaEncuesta) 
-    {
+    public void setFechaEncuesta(String fechaEncuesta) {
         this.fechaEncuesta = fechaEncuesta;
     }
-    
-    public String getDescripcionRTA() 
-    {
-        String descripcionRespuestaSeleccionada = this.respuestaSeleccionada.getDescripcionRTA();
-        return descripcion + " _ " + descripcionRespuestaSeleccionada;
+
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripcionRTA(String descripcion) 
-    {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
-    public RespuestaPosible getRespuestaSeleccionada()
-    {
+    public RespuestaPosible getRespuestaSeleccionada() {
         return respuestaSeleccionada;
     }
 
-    public void setRespuestaSeleccionada(RespuestaPosible respuestaSeleccionada) 
-    {
+    public void setRespuestaSeleccionada(RespuestaPosible respuestaSeleccionada) {
         this.respuestaSeleccionada = respuestaSeleccionada;
     }
 
-    public Llamada getLlamada() 
-    {
+    public Llamada getLlamada() {
         return llamada;
     }
 
-    public void setLlamada(Llamada llamada) 
-    {
+    public void setLlamada(Llamada llamada) {
         this.llamada = llamada;
+    }
+
+    public String getDescripcionRTA() {
+        String descripcionRespuestaSeleccionada = this.respuestaSeleccionada.getDescripcionRTA();
+        return descripcion + " _ " + descripcionRespuestaSeleccionada;
     }
 }

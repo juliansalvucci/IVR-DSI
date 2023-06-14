@@ -35,6 +35,14 @@ public class Pregunta {
     @JoinColumn(name = "encuesta_id")
     public Encuesta encuesta;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getPregunta() {
         return pregunta;
     }

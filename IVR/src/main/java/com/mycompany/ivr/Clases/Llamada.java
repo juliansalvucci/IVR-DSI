@@ -35,6 +35,14 @@ public class Llamada {
     @OneToMany(mappedBy = "llamada")
     private List<RespuestaDeCliente> respuestaDeCliente;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getDuracion() {
         return duracion;
     }
@@ -59,7 +67,15 @@ public class Llamada {
         this.cambioEstado = cambioEstado;
     }
 
-    public Date determinarFechaInicioLlamada() // Cambiar Nombre Ej: determinar fechaInicioLlamada.
+    public List<RespuestaDeCliente> getRespuestaDeCliente() {
+        return respuestaDeCliente;
+    }
+
+    public void setRespuestaDeCliente(List<RespuestaDeCliente> respuestaDeCliente) {
+        this.respuestaDeCliente = respuestaDeCliente;
+    }
+
+    public Date determinarFechaInicioLlamada()
     {
         CambioEstado primerCambioEstado = null;
         if (!cambioEstado.isEmpty()) {
@@ -85,7 +101,6 @@ public class Llamada {
         return cliente.getNombreCompleto();
     }
 
-    // TERMINAR
     public List<String> getRespuestas() {
         List<String> respuestas = new ArrayList<String>();
         for (RespuestaDeCliente respuestaDeCliente : this.respuestaDeCliente) {
@@ -95,7 +110,6 @@ public class Llamada {
         return respuestas;
     }
 
-    // MÉTODOS DE LÓGICA DE NEGOCIO.
     public Boolean esDePeriodo(Date fechaInicio, Date fechaFin) {
         Date fechaDeEstado = determinarFechaInicioLlamada();
         if (fechaDeEstado.before(fechaFin) && fechaDeEstado.after(fechaInicio)) {

@@ -38,7 +38,102 @@ public class ControladorConsultarEncuesta {
     public List<String> respuestas;
     public List<String> preguntas;
     public Encuesta encuesta;
-    public String opcion;
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public List<Llamada> getListaLlamadas() {
+        return listaLlamadas;
+    }
+
+    public void setListaLlamadas(List<Llamada> listaLlamadas) {
+        this.listaLlamadas = listaLlamadas;
+    }
+
+    public List<Encuesta> getEncuestasDeLlamadas() {
+        return encuestasDeLlamadas;
+    }
+
+    public void setEncuestasDeLlamadas(List<Encuesta> encuestasDeLlamadas) {
+        this.encuestasDeLlamadas = encuestasDeLlamadas;
+    }
+
+    public Llamada getLlamadaSeleccionada() {
+        return llamadaSeleccionada;
+    }
+
+    public void setLlamadaSeleccionada(Llamada llamadaSeleccionada) {
+        this.llamadaSeleccionada = llamadaSeleccionada;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    public String getUltimoEstadoLlamada() {
+        return ultimoEstadoLlamada;
+    }
+
+    public void setUltimoEstadoLlamada(String ultimoEstadoLlamada) {
+        this.ultimoEstadoLlamada = ultimoEstadoLlamada;
+    }
+
+    public String getDuracionLlamada() {
+        return duracionLlamada;
+    }
+
+    public void setDuracionLlamada(String duracionLlamada) {
+        this.duracionLlamada = duracionLlamada;
+    }
+
+    public String getDescripcionEncuesta() {
+        return descripcionEncuesta;
+    }
+
+    public void setDescripcionEncuesta(String descripcionEncuesta) {
+        this.descripcionEncuesta = descripcionEncuesta;
+    }
+
+    public List<String> getRespuestas() {
+        return respuestas;
+    }
+
+    public void setRespuestas(List<String> respuestas) {
+        this.respuestas = respuestas;
+    }
+
+    public List<String> getPreguntas() {
+        return preguntas;
+    }
+
+    public void setPreguntas(List<String> preguntas) {
+        this.preguntas = preguntas;
+    }
+
+    public Encuesta getEncuesta() {
+        return encuesta;
+    }
+
+    public void setEncuesta(Encuesta encuesta) {
+        this.encuesta = encuesta;
+    }
 
     EntityManager em;
 
@@ -47,11 +142,11 @@ public class ControladorConsultarEncuesta {
     }
 
     public void tomarPeriodo(Date fechaInicio, Date fechaFin) {
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
+        this.setFechaInicio(fechaInicio);
+        this.setFechaFin(fechaFin);
     }
 
-    public List<Llamada> buscarLlamadasConEncuesta() {
+    public void buscarLlamadasConEncuesta() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Llamada> cq = cb.createQuery(Llamada.class);
         Root<Llamada> root = cq.from(Llamada.class);
@@ -67,21 +162,27 @@ public class ControladorConsultarEncuesta {
             }
         }
 
-        return this.listaLlamadas;
+        this.setListaLlamadas(listaLlamadas);
+        ;
     }
 
     public void tomarSeleccionLlamadaConEncuesta(Llamada llamada) {
-        this.llamadaSeleccionada = llamada;
+        this.setLlamadaSeleccionada(llamada);
     }
 
     public void obtenerDatosLlamada() {
-        this.nombreCliente = this.llamadaSeleccionada.getCliente().getNombreCompleto();
-        this.ultimoEstadoLlamada = this.llamadaSeleccionada.determinarUltimoEstado();
-        this.duracionLlamada = this.llamadaSeleccionada.getDuracion();
+        String nombreCliente = this.llamadaSeleccionada.getCliente().getNombreCompleto();
+        String ultimoEstadoLlamada = this.llamadaSeleccionada.determinarUltimoEstado();
+        String duracionLlamada = this.llamadaSeleccionada.getDuracion();
+
+        this.setNombreCliente(nombreCliente);
+        this.setUltimoEstadoLlamada(ultimoEstadoLlamada);
+        this.setDuracionLlamada(duracionLlamada);
     }
 
     public void obtenerDatosEncuesta() {
-        this.respuestas = this.llamadaSeleccionada.getRespuestas();
+        List<String> respuestas = this.llamadaSeleccionada.getRespuestas();
+        this.setRespuestas(respuestas);
     }
 
     public void buscarEncuestaAsociada() {
@@ -101,18 +202,20 @@ public class ControladorConsultarEncuesta {
         for (Encuesta encuesta : this.encuestasDeLlamadas) {
             Boolean esEncuesta = encuesta.esEncuestaDeCliente(respuestaPosible);
             if (esEncuesta) {
-                this.encuesta = encuesta;
+                this.setEncuesta(encuesta);
             }
         }
     }
 
     public void armarEncuesta() {
-        this.descripcionEncuesta = this.encuesta.getDescripcionEncuesta();
-        this.preguntas = this.encuesta.armarEncuesta();
+        String descripcionEncuesta = this.encuesta.getDescripcionEncuesta();
+        List<String> preguntas = this.encuesta.armarEncuesta();
+
+        this.setDescripcionEncuesta(descripcionEncuesta);
+        this.setPreguntas(preguntas);
     }
 
     public void tomarSalida(String opcion) {
-        this.opcion = opcion;
         if (opcion.equals("CSV")) {
             generarCSV();
         }
