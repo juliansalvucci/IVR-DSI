@@ -42,11 +42,7 @@ public class CambioEstado
     {
         this.fechaHoraFin = fechaHoraFin;
     }
-    public String getNombreEstado() 
-    {
-        return estado.getNombre();
-    }
-
+   
     public Estado getEstado()
     {
         return estado;

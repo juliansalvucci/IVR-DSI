@@ -13,8 +13,6 @@ import java.io.IOException;
 
 import com.mycompany.ivr.Clases.Encuesta;
 import com.mycompany.ivr.Clases.Llamada;
-import com.mycompany.ivr.Clases.RespuestaDeCliente;
-import com.mycompany.ivr.Clases.RespuestaPosible;
 import com.opencsv.CSVWriter;
 
 import javax.persistence.EntityManager;
@@ -31,8 +29,6 @@ public class ControladorConsultarEncuesta {
     public Date fechaInicio;
     public Date fechaFin;
     public List<Llamada> listaLlamadas;
-    public List<RespuestaDeCliente> respuestaDeClientes;
-    public List<RespuestaPosible> respuestasPosibles;
     public List<Encuesta> encuestasDeLlamadas;
     public Llamada llamadaSeleccionada;
     public String nombreCliente;
@@ -55,7 +51,7 @@ public class ControladorConsultarEncuesta {
         this.fechaFin = fechaFin;
     }
 
-    public List<Llamada> buscarLlamadasSinEncuesta() {
+    public List<Llamada> buscarLlamadasConEncuesta() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Llamada> cq = cb.createQuery(Llamada.class);
         Root<Llamada> root = cq.from(Llamada.class);

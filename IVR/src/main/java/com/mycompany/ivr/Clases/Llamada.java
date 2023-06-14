@@ -59,7 +59,7 @@ public class Llamada {
         this.cambioEstado = cambioEstado;
     }
 
-    public Date determinarEstadoInicial() // Cambiar Nombre Ej: determinar fechaInicioLlamada.
+    public Date determinarFechaInicioLlamada() // Cambiar Nombre Ej: determinar fechaInicioLlamada.
     {
         CambioEstado primerCambioEstado = null;
         if (!cambioEstado.isEmpty()) {
@@ -78,7 +78,7 @@ public class Llamada {
             ultimoCambioEstado = cambioEstado.get(lastIndex);
         }
         // DESCARTARÍA EL MÉTODO getFechaHoraInicio porque estoy tomando precisamente el
-        return ultimoCambioEstado.getNombreEstado();
+        return ultimoCambioEstado.getEstado().getNombre();
     }
 
     public String getNombreClienteDeLlamada() {
@@ -97,7 +97,7 @@ public class Llamada {
 
     // MÉTODOS DE LÓGICA DE NEGOCIO.
     public Boolean esDePeriodo(Date fechaInicio, Date fechaFin) {
-        Date fechaDeEstado = determinarEstadoInicial();
+        Date fechaDeEstado = determinarFechaInicioLlamada();
         if (fechaDeEstado.before(fechaFin) && fechaDeEstado.after(fechaInicio)) {
             return true;
         } else {
