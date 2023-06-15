@@ -13,8 +13,6 @@ import java.io.IOException;
 
 import com.mycompany.ivr.Clases.Encuesta;
 import com.mycompany.ivr.Clases.Llamada;
-import com.mycompany.ivr.Clases.RespuestaDeCliente;
-import com.mycompany.ivr.Clases.RespuestaPosible;
 import com.opencsv.CSVWriter;
 
 import javax.persistence.EntityManager;
@@ -31,9 +29,6 @@ public class ControladorConsultarEncuesta {
     public Date fechaInicio;
     public Date fechaFin;
     public List<Llamada> listaLlamadas;
-    public List<RespuestaDeCliente> respuestaDeClientes;
-    public List<RespuestaPosible> respuestasPosibles;
-    public List<Encuesta> encuestasDeLlamadas;
     public Llamada llamadaSeleccionada;
     public String nombreCliente;
     public String ultimoEstadoLlamada;
@@ -42,100 +37,207 @@ public class ControladorConsultarEncuesta {
     public List<String> respuestas;
     public List<String> preguntas;
     public Encuesta encuesta;
-    public String opcion;
 
-    EntityManager em;
+    // Métodos GET y SET
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public List<Llamada> getListaLlamadas() {
+        return listaLlamadas;
+    }
+
+    public void setListaLlamadas(List<Llamada> listaLlamadas) {
+        this.listaLlamadas = listaLlamadas;
+    }
+
+    public Llamada getLlamadaSeleccionada() {
+        return llamadaSeleccionada;
+    }
+
+    public void setLlamadaSeleccionada(Llamada llamadaSeleccionada) {
+        this.llamadaSeleccionada = llamadaSeleccionada;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    public String getUltimoEstadoLlamada() {
+        return ultimoEstadoLlamada;
+    }
+
+    public void setUltimoEstadoLlamada(String ultimoEstadoLlamada) {
+        this.ultimoEstadoLlamada = ultimoEstadoLlamada;
+    }
+
+    public String getDuracionLlamada() {
+        return duracionLlamada;
+    }
+
+    public void setDuracionLlamada(String duracionLlamada) {
+        this.duracionLlamada = duracionLlamada;
+    }
+
+    public String getDescripcionEncuesta() {
+        return descripcionEncuesta;
+    }
+
+    public void setDescripcionEncuesta(String descripcionEncuesta) {
+        this.descripcionEncuesta = descripcionEncuesta;
+    }
+
+    public List<String> getRespuestas() {
+        return respuestas;
+    }
+
+    public void setRespuestas(List<String> respuestas) {
+        this.respuestas = respuestas;
+    }
+
+    public List<String> getPreguntas() {
+        return preguntas;
+    }
+
+    public void setPreguntas(List<String> preguntas) {
+        this.preguntas = preguntas;
+    }
+
+    public Encuesta getEncuesta() {
+        return encuesta;
+    }
+
+    public void setEncuesta(Encuesta encuesta) {
+        this.encuesta = encuesta;
+    }
+
+    // PERSISTENCIA.
+    EntityManager em; // Entity manager para materializar objetos desde base de datos.
 
     public ControladorConsultarEncuesta(EntityManager em) {
         this.em = em;
     }
 
-    public void tomarPeriodo(Date fechaInicio, Date fechaFin) {
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
+    // LÓGICA DE NEGOCIO.
+    public void tomarPeriodo(Date fechaInicio, Date fechaFin) { // Tomar periodo para filtar la consulta de registros de
+                                                                // llamadas.
+        this.setFechaInicio(fechaInicio);
+        this.setFechaFin(fechaFin);
     }
 
-    public List<Llamada> buscarLlamadasSinEncuesta() {
+    public void buscarLlamadasConEncuesta() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Llamada> cq = cb.createQuery(Llamada.class);
         Root<Llamada> root = cq.from(Llamada.class);
 
-        cq.select(root);
+        cq.select(root); // Obtener llamadas desde base de datos.
 
         TypedQuery<Llamada> query = em.createQuery(cq);
-        var llamadas = query.getResultList();
+        List<Llamada> llamadas = query.getResultList();
 
         for (Llamada llamada : llamadas) {
-            if (llamada.esDePeriodo(this.fechaInicio, this.fechaFin) && llamada.tieneEncuestaRespondida()) {
-                this.listaLlamadas.add(llamada);
+            if (llamada.esDePeriodo(this.getFechaInicio(), this.getFechaFin()) && llamada.tieneEncuestaRespondida()) {
+                this.getListaLlamadas().add(llamada);
             }
         }
 
-        return this.listaLlamadas;
+        this.setListaLlamadas(listaLlamadas);
+        ;
     }
 
-    public void tomarSeleccionLlamadaConEncuesta(Llamada llamada) {
-        this.llamadaSeleccionada = llamada;
+    public void tomarSeleccionLlamadaConEncuesta(Llamada llamada) { // Tomar selección de llamada con encuesta.
+        this.setLlamadaSeleccionada(llamada);
     }
 
     public void obtenerDatosLlamada() {
-        this.nombreCliente = this.llamadaSeleccionada.getCliente().getNombreCompleto();
-        this.ultimoEstadoLlamada = this.llamadaSeleccionada.determinarUltimoEstado();
-        this.duracionLlamada = this.llamadaSeleccionada.getDuracion();
+        String nombreCliente = this.getLlamadaSeleccionada().getCliente().getNombreCompleto(); // Obtener nombre de
+                                                                                               // cliente.
+        String ultimoEstadoLlamada = this.getLlamadaSeleccionada().determinarUltimoEstado(); // Obtener nombre del
+                                                                                             // último estado.
+        String duracionLlamada = this.getLlamadaSeleccionada().getDuracion(); // Obtener duración.
+
+        this.setNombreCliente(nombreCliente);
+        this.setUltimoEstadoLlamada(ultimoEstadoLlamada);
+        this.setDuracionLlamada(duracionLlamada);
     }
 
     public void obtenerDatosEncuesta() {
-        this.respuestas = this.llamadaSeleccionada.getRespuestas();
+        List<String> respuestas = this.getLlamadaSeleccionada().getRespuestas(); // Obtener respuestas del cliente y
+                                                                                 // posibles.
+        this.setRespuestas(respuestas);
     }
 
     public void buscarEncuestaAsociada() {
-        String respuesta = this.respuestas.get(0);
-        String[] partes = respuesta.split("_");
-        String respuestaPosible = partes[1];
+        String respuesta = this.getRespuestas().get(0); // Toma una respuesta cualquiera, en este caso, la primera.
+        String[] partes = respuesta.split("_"); // Divide la cadena a partir del caracter "_".
+        String respuestaPosible = partes[1]; // Toma la parte siguiente del caracter "_", la cual representa a una
+                                             // respuesta posible y nos permitirá, a través de su instancia, identificar
+                                             // la encuesta correspondiente.
 
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Encuesta> cq = cb.createQuery(Encuesta.class);
         Root<Encuesta> root = cq.from(Encuesta.class);
 
-        cq.select(root);
+        cq.select(root); // Se levantan en memoria todas las encuestas.
 
         TypedQuery<Encuesta> query = em.createQuery(cq);
-        this.encuestasDeLlamadas = query.getResultList();
+        List<Encuesta> encuestas = query.getResultList();
 
-        for (Encuesta encuesta : this.encuestasDeLlamadas) {
-            Boolean esEncuesta = encuesta.esEncuestaDeCliente(respuestaPosible);
-            if (esEncuesta) {
-                this.encuesta = encuesta;
+        for (Encuesta encuesta : encuestas) { // Recorrer cada encuesta.
+            Boolean esEncuesta = encuesta.esEncuestaDeCliente(respuestaPosible); // Verificar si es encuesta de cliente,
+                                                                                 // a partir del espacio en memoria de
+                                                                                 // respuesta posible.
+            if (esEncuesta) { // Si es encuesta de cliente.
+                this.setEncuesta(encuesta); // Guardarla como atributo del gestor.
             }
         }
     }
 
-    public void armarEncuesta() {
-        this.descripcionEncuesta = this.encuesta.getDescripcionEncuesta();
-        this.preguntas = this.encuesta.armarEncuesta();
+    public void armarEncuesta() { // Obtengo la información restante para obtener la encuesta completa.
+        String descripcionEncuesta = this.getEncuesta().getDescripcionEncuesta();
+        List<String> preguntas = this.getEncuesta().armarEncuesta();
+
+        this.setDescripcionEncuesta(descripcionEncuesta);
+        this.setPreguntas(preguntas);
     }
 
-    public void tomarSalida(String opcion) {
-        this.opcion = opcion;
+    public void tomarSalida(String opcion) { // Obtiene la opción de generación de informe.
         if (opcion.equals("CSV")) {
             generarCSV();
         }
     }
 
-    public void generarCSV() {
+    public void generarCSV() { // Método para generar archivo excel.
         String csvFile = "ruta/al/archivo.csv";
         try {
             FileWriter writer = new FileWriter(csvFile);
             CSVWriter csvWriter = new CSVWriter(writer);
 
             // Escribir los encabezados
-            String[] encabezados = { this.nombreCliente, this.ultimoEstadoLlamada, this.duracionLlamada };
+            String[] encabezados = { this.getNombreCliente(), this.getUltimoEstadoLlamada(),
+                    this.getDuracionLlamada() };
             csvWriter.writeNext(encabezados);
 
             ArrayList<String> datos = new ArrayList<>();
 
-            for (int i = 0; i < this.respuestas.size(); i++) {
-                String fila = this.respuestas.get(i);
+            for (int i = 0; i < this.getRespuestas().size(); i++) {
+                String fila = this.getRespuestas().get(i);
                 datos.add(fila);
                 csvWriter.writeNext(datos.toArray(new String[0]));
             }

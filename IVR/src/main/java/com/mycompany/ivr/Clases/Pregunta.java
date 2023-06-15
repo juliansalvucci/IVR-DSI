@@ -35,6 +35,14 @@ public class Pregunta {
     @JoinColumn(name = "encuesta_id")
     public Encuesta encuesta;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getPregunta() {
         return pregunta;
     }
@@ -51,11 +59,11 @@ public class Pregunta {
         this.descripcion = descripcion;
     }
 
-    public List<RespuestaPosible> getRespuesta() {
+    public List<RespuestaPosible> getRespuestas() {
         return respuesta;
     }
 
-    public void setRespuesta(List<RespuestaPosible> respuesta) {
+    public void setRespuestas(List<RespuestaPosible> respuesta) {
         this.respuesta = respuesta;
     }
 
@@ -68,7 +76,8 @@ public class Pregunta {
     }
 
     public Boolean esEncuestaCliente(String respuestaPosible) {
-        for (RespuestaPosible respuesta : respuesta) {
+        List<RespuestaPosible> respuestasPosibles = this.getRespuestas();
+        for (RespuestaPosible respuesta : respuestasPosibles) {
             if (respuesta.getDescripcionRTA() == respuestaPosible) {
                 return true;
             } else {

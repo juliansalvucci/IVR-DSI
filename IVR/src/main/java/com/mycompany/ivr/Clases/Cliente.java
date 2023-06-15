@@ -17,42 +17,43 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente 
-{
+public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String dni;
     private String nombreCompleto;
     private String nroCelular;
-    
-    public String getDni() 
-    {
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(String dni) 
-    {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
-    public String getNombreCompleto() 
-    {
+    public String getNombreCompleto() {
         return nombreCompleto;
     }
 
-    public void setNombreCompleto(String nombreCompleto) 
-    {
+    public void setNombreCompleto(String nombreCompleto) {
         this.nombreCompleto = nombreCompleto;
     }
 
-    public String getNroCelular() 
-    {
+    public String getNroCelular() {
         return nroCelular;
     }
 
-    public void setNroCelular(String nroCelular) 
-    {
+    public void setNroCelular(String nroCelular) {
         this.nroCelular = nroCelular;
     }
 }

@@ -13,47 +13,56 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cambioEstado")
-public class CambioEstado 
-{
+public class CambioEstado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date fechaHoraInicio;
     private Date fechaHoraFin;
-    @OneToOne private Estado estado;
+    @OneToOne
+    private Estado estado;
 
     @ManyToOne()
     @JoinColumn(name = "llamada_id")
     private Llamada llamada;
 
-    public Date getFechaHoraInicio() 
-    {
-        return fechaHoraInicio;
-    }
-    public void setFechaHoraInicio(Date fechaHoraInicio) 
-    {
-        this.fechaHoraInicio = fechaHoraInicio;
-    }
-    public Date getFechaHoraFin() 
-    {
-        return fechaHoraFin;
-    }
-    public void setFechaHoraFin(Date fechaHoraFin) 
-    {
-        this.fechaHoraFin = fechaHoraFin;
-    }
-    public String getNombreEstado() 
-    {
-        return estado.getNombre();
+    public Long getId() {
+        return id;
     }
 
-    public Estado getEstado()
-    {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getFechaHoraInicio() {
+        return fechaHoraInicio;
+    }
+
+    public void setFechaHoraInicio(Date fechaHoraInicio) {
+        this.fechaHoraInicio = fechaHoraInicio;
+    }
+
+    public Date getFechaHoraFin() {
+        return fechaHoraFin;
+    }
+
+    public void setFechaHoraFin(Date fechaHoraFin) {
+        this.fechaHoraFin = fechaHoraFin;
+    }
+
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(Estado estado) 
-    {
+    public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    public Llamada getLlamada() {
+        return llamada;
+    }
+
+    public void setLlamada(Llamada llamada) {
+        this.llamada = llamada;
     }
 }
