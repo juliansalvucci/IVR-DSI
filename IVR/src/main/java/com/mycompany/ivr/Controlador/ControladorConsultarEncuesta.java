@@ -219,7 +219,7 @@ public class ControladorConsultarEncuesta {
 
     public void tomarSalida(String opcion) { // Obtiene la opción de generación de informe.
         if (opcion.equals("CSV")) {
-            generarCSV();
+            this.generarCSV();
         }
     }
 
