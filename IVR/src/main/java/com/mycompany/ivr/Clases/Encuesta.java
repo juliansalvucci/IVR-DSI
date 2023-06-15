@@ -30,12 +30,12 @@ public class Encuesta {
     @OneToMany(mappedBy = "encuesta")
     public List<Pregunta> preguntas;
 
-    public String getDescripcionEncuesta() {
-        return descripcion;
+    public Long getId() {
+        return id;
     }
 
-    public void setDescripcionEncuesta(String descripcion) {
-        this.descripcion = descripcion;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFechaEncuesta() {
@@ -46,15 +46,24 @@ public class Encuesta {
         this.fechaEncuesta = fechaEncuesta;
     }
 
-    public List<Pregunta> getPregunta() {
+    public String getDescripcionEncuesta() {
+        return descripcion;
+    }
+
+    public void setDescripcionEncuesta(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public List<Pregunta> getPreguntas() {
         return preguntas;
     }
 
-    public void setPregunta(List<Pregunta> preguntas) {
+    public void setPreguntas(List<Pregunta> preguntas) {
         this.preguntas = preguntas;
     }
 
     public Boolean esEncuestaDeCliente(String respuestaPosible) {
+        List<Pregunta> preguntas = getPreguntas();
         for (Pregunta pregunta : preguntas) {
             Boolean esEncuesta = pregunta.esEncuestaCliente(respuestaPosible);
             if (esEncuesta) {
@@ -66,9 +75,10 @@ public class Encuesta {
         return false;
     }
 
-    public List<String> armarEncuesta(){
+    public List<String> armarEncuesta() {
         List<String> descripcionPreguntas = new ArrayList<String>();
-        for(Pregunta pregunta : preguntas){
+        List<Pregunta> preguntas = getPreguntas();
+        for (Pregunta pregunta : preguntas) {
             descripcionPreguntas.add(pregunta.getDescripcion());
         }
         return descripcionPreguntas;

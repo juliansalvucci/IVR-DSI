@@ -35,6 +35,14 @@ public class Llamada {
     @OneToMany(mappedBy = "llamada")
     private List<RespuestaDeCliente> respuestaDeCliente;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getDuracion() {
         return duracion;
     }
@@ -59,11 +67,20 @@ public class Llamada {
         this.cambioEstado = cambioEstado;
     }
 
-    public Date determinarEstadoInicial() // Cambiar Nombre Ej: determinar fechaInicioLlamada.
+    public List<RespuestaDeCliente> getRespuestaDeCliente() {
+        return respuestaDeCliente;
+    }
+
+    public void setRespuestaDeCliente(List<RespuestaDeCliente> respuestaDeCliente) {
+        this.respuestaDeCliente = respuestaDeCliente;
+    }
+
+    public Date determinarFechaInicioLlamada()
     {
+        List<CambioEstado> cambiosEstado = this.getCambioEstado();
         CambioEstado primerCambioEstado = null;
-        if (!cambioEstado.isEmpty()) {
-            primerCambioEstado = cambioEstado.get(0);
+        if (!cambiosEstado.isEmpty()) {
+            primerCambioEstado = cambiosEstado.get(0);
         }
 
         Date fechaHoraInicio = primerCambioEstado.getFechaHoraInicio();
@@ -72,32 +89,32 @@ public class Llamada {
     }
 
     public String determinarUltimoEstado() {
+        List<CambioEstado> cambiosEstado = this.getCambioEstado();
         CambioEstado ultimoCambioEstado = null;
-        if (!cambioEstado.isEmpty()) {
-            int lastIndex = cambioEstado.size() - 1;
-            ultimoCambioEstado = cambioEstado.get(lastIndex);
+        if (!cambiosEstado.isEmpty()) {
+            int lastIndex = cambiosEstado.size() - 1;
+            ultimoCambioEstado = cambiosEstado.get(lastIndex);
         }
         // DESCARTARÍA EL MÉTODO getFechaHoraInicio porque estoy tomando precisamente el
-        return ultimoCambioEstado.getNombreEstado();
+        return ultimoCambioEstado.getEstado().getNombre();
     }
 
     public String getNombreClienteDeLlamada() {
-        return cliente.getNombreCompleto();
+        return this.getCliente().getNombreCompleto();
     }
 
-    // TERMINAR
     public List<String> getRespuestas() {
+        List<RespuestaDeCliente> respuestasDeCliente = this.getRespuestaDeCliente();
         List<String> respuestas = new ArrayList<String>();
-        for (RespuestaDeCliente respuestaDeCliente : this.respuestaDeCliente) {
+        for (RespuestaDeCliente respuestaDeCliente : respuestasDeCliente) {
             respuestas.add(respuestaDeCliente.getDescripcionRTA());
         }
 
         return respuestas;
     }
 
-    // MÉTODOS DE LÓGICA DE NEGOCIO.
     public Boolean esDePeriodo(Date fechaInicio, Date fechaFin) {
-        Date fechaDeEstado = determinarEstadoInicial();
+        Date fechaDeEstado = this.determinarFechaInicioLlamada();
         if (fechaDeEstado.before(fechaFin) && fechaDeEstado.after(fechaInicio)) {
             return true;
         } else {
@@ -106,7 +123,7 @@ public class Llamada {
     }
 
     public Boolean tieneEncuestaRespondida() {
-        if (this.respuestaDeCliente.size() != 0) {
+        if (this.getRespuestaDeCliente().size() != 0) {
             return true;
         } else {
             return false;

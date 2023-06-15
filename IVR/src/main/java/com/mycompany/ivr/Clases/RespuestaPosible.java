@@ -19,45 +19,50 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "respuestaPosible")
-public class RespuestaPosible 
-{
+public class RespuestaPosible {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     public String descripcion;
-    public String valor; //Puede ser un puntaje del 1 al 10 o un SI o NO.
-    
+    public String valor; // Puede ser un puntaje del 1 al 10 o un SI o NO.
+
     @ManyToOne
     @JoinColumn(name = "pregunta_id")
     public Pregunta pregunta;
-    
-    public String getDescripcionRTA() 
-    {
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescripcionRTA(String descripcion) 
-    {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
-    public String getValor() 
-    {
+
+    public String getValor() {
         return valor;
     }
 
-    public void setValor(String valor) 
-    {
+    public void setValor(String valor) {
         this.valor = valor;
     }
 
-    public Pregunta getPregunta() 
-    {
+    public Pregunta getPregunta() {
         return pregunta;
     }
 
-    public void setPregunta(Pregunta pregunta) 
-    {
+    public void setPregunta(Pregunta pregunta) {
         this.pregunta = pregunta;
+    }
+
+    public String getDescripcionRTA() {
+        return descripcion;
     }
 }
