@@ -54,15 +54,16 @@ public class Encuesta {
         this.descripcion = descripcion;
     }
 
-    public List<Pregunta> getPregunta() {
+    public List<Pregunta> getPreguntas() {
         return preguntas;
     }
 
-    public void setPregunta(List<Pregunta> preguntas) {
+    public void setPreguntas(List<Pregunta> preguntas) {
         this.preguntas = preguntas;
     }
 
     public Boolean esEncuestaDeCliente(String respuestaPosible) {
+        List<Pregunta> preguntas = getPreguntas();
         for (Pregunta pregunta : preguntas) {
             Boolean esEncuesta = pregunta.esEncuestaCliente(respuestaPosible);
             if (esEncuesta) {
@@ -76,6 +77,7 @@ public class Encuesta {
 
     public List<String> armarEncuesta() {
         List<String> descripcionPreguntas = new ArrayList<String>();
+        List<Pregunta> preguntas = getPreguntas();
         for (Pregunta pregunta : preguntas) {
             descripcionPreguntas.add(pregunta.getDescripcion());
         }
