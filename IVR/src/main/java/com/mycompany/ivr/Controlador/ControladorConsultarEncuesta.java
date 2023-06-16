@@ -158,7 +158,6 @@ public class ControladorConsultarEncuesta {
         }
 
         this.setListaLlamadas(listaLlamadas);
-        ;
     }
 
     public void tomarSeleccionLlamadaConEncuesta(Llamada llamada) { // Tomar selección de llamada con encuesta.
