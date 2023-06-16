@@ -4,6 +4,7 @@
 
 
 package com.mycompany.ivr;
+import com.mycompany.ivr.Controlador.ControladorPantallaPrincipal;
 
 /**
  *
@@ -12,5 +13,8 @@ package com.mycompany.ivr;
 public class IVR {
     public static void main(String[] args) {
         System.out.println("¡Hola Mundo!");
+        //Crear instanacia de PantallaPrincipal al ejecutar
+        ControladorPantallaPrincipal gestorPantalla = ControladorPantallaPrincipal.getInstancia();
+        gestorPantalla.mostrarPantallaPrincipal();
     }
 }
