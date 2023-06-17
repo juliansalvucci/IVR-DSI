@@ -223,7 +223,7 @@ public class ControladorConsultarEncuesta {
     }
 
     public void generarCSV() { // Método para generar archivo excel.
-        String csvFile = "ruta/al/archivo.csv";
+        String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
         try {
             FileWriter writer = new FileWriter(csvFile);
             CSVWriter csvWriter = new CSVWriter(writer);

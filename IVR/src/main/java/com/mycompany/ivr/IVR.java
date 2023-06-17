@@ -4,6 +4,8 @@
 
 package com.mycompany.ivr;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,6 +18,7 @@ import javax.persistence.criteria.Root;
 
 import com.mycompany.ivr.Clases.Encuesta;
 import com.mycompany.ivr.Clases.Llamada;
+import com.opencsv.CSVWriter;
 
 /**
  *
@@ -42,14 +45,14 @@ public class IVR {
 
         Llamada test = llamadas.get(0);
 
-        List<String> respuestas = test.getRespuestas(); 
+        List<String> respuestas = test.getRespuestas();
 
         System.out.println("RESPUESTAS" + respuestas);
 
         String respuesta = respuestas.get(0); // Toma una respuesta cualquiera, en este caso, la primera.
         String[] partes = respuesta.split("_"); // Divide la cadena a partir del caracter "_".
         String respuestaPosible = partes[1];
-        
+
         System.out.println("POSIBLEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE" + respuestaPosible);
 
         CriteriaBuilder cb2 = em.getCriteriaBuilder();
@@ -67,12 +70,35 @@ public class IVR {
                                                                                  // respuesta posible.
             if (esEncuesta) { // Si es encuesta de cliente.
                 System.out.println("DESCRIPCION" + encuesta.getDescripcionEncuesta());
-            }else{
+            } else {
                 System.out.println("PREGUNTASSSSSSSS" + encuesta.getPreguntas().size());
             }
-        
+
         }
 
-        
+        try {
+            String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
+            FileWriter writer = new FileWriter(csvFile);
+            CSVWriter csvWriter = new CSVWriter(writer);
+
+            String[] encabezado = { "Nombre", "Apellido", "Edad" };
+            csvWriter.writeNext(encabezado);
+
+            String[] datos1 = { "Juan" };
+            csvWriter.writeNext(datos1);
+
+            String[] datos2 = { "María", "Gómez", "25" };
+            csvWriter.writeNext(datos2);
+
+            for (int i = 0; i < 3; i++) {
+                String[] datos = { "LAL", "Pérez", "30" };
+                csvWriter.writeNext(datos);
+            }
+
+            csvWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
