@@ -6,6 +6,7 @@ package com.mycompany.ivr;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -84,15 +85,16 @@ public class IVR {
             String[] encabezado = { "Nombre", "Apellido", "Edad" };
             csvWriter.writeNext(encabezado);
 
-            String[] datos1 = { "Juan" };
-            csvWriter.writeNext(datos1);
+            ArrayList<String> datos = new ArrayList<>();
 
-            String[] datos2 = { "María", "Gómez", "25" };
-            csvWriter.writeNext(datos2);
+            for (int i = 0; i < respuestas.size(); i++) {
 
-            for (int i = 0; i < 3; i++) {
-                String[] datos = { "LAL", "Pérez", "30" };
-                csvWriter.writeNext(datos);
+                String rta = respuestas.get(i); // Toma una respuesta cualquiera, en este caso, la primera.
+                String[] parte = rta.split("_"); // Divide la cadena a partir del caracter "_".
+                String resp = parte[0];
+
+                datos.add(resp);
+                csvWriter.writeNext(datos.toArray(new String[0]));
             }
 
             csvWriter.close();
