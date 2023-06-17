@@ -78,7 +78,8 @@ public class Pregunta {
     public Boolean esEncuestaCliente(String respuestaPosible) {
         List<RespuestaPosible> respuestasPosibles = this.getRespuestas();
         for (RespuestaPosible respuesta : respuestasPosibles) {
-            if (respuesta.getDescripcionRTA() == respuestaPosible) {
+            System.out.println("COMPARAAAAAAAAAAAAAAAAAAAAAAA" + respuesta + "-" + respuestaPosible);
+            if (respuesta.toString().equals(respuestaPosible)) {
                 return true;
             } else {
                 return false;
