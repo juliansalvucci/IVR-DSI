@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import com.mycompany.ivr.Clases.Encuesta;
 import com.mycompany.ivr.Clases.Llamada;
+//import com.mycompany.ivr.Vista.PantallaConsultarEncuesta;
 import com.opencsv.CSVWriter;
 
 import javax.persistence.EntityManager;
@@ -37,7 +38,7 @@ public class ControladorConsultarEncuesta {
     public List<String> respuestas;
     public List<String> preguntas;
     public Encuesta encuesta;
-
+    
     // Métodos GET y SET
     public Date getFechaInicio() {
         return fechaInicio;
