@@ -75,6 +75,7 @@ public class RespuestaDeCliente {
 
     public String getDescripcionRTA() {
         String descripcionRespuestaSeleccionada = this.getRespuestaSeleccionada().getDescripcionRTA();
-        return descripcion + " _ " + descripcionRespuestaSeleccionada;
+        System.out.println("ACA LA PEDIMOSSSSSSSSSSSSSSSSSSSSSSSS" + getRespuestaSeleccionada());
+        return descripcion + " - " + descripcionRespuestaSeleccionada + "_" + this.getRespuestaSeleccionada();
     }
 }
