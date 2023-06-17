@@ -158,7 +158,6 @@ public class ControladorConsultarEncuesta {
         }
 
         this.setListaLlamadas(listaLlamadas);
-        ;
     }
 
     public void tomarSeleccionLlamadaConEncuesta(Llamada llamada) { // Tomar selección de llamada con encuesta.
@@ -224,7 +223,7 @@ public class ControladorConsultarEncuesta {
     }
 
     public void generarCSV() { // Método para generar archivo excel.
-        String csvFile = "ruta/al/archivo.csv";
+        String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
         try {
             FileWriter writer = new FileWriter(csvFile);
             CSVWriter csvWriter = new CSVWriter(writer);
@@ -237,18 +236,18 @@ public class ControladorConsultarEncuesta {
             ArrayList<String> datos = new ArrayList<>();
 
             for (int i = 0; i < this.getRespuestas().size(); i++) {
-                String fila = this.getRespuestas().get(i);
+
+                String respuesta = this.getRespuestas().get(i);
+                String pregunta = this.getPreguntas().get(i);
+                String[] partes = respuesta.split("_");
+                String fila = pregunta + " | " + partes[0];
+
                 datos.add(fila);
-                csvWriter.writeNext(datos.toArray(new String[0]));
             }
 
-            /*
-             * String[] datos1 = { "Juan", "Pérez", "30" };
-             * csvWriter.writeNext(datos1);
-             * 
-             * String[] datos2 = { "María", "Gómez", "25" };
-             * csvWriter.writeNext(datos2);
-             */
+            for (String dato : datos) {
+                csvWriter.writeNext(new String[] { dato });
+            }
 
             csvWriter.close();
         } catch (IOException e) {
