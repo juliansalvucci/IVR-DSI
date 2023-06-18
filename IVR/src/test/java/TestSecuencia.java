@@ -2,6 +2,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,6 +10,7 @@ import javax.persistence.Persistence;
 
 import com.mycompany.ivr.Clases.Llamada;
 import com.mycompany.ivr.Controlador.ControladorConsultarEncuesta;
+
 
 public class TestSecuencia {
     public static void main(String[] args) {
@@ -20,7 +22,7 @@ public class TestSecuencia {
         ControladorConsultarEncuesta gestor = new ControladorConsultarEncuesta(em);
 
 
-        LocalDate localDate = LocalDate.of(2022, 6, 3);
+        LocalDate localDate = LocalDate.of(2021, 6, 3);
         Instant instant = localDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
         Date date = Date.from(instant);
         System.out.println(date);
@@ -36,9 +38,22 @@ public class TestSecuencia {
 
         gestor.buscarLlamadasConEncuesta();
 
-        System.out.println("CANTIDAD LLAMADAS ENCONTRADAS" + gestor.getListaLlamadas().size());
+        if(gestor.getListaLlamadas().size() > 0){
+            System.out.println("CANTIDAD LLAMADAS ENCONTRADAS" + gestor.getListaLlamadas().size());
+        }else{
+            System.out.println("NO HAY LLAMADAS EN EL PERIÓDO ESTABLECIDO");
+            System.exit(0);
+        }
+        
+        Scanner scanner = new Scanner(System.in);
 
-        Llamada llamadaDePrueba = gestor.getListaLlamadas().get(0);
+        System.out.print("Ingresa un número: ");
+        // Leer el número ingresado por el usuario
+        int numero = scanner.nextInt();
+
+        Llamada llamadaDePrueba = gestor.getListaLlamadas().get(numero);
+
+        scanner.close();
 
         gestor.tomarSeleccionLlamadaConEncuesta(llamadaDePrueba);
 
