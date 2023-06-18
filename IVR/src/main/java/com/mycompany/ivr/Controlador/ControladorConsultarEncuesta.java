@@ -29,7 +29,7 @@ import javax.persistence.criteria.Root;
 public class ControladorConsultarEncuesta {
     public Date fechaInicio;
     public Date fechaFin;
-    public List<Llamada> listaLlamadas;
+    public List<Llamada> listaLlamadas = new ArrayList<>();
     public Llamada llamadaSeleccionada;
     public String nombreCliente;
     public String ultimoEstadoLlamada;
@@ -153,8 +153,10 @@ public class ControladorConsultarEncuesta {
         List<Llamada> llamadas = query.getResultList();
 
         for (Llamada llamada : llamadas) {
+            System.out.println(llamada);
             if (llamada.esDePeriodo(this.getFechaInicio(), this.getFechaFin()) && llamada.tieneEncuestaRespondida()) {
                 this.getListaLlamadas().add(llamada);
+                System.out.println("LLAMDA ENCONTRADA");
             }
         }
 
