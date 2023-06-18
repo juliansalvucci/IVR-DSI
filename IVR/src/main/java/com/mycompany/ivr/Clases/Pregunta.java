@@ -75,7 +75,7 @@ public class Pregunta {
         this.encuesta = encuesta;
     }
 
-    public Boolean esEncuestaCliente(String respuestaPosible) {
+    public Boolean tieneRespuestaPosible(String respuestaPosible) {
         List<RespuestaPosible> respuestasPosibles = this.getRespuestas();
         for (RespuestaPosible respuesta : respuestasPosibles) {
             System.out.println("COMPARAAAAAAAAAAAAAAAAAAAAAAA" + respuesta + "-" + respuestaPosible);

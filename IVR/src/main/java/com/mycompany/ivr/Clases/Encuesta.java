@@ -65,7 +65,7 @@ public class Encuesta {
     public Boolean esEncuestaDeCliente(String respuestaPosible) {
         List<Pregunta> preguntas = getPreguntas();
         for (Pregunta pregunta : preguntas) {
-            Boolean esEncuesta = pregunta.esEncuestaCliente(respuestaPosible);
+            Boolean esEncuesta = pregunta.tieneRespuestaPosible(respuestaPosible);
             if (esEncuesta) {
                 return true;
             } else {
@@ -75,7 +75,7 @@ public class Encuesta {
         return false;
     }
 
-    public List<String> armarEncuesta() {
+    public List<String> getDescripcionPreguntas() {
         List<String> descripcionPreguntas = new ArrayList<String>();
         List<Pregunta> preguntas = getPreguntas();
         for (Pregunta pregunta : preguntas) {

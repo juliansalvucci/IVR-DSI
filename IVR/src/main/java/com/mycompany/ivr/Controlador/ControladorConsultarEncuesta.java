@@ -213,7 +213,7 @@ public class ControladorConsultarEncuesta {
 
     public void armarEncuesta() { // Obtengo la información restante para obtener la encuesta completa.
         String descripcionEncuesta = this.getEncuesta().getDescripcionEncuesta();
-        List<String> preguntas = this.getEncuesta().armarEncuesta();
+        List<String> preguntas = this.getEncuesta().getDescripcionPreguntas();
 
         this.setDescripcionEncuesta(descripcionEncuesta);
         this.setPreguntas(preguntas);

@@ -24,7 +24,7 @@ public class TestSecuencia {
         Scanner scannerFechaInicio = new Scanner(System.in);
         System.out.print("Ingresa una fecha (formato: yyyy-MM-dd): ");
         String fechaInicioIngresada = scannerFechaInicio.nextLine();
-        //scannerFechaInicio.close();
+        // scannerFechaInicio.close();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate fechaInicio = LocalDate.parse(fechaInicioIngresada, formatter);
@@ -35,7 +35,6 @@ public class TestSecuencia {
 
         /* FECHA FIN */
 
-        //Scanner scannerFechaInicio = new Scanner(System.in);
         System.out.print("Ingresa una fecha (formato: yyyy-MM-dd): ");
 
         String fechaFinIngresada = scannerFechaInicio.nextLine();
@@ -46,8 +45,6 @@ public class TestSecuencia {
         Instant instantFin = fechaFin.atStartOfDay(ZoneId.systemDefault()).toInstant();
         Date dateFin = Date.from(instantFin);
         System.out.println("La fecha ingresada es: " + fechaFin);
-
-        // Cerrar el objeto Scanner después de su uso
 
         /*
          * LocalDate localDate = LocalDate.of(2021, 6, 3);
@@ -77,10 +74,7 @@ public class TestSecuencia {
             System.exit(0);
         }
 
-        //Scanner scannerNumeroLlamada = new Scanner(System.in);
-
         System.out.print("Ingresa un número: ");
-        // Leer el número ingresado por el usuario
         int numero = scannerFechaInicio.nextInt();
 
         Llamada llamadaDePrueba = gestor.getListaLlamadas().get(numero);
