@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class PantallaConsultarEncuesta extends javax.swing.JFrame {
-    private ControladorConsultarEncuesta Gestor;
+    private ControladorConsultarEncuesta gestor;
     public PantallaConsultarEncuesta() {
         initComponents();
     }
@@ -113,7 +113,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         tblLlamadas.setEnabled(false);
         tblLlamadas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblLlamadasMouseClicked(evt);
+                tomarSeleccionLlamadaConEncuesta(evt);
             }
         });
         jspLlamadas.setViewportView(tblLlamadas);
@@ -294,26 +294,26 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         long FI = tomarFechaInicio().getTime();
         long FF = tomarFechaFin().getTime();
         
-        java.sql.Date fechaInicio = new java.sql.Date(FI);
-        java.sql.Date fechaFin = new java.sql.Date(FF);
+        Date fechaInicio = new Date(FI);
+        Date fechaFin = new Date(FF);
         
-        Gestor.tomarPeriodo(fechaInicio, fechaFin);
+        gestor.tomarPeriodo(fechaInicio, fechaFin);
         /**El método tomarPeriodo() tiene que llamar a buscarLlamadasConEncuesta()
         El método buscarLlamadasConEncuesta() tiene que:
         - agregar los métodos determinarFechaInicioLlamada(), que va a llamar a getFechaHoraInicio() de CambioEstado
         - llamar al método mostrarLlamadasConEncuestaParaSeleccion() de la pantalla*/
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
-    private void tblLlamadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLlamadasMouseClicked
+    private void tomarSeleccionLlamadaConEncuesta(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tomarSeleccionLlamadaConEncuesta
         Llamada llamadaSeleccionada = tomarSeleccionLlamadaConEncuesta();
-        Gestor.tomarSeleccionLlamadaConEncuesta(llamadaSeleccionada);
-        /** El método tomarSeleccionLlamadaConEncuesta() del Gestor tiene que llamar a obtenerDatosLlamada() 
+        gestor.tomarSeleccionLlamadaConEncuesta(llamadaSeleccionada);
+        /** El método tomarSeleccionLlamadaConEncuesta() del gestor tiene que llamar a obtenerDatosLlamada() 
          Fijarse los nombres de los métodos en obtenerDatosLlamada() y llamar a obtenerDatosEncuesta()
          obtenerDatosEncuesta tiene que llamar a buscarEncuestaAsociada()
          buscarEncuestaAsociada() debe llamar a armarEncuesta()
          armarEncuesta() tiene que llamar a mostrarEncuesta() de la pantalla 
          */
-    }//GEN-LAST:event_tblLlamadasMouseClicked
+    }//GEN-LAST:event_tomarSeleccionLlamadaConEncuesta
 
     private void btnGenerarCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarCSVActionPerformed
         tomarOpcionSalida("CSV");
@@ -327,13 +327,17 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
      
-    public void tomarOpcionConsultarEncuesta() {
+    public void opcionConsultarEncuesta() {
         habilitarVentana();
     }
     
     public void habilitarVentana() {
         setVisible(true);
-        //Gestor.ConsultarEncuesta();   Agregar método en el gestor que simplemente llame a habilitarFiltroPorPeriodo()
+        //gestor.ConsultarEncuesta();   Agregar método en el gestor que simplemente llame a habilitarFiltroPorPeriodo()
+        Boolean habilitarFiltro = true;
+        if(habilitarFiltro){
+            this.habilitarFiltroPorPeriodo();
+        }
     }
     
     public void habilitarFiltroPorPeriodo() {
@@ -357,7 +361,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         tblLlamadas.setEnabled(true);
         
         DefaultTableModel model = (DefaultTableModel) tblLlamadas.getModel();
-        List<Llamada> llamadas = Gestor.getListaLlamadas();
+        List<Llamada> llamadas = gestor.getListaLlamadas();
         Object rowData[] = new Object[3];
         for (int i = 0; i < llamadas.size(); i++) {
             rowData[0] = llamadas.get(i).getCliente();
@@ -370,22 +374,22 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
     
     public Llamada tomarSeleccionLlamadaConEncuesta() {
         int llamadaSeleccionada = tblLlamadas.getSelectedRow();
-        return Gestor.getListaLlamadas().get(llamadaSeleccionada);
+        return gestor.getListaLlamadas().get(llamadaSeleccionada);
     }
     
     public void mostrarEncuesta() {
         lblEncuestaRealizada.setEnabled(true);
         lblDescripcionEncuesta.setEnabled(true);
         
-        String descEncuesta = Gestor.getDescripcionEncuesta();
+        String descEncuesta = gestor.getDescripcionEncuesta();
         lblDescripcionEncuesta.setText(descEncuesta);
         
         jspEncuestas.setEnabled(true);
         tblEncuestas.setEnabled(true);
         
         DefaultTableModel model = (DefaultTableModel) tblEncuestas.getModel();
-        List<String> respuestas = Gestor.getRespuestas();
-        List<String> descPreguntas = Gestor.getPreguntas();
+        List<String> respuestas = gestor.getRespuestas();
+        List<String> descPreguntas = gestor.getPreguntas();
         Object rowData[] = new Object[1];
         for (int i = 0; i < respuestas.size(); i++) {
             String respuestaCompleta = respuestas.get(i);
@@ -405,7 +409,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
     }
     
     public void tomarOpcionSalida(String salida) {
-        Gestor.tomarSalida(salida);
+        gestor.tomarSalida(salida);
     }
     /**
      * @param args the command line arguments

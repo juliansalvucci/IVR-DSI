@@ -13,7 +13,6 @@ import java.io.IOException;
 
 import com.mycompany.ivr.Clases.Encuesta;
 import com.mycompany.ivr.Clases.Llamada;
-//import com.mycompany.ivr.Vista.PantallaConsultarEncuesta;
 import com.opencsv.CSVWriter;
 
 import javax.persistence.EntityManager;
@@ -145,6 +144,11 @@ public class ControladorConsultarEncuesta {
     }
 
     // LÓGICA DE NEGOCIO.
+
+    public Boolean solicitarPeriodoDeFechas(){
+        return true;
+    }
+
     public void tomarPeriodo(Date fechaInicio, Date fechaFin) { // Tomar periodo para filtar la consulta de registros de
                                                                 // llamadas.
         this.setFechaInicio(fechaInicio);
@@ -233,7 +237,7 @@ public class ControladorConsultarEncuesta {
         case "CSV":
             generarCSV();
             break;
-        case "PDF":
+        case "Imprimir":
             imprimir();
             break;
         default:
