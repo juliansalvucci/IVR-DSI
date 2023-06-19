@@ -4,8 +4,8 @@ import com.mycompany.ivr.Controlador.ControladorPantallaPrincipal;
 //import javax.swing.JOptionPane;
 
 public class PantallaPrincipal extends javax.swing.JFrame {
-    private ControladorPantallaPrincipal Gestor;
-    public PantallaPrincipal(ControladorPantallaPrincipal Gestor) {
+    private ControladorPantallaPrincipal gestor;
+    public PantallaPrincipal(ControladorPantallaPrincipal gestor) {
         initComponents();
     }
 
@@ -102,7 +102,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void btnEncuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncuestaActionPerformed
         PantallaConsultarEncuesta pantalla = new PantallaConsultarEncuesta();
-        pantalla.tomarOpcionConsultarEncuesta();
+        pantalla.opcionConsultarEncuesta();
     }//GEN-LAST:event_btnEncuestaActionPerformed
 
     /**
