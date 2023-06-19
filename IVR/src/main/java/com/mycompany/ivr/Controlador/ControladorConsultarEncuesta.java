@@ -15,6 +15,7 @@ import com.mycompany.ivr.Clases.Encuesta;
 import com.mycompany.ivr.Clases.Llamada;
 import com.opencsv.CSVWriter;
 
+
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -46,6 +47,8 @@ public class ControladorConsultarEncuesta {
     public List<String> respuestas;
     public List<String> preguntas;
     public Encuesta encuesta;
+    //public PantallaConsultarEncuesta pantallaConsultarEncuesta = new PantallaConsultarEncuesta();
+    
 
     // Métodos GET y SET
     public Date getFechaInicio() {
@@ -136,6 +139,16 @@ public class ControladorConsultarEncuesta {
         this.encuesta = encuesta;
     }
 
+    /* 
+    public PantallaConsultarEncuesta getPantallaConsultarEncuesta() {
+        return pantallaConsultarEncuesta;
+    }
+
+    public void setPantallaConsultarEncuesta(PantallaConsultarEncuesta pantallaConsultarEncuesta) {
+        this.pantallaConsultarEncuesta = pantallaConsultarEncuesta;
+    }
+    */
+
     // PERSISTENCIA.
     EntityManager em; // Entity manager para materializar objetos desde base de datos.
 
@@ -153,6 +166,8 @@ public class ControladorConsultarEncuesta {
                                                                 // llamadas.
         this.setFechaInicio(fechaInicio);
         this.setFechaFin(fechaFin);
+
+        this.buscarLlamadasConEncuesta();
     }
 
     public void buscarLlamadasConEncuesta() {
@@ -178,6 +193,12 @@ public class ControladorConsultarEncuesta {
 
     public void tomarSeleccionLlamadaConEncuesta(Llamada llamada) { // Tomar selección de llamada con encuesta.
         this.setLlamadaSeleccionada(llamada);
+        this.obtenerDatosLlamada();
+        this.obtenerDatosEncuesta();
+        this.buscarEncuestaAsociada();
+        this.armarEncuesta();
+        //this.getPantallaConsultarEncuesta().mostrarEncuesta();
+        
     }
 
     public void obtenerDatosLlamada() {

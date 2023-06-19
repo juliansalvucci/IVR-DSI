@@ -21,6 +21,10 @@ public class TestSecuencia {
 
         ControladorConsultarEncuesta gestor = new ControladorConsultarEncuesta(em);
 
+        Boolean habilitar = gestor.solicitarPeriodoDeFechas();
+
+        System.out.println("HABILITACION" + habilitar);
+
         Scanner scannerFechaInicio = new Scanner(System.in);
         System.out.print("Ingresa una fecha (formato: yyyy-MM-dd): ");
         String fechaInicioIngresada = scannerFechaInicio.nextLine();

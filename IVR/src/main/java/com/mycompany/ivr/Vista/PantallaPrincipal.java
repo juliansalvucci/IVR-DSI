@@ -1,10 +1,11 @@
 package com.mycompany.ivr.Vista;
 
+//import com.mycompany.ivr.Controlador.ControladorConsultarEncuesta;
 import com.mycompany.ivr.Controlador.ControladorPantallaPrincipal;
 //import javax.swing.JOptionPane;
 
 public class PantallaPrincipal extends javax.swing.JFrame {
-    private ControladorPantallaPrincipal gestor;
+    //private ControladorConsultarEncuesta gestor;
     public PantallaPrincipal(ControladorPantallaPrincipal gestor) {
         initComponents();
     }
