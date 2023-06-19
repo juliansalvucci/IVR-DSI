@@ -1,12 +1,10 @@
 package com.mycompany.ivr.Vista;
 
 import com.mycompany.ivr.Controlador.ControladorPantallaPrincipal;
-//import com.mycompany.ivr.Controlador.ControladorConsultarEncuesta;
 //import javax.swing.JOptionPane;
 
 public class PantallaPrincipal extends javax.swing.JFrame {
-
-    //private ControladorPantallaPrincipal Gestor;
+    private ControladorPantallaPrincipal Gestor;
     public PantallaPrincipal(ControladorPantallaPrincipal Gestor) {
         initComponents();
     }
@@ -103,10 +101,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEncuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncuestaActionPerformed
-        /** Esto se va a convertir en tomarOpcionConsultarEncuesta() y habilitarVentana()
-        ControladorConsultarEncuesta gestorEncuesta= ControladorConsultarEncuesta.getInstancia();
-        gestorEncuesta.mostrarPantallaConsultarEncuesta();
-        */
+        PantallaConsultarEncuesta pantalla = new PantallaConsultarEncuesta();
+        pantalla.tomarOpcionConsultarEncuesta();
     }//GEN-LAST:event_btnEncuestaActionPerformed
 
     /**
