@@ -102,7 +102,7 @@ public class TestSecuencia {
 
         System.out.println("PREGUNTAS" + " " + gestor.getPreguntas().size());
 
-        gestor.tomarSalida("CSV");
+        gestor.tomarSalida("PDF");
 
         gestor.finCU();
 
