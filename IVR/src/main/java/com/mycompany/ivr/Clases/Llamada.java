@@ -96,7 +96,7 @@ public class Llamada {
             ultimoCambioEstado = cambiosEstado.get(lastIndex);
         }
         // DESCARTARÍA EL MÉTODO getFechaHoraInicio porque estoy tomando precisamente el
-        return ultimoCambioEstado.getEstado().getNombreEstado();
+        return ultimoCambioEstado.getEstado().getNombre();
     }
 
     public String getNombreClienteDeLlamada() {
