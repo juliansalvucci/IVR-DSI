@@ -57,6 +57,9 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         btnImprimir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnFiltrar = new javax.swing.JButton();
+        lblCliente = new javax.swing.JLabel();
+        lblEstadoLlamada = new javax.swing.JLabel();
+        lblDuracionLlamada = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         btnConsultarEncuesta = new javax.swing.JMenuItem();
@@ -141,7 +144,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jspLlamadas, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,6 +264,15 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
             }
         });
 
+        lblCliente.setText("descripción");
+        lblCliente.setEnabled(false);
+
+        lblEstadoLlamada.setText("descripción");
+        lblEstadoLlamada.setEnabled(false);
+
+        lblDuracionLlamada.setText("descripción");
+        lblDuracionLlamada.setEnabled(false);
+
         jMenu1.setText("Archivo");
 
         btnConsultarEncuesta.setText("Consultar Encuesta");
@@ -278,13 +290,17 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
-            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnFiltrar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnFiltrar)
+                    .addComponent(lblCliente)
+                    .addComponent(lblEstadoLlamada)
+                    .addComponent(lblDuracionLlamada))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -297,12 +313,22 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCliente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblEstadoLlamada)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblDuracionLlamada)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        lblCliente.getAccessibleContext().setAccessibleName("lblCliente");
+        lblEstadoLlamada.getAccessibleContext().setAccessibleName("lblEstadoaLlamada");
+        lblDuracionLlamada.getAccessibleContext().setAccessibleName("lblDuracion");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -413,8 +439,12 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
 
         String descEncuesta = this.getGestor().getDescripcionEncuesta();
         String nombreCliente = this.getGestor().getNombreCliente();
+        String estadoLlamada = this.getGestor().getUltimoEstadoLlamada();
         String duracionLlamada = this.getGestor().getDuracionLlamada();
-        lblDescripcionEncuesta.setText("Descripción de encuesta: " + descEncuesta + " Cliente: " + nombreCliente + " Duración: "+ duracionLlamada);
+        lblDescripcionEncuesta.setText(descEncuesta);
+        lblCliente.setText("Cliente: " + nombreCliente );        
+        lblEstadoLlamada.setText("Estado actual: " + estadoLlamada);
+        lblDuracionLlamada.setText("Duración: " + duracionLlamada);
 
         jspEncuestas.setEnabled(true);
         tblEncuestas.setEnabled(true);
@@ -517,6 +547,9 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
     private javax.swing.JScrollPane jspEncuestas;
     private javax.swing.JScrollPane jspLlamadas;
     private javax.swing.JLabel lblDescripcionEncuesta;
+    private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblEstadoLlamada;
+    private javax.swing.JLabel lblDuracionLlamada;
     private javax.swing.JLabel lblEncuestaRealizada;
     private javax.swing.JLabel lblFechaFin;
     private javax.swing.JLabel lblFechaInicio;
