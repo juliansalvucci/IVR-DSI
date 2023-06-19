@@ -1,7 +1,9 @@
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,32 +21,76 @@ public class TestSecuencia {
 
         ControladorConsultarEncuesta gestor = new ControladorConsultarEncuesta(em);
 
+        Boolean habilitar = gestor.solicitarPeriodoDeFechas();
 
-        LocalDate localDate = LocalDate.of(2022, 6, 3);
-        Instant instant = localDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        System.out.println("HABILITACION" + habilitar);
+
+        Scanner scannerFechaInicio = new Scanner(System.in);
+        System.out.print("Ingresa una fecha (formato: yyyy-MM-dd): ");
+        String fechaInicioIngresada = scannerFechaInicio.nextLine();
+        // scannerFechaInicio.close();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fechaInicio = LocalDate.parse(fechaInicioIngresada, formatter);
+
+        Instant instant = fechaInicio.atStartOfDay(ZoneId.systemDefault()).toInstant();
         Date date = Date.from(instant);
-        System.out.println(date);
+        System.out.println("La fecha ingresada es: " + fechaInicio);
 
-        LocalDate localDate1 = LocalDate.of(2023, 10, 3);
-        Instant instant1 = localDate1.atStartOfDay(ZoneId.systemDefault()).toInstant();
-        Date date1 = Date.from(instant1);
-        System.out.println(date1);
+        /* FECHA FIN */
 
-        gestor.tomarPeriodo(date, date1);
+        System.out.print("Ingresa una fecha (formato: yyyy-MM-dd): ");
+
+        String fechaFinIngresada = scannerFechaInicio.nextLine();
+
+        DateTimeFormatter formatterFechaFin = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fechaFin = LocalDate.parse(fechaFinIngresada, formatterFechaFin);
+
+        Instant instantFin = fechaFin.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Date dateFin = Date.from(instantFin);
+        System.out.println("La fecha ingresada es: " + fechaFin);
+
+        /*
+         * LocalDate localDate = LocalDate.of(2021, 6, 3);
+         * Instant instant = localDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
+         * Date date = Date.from(instant);
+         * System.out.println(date);
+         */
+
+        /*
+         * LocalDate localDate1 = LocalDate.of(2023, 10, 3);
+         * Instant instant1 =
+         * localDate1.atStartOfDay(ZoneId.systemDefault()).toInstant();
+         * Date date1 = Date.from(instant1);
+         * System.out.println(date1);
+         */
+
+        gestor.tomarPeriodo(date, dateFin);
 
         System.out.println(gestor.getFechaInicio() + "" + gestor.getFechaFin());
 
         gestor.buscarLlamadasConEncuesta();
 
-        System.out.println("CANTIDAD LLAMADAS ENCONTRADAS" + gestor.getListaLlamadas().size());
+        if (gestor.getListaLlamadas().size() > 0) {
+            System.out.println("CANTIDAD LLAMADAS ENCONTRADAS" + gestor.getListaLlamadas().size());
+        } else {
+            System.out.println("NO HAY LLAMADAS EN EL PERIÓDO ESTABLECIDO");
+            System.exit(0);
+        }
 
-        Llamada llamadaDePrueba = gestor.getListaLlamadas().get(0);
+        System.out.print("Ingresa un número: ");
+        int numero = scannerFechaInicio.nextInt();
+
+        Llamada llamadaDePrueba = gestor.getListaLlamadas().get(numero);
+
+        scannerFechaInicio.close();
 
         gestor.tomarSeleccionLlamadaConEncuesta(llamadaDePrueba);
 
         gestor.obtenerDatosLlamada();
 
-        System.out.println("DATOS LLAMADA" + gestor.getNombreCliente() + gestor.getUltimoEstadoLlamada() + gestor.getDuracionLlamada());
+        System.out.println("DATOS LLAMADA" + gestor.getNombreCliente() + gestor.getUltimoEstadoLlamada()
+                + gestor.getDuracionLlamada());
 
         gestor.obtenerDatosEncuesta();
 
@@ -60,7 +106,7 @@ public class TestSecuencia {
 
         System.out.println("PREGUNTAS" + " " + gestor.getPreguntas().size());
 
-        gestor.tomarSalida("CSV");
+        gestor.tomarSalida("PDF");
 
         gestor.finCU();
 

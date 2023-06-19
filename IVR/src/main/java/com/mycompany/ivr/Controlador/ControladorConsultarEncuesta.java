@@ -7,20 +7,29 @@ package com.mycompany.ivr.Controlador;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import com.mycompany.ivr.Clases.Encuesta;
 import com.mycompany.ivr.Clases.Llamada;
-//import com.mycompany.ivr.Vista.PantallaConsultarEncuesta;
 import com.opencsv.CSVWriter;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+
+import java.awt.Desktop;
+
 
 /**
  *
@@ -38,7 +47,9 @@ public class ControladorConsultarEncuesta {
     public List<String> respuestas;
     public List<String> preguntas;
     public Encuesta encuesta;
+    //public PantallaConsultarEncuesta pantallaConsultarEncuesta = new PantallaConsultarEncuesta();
     
+
     // Métodos GET y SET
     public Date getFechaInicio() {
         return fechaInicio;
@@ -128,6 +139,16 @@ public class ControladorConsultarEncuesta {
         this.encuesta = encuesta;
     }
 
+    /* 
+    public PantallaConsultarEncuesta getPantallaConsultarEncuesta() {
+        return pantallaConsultarEncuesta;
+    }
+
+    public void setPantallaConsultarEncuesta(PantallaConsultarEncuesta pantallaConsultarEncuesta) {
+        this.pantallaConsultarEncuesta = pantallaConsultarEncuesta;
+    }
+    */
+
     // PERSISTENCIA.
     EntityManager em; // Entity manager para materializar objetos desde base de datos.
 
@@ -136,10 +157,17 @@ public class ControladorConsultarEncuesta {
     }
 
     // LÓGICA DE NEGOCIO.
+
+    public Boolean solicitarPeriodoDeFechas(){
+        return true;
+    }
+
     public void tomarPeriodo(Date fechaInicio, Date fechaFin) { // Tomar periodo para filtar la consulta de registros de
                                                                 // llamadas.
         this.setFechaInicio(fechaInicio);
         this.setFechaFin(fechaFin);
+
+        this.buscarLlamadasConEncuesta();
     }
 
     public void buscarLlamadasConEncuesta() {
@@ -165,6 +193,12 @@ public class ControladorConsultarEncuesta {
 
     public void tomarSeleccionLlamadaConEncuesta(Llamada llamada) { // Tomar selección de llamada con encuesta.
         this.setLlamadaSeleccionada(llamada);
+        this.obtenerDatosLlamada();
+        this.obtenerDatosEncuesta();
+        this.buscarEncuestaAsociada();
+        this.armarEncuesta();
+        //this.getPantallaConsultarEncuesta().mostrarEncuesta();
+        
     }
 
     public void obtenerDatosLlamada() {
@@ -213,17 +247,25 @@ public class ControladorConsultarEncuesta {
 
     public void armarEncuesta() { // Obtengo la información restante para obtener la encuesta completa.
         String descripcionEncuesta = this.getEncuesta().getDescripcionEncuesta();
-        List<String> preguntas = this.getEncuesta().armarEncuesta();
+        List<String> preguntas = this.getEncuesta().getDescripcionPreguntas();
 
         this.setDescripcionEncuesta(descripcionEncuesta);
         this.setPreguntas(preguntas);
     }
 
     public void tomarSalida(String opcion) { // Obtiene la opción de generación de informe.
-        if (opcion.equals("CSV")) {
-            this.generarCSV();
-        }
+    switch (opcion) {
+        case "CSV":
+            generarCSV();
+            break;
+        case "Imprimir":
+            imprimir();
+            break;
+        default:
+            System.out.println("Opción no válida");
+            break;
     }
+}
 
     public void generarCSV() { // Método para generar archivo excel.
         String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
@@ -253,6 +295,71 @@ public class ControladorConsultarEncuesta {
             }
 
             csvWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void imprimir() {
+        // Ruta del archivo PDF de salida
+        String filePath = "C:\\Users\\jlssa\\Documents\\archivo.pdf";
+
+        try (PDDocument document = new PDDocument()) {
+            // Crear una nueva página en el documento
+            PDPage page = new PDPage(PDRectangle.A4);
+            document.addPage(page);
+
+            // Crear un objeto PDPageContentStream para escribir el contenido en la página
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+            // Configurar la fuente y el tamaño del texto
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+
+            // Escribir texto en la página
+            contentStream.beginText();
+            float startY = 700; // Posición vertical inicial
+            float lineHeight = 15; // Altura de línea
+
+            contentStream.newLineAtOffset(100, startY);
+            contentStream.showText("#################### DATOS DE LLAMADA ####################");
+            contentStream.newLineAtOffset(0, -lineHeight);
+            contentStream.newLineAtOffset(0, -lineHeight);
+            contentStream.showText("Cliente: " + this.getNombreCliente());
+            contentStream.newLineAtOffset(0, -lineHeight);
+            contentStream.showText("Estado actual: " + this.getUltimoEstadoLlamada());
+            contentStream.newLineAtOffset(0, -lineHeight);
+            contentStream.showText("Duración: " + this.getDuracionLlamada());
+
+            contentStream.newLineAtOffset(0, -lineHeight);
+            contentStream.newLineAtOffset(0, -lineHeight);
+            contentStream.showText("########### DETALLE DE PREGUNTAS Y RESPUESTAS ###########");
+            for (int i = 0; i < this.getRespuestas().size(); i++) {
+
+                String respuesta = this.getRespuestas().get(i);
+                String pregunta = this.getPreguntas().get(i);
+                String[] partes = respuesta.split("_");
+
+                contentStream.newLineAtOffset(0, -lineHeight);
+                contentStream.newLineAtOffset(0, -lineHeight);
+                contentStream.showText(pregunta + " | " + partes[0]);
+            }
+
+            contentStream.endText();
+
+            // Cerrar el objeto PDPageContentStream
+            contentStream.close();
+
+            // Guardar el documento como archivo PDF
+            document.save(filePath);
+
+            System.out.println("¡Archivo PDF generado correctamente!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            File file = new File(filePath);
+            Desktop.getDesktop().browse(file.toURI());
         } catch (IOException e) {
             e.printStackTrace();
         }
