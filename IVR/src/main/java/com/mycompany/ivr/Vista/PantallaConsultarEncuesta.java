@@ -412,7 +412,9 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         lblDescripcionEncuesta.setEnabled(true);
 
         String descEncuesta = this.getGestor().getDescripcionEncuesta();
-        lblDescripcionEncuesta.setText(descEncuesta);
+        String nombreCliente = this.getGestor().getNombreCliente();
+        String duracionLlamada = this.getGestor().getDuracionLlamada();
+        lblDescripcionEncuesta.setText("Descripción de encuesta: " + descEncuesta + " Cliente: " + nombreCliente + " Duración: "+ duracionLlamada);
 
         jspEncuestas.setEnabled(true);
         tblEncuestas.setEnabled(true);
