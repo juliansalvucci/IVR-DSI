@@ -66,7 +66,6 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(606, 846));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(464, 345));
 
@@ -119,7 +118,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cliente", "Duración", "Estado", "Respuesta"
+                "Llamada"
             }
         ) {
             Class[] types = new Class [] {
@@ -131,6 +130,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
             }
         });
         tblLlamadas.setEnabled(false);
+        //tblLlamadas.setTableHeader(Llamada);
         tblLlamadas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tomarSeleccionLlamadaConEncuesta(evt);
@@ -151,7 +151,6 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
             .addComponent(jspLlamadas, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
         );
 
-        lblEncuestaRealizada.setText("Encuesta Realizada:");
         lblEncuestaRealizada.setEnabled(false);
 
         lblDescripcionEncuesta.setText("descripción");
@@ -163,19 +162,18 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblEncuestaRealizada)
-                .addGap(4, 4, 4)
-                .addComponent(lblDescripcionEncuesta)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblEncuestaRealizada)
+                    .addComponent(lblDescripcionEncuesta))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDescripcionEncuesta)
-                    .addComponent(lblEncuestaRealizada))
-                .addContainerGap())
+                .addComponent(lblEncuestaRealizada)
+                .addGap(12, 12, 12)
+                .addComponent(lblDescripcionEncuesta))
         );
 
         jspEncuestas.setEnabled(false);
@@ -313,13 +311,13 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblCliente)
+                .addGap(12, 12, 12)
                 .addComponent(lblEstadoLlamada)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblDuracionLlamada)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -441,7 +439,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         String nombreCliente = this.getGestor().getNombreCliente();
         String estadoLlamada = this.getGestor().getUltimoEstadoLlamada();
         String duracionLlamada = this.getGestor().getDuracionLlamada();
-        lblDescripcionEncuesta.setText(descEncuesta);
+        lblDescripcionEncuesta.setText("Descripción de encuesta: " + descEncuesta);
         lblCliente.setText("Cliente: " + nombreCliente );        
         lblEstadoLlamada.setText("Estado actual: " + estadoLlamada);
         lblDuracionLlamada.setText("Duración: " + duracionLlamada);
