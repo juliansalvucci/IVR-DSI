@@ -1,26 +1,17 @@
 package com.mycompany.ivr.Vista;
 
+import com.mycompany.ivr.Clases.Llamada;
 import com.mycompany.ivr.Controlador.ControladorConsultarEncuesta;
-/**import java.awt.Color;
+import java.util.Date;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.KeyEvent;*/
 
-public class PantallaConsultarEncuesta extends javax.swing.JFrame{
-
-    //private ControladorConsultarEncuesta Gestor;
+public class PantallaConsultarEncuesta extends javax.swing.JFrame {
+    private ControladorConsultarEncuesta Gestor;
+    public PantallaConsultarEncuesta() {
+        initComponents();
+    }
     
-    public PantallaConsultarEncuesta(ControladorConsultarEncuesta Gestor) {
-        initComponents();
-    }
-
-    private PantallaConsultarEncuesta() {
-        initComponents();
-    }
-
  /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,22 +23,23 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame{
 
         jPanel1 = new javax.swing.JPanel();
         lblFechaInicio = new javax.swing.JLabel();
-        btnFechaInicio = new javax.swing.JButton();
         lblFechaFin = new javax.swing.JLabel();
-        btnFechaFin = new javax.swing.JButton();
-        btnFiltrar = new javax.swing.JButton();
+        jdcFechaInicio = new com.toedter.calendar.JDateChooser();
+        jdcFechaFin = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jspLlamadas = new javax.swing.JScrollPane();
+        tblLlamadas = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        lblLlamadaSeleccionada = new javax.swing.JLabel();
+        lblEncuestaRealizada = new javax.swing.JLabel();
+        lblDescripcionEncuesta = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jspEncuestas = new javax.swing.JScrollPane();
+        tblEncuestas = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         btnGenerarCSV = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        btnFiltrar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         btnConsultarEncuesta = new javax.swing.JMenuItem();
@@ -59,30 +51,14 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame{
         jPanel1.setPreferredSize(new java.awt.Dimension(464, 345));
 
         lblFechaInicio.setText("Ingresar fecha de inicio:");
-
-        btnFechaInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RegistraRTMC/imagenes/calendario20x20.png"))); // NOI18N
-        btnFechaInicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFechaInicioActionPerformed(evt);
-            }
-        });
+        lblFechaInicio.setEnabled(false);
 
         lblFechaFin.setText("Ingresar fecha de fin:");
+        lblFechaFin.setEnabled(false);
 
-        btnFechaFin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RegistraRTMC/imagenes/calendario20x20.png"))); // NOI18N
-        btnFechaFin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFechaFinActionPerformed(evt);
-            }
-        });
+        jdcFechaInicio.setEnabled(false);
 
-        btnFiltrar.setText("Filtrar");
-        btnFiltrar.setActionCommand("Volver");
-        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFiltrarActionPerformed(evt);
-            }
-        });
+        jdcFechaFin.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,60 +67,75 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame{
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFechaInicio)
-                    .addComponent(btnFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFechaFin)
-                    .addComponent(btnFiltrar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jdcFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jdcFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(292, 292, 292))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFechaInicio)
+                            .addComponent(lblFechaFin))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblFechaInicio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFechaInicio)
+                .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblFechaFin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFechaFin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFiltrar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jspLlamadas.setEnabled(false);
+
+        tblLlamadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
-                "Llamada (id?)"
+                "Cliente", "Duración", "Estado", "Respuesta"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tblLlamadas.setEnabled(false);
+        tblLlamadas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLlamadasMouseClicked(evt);
+            }
+        });
+        jspLlamadas.setViewportView(tblLlamadas);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jspLlamadas, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addComponent(jspLlamadas, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
         );
 
-        lblLlamadaSeleccionada.setText("La llamada seleccionada contiene los siguientes datos:");
+        lblEncuestaRealizada.setText("Encuesta Realizada:");
+        lblEncuestaRealizada.setEnabled(false);
+
+        lblDescripcionEncuesta.setText("descripción");
+        lblDescripcionEncuesta.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -152,51 +143,74 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame{
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblLlamadaSeleccionada)
+                .addComponent(lblEncuestaRealizada)
+                .addGap(4, 4, 4)
+                .addComponent(lblDescripcionEncuesta)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblLlamadaSeleccionada)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDescripcionEncuesta)
+                    .addComponent(lblEncuestaRealizada))
+                .addContainerGap())
         );
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        jspEncuestas.setEnabled(false);
+
+        tblEncuestas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Cliente", "EstadoActual", "Duración", "RespuestaCliente"
+                "Pregunta", "DescripciónPregunta", "RespuestaSeleccionada"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        tblEncuestas.setEnabled(false);
+        jspEncuestas.setViewportView(tblEncuestas);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jspEncuestas, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addComponent(jspEncuestas, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel5.setPreferredSize(new java.awt.Dimension(824, 161));
 
         btnGenerarCSV.setText("Generar CSV");
         btnGenerarCSV.setActionCommand("Volver");
+        btnGenerarCSV.setEnabled(false);
+        btnGenerarCSV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarCSVActionPerformed(evt);
+            }
+        });
 
         btnImprimir.setText("Imprimir");
         btnImprimir.setActionCommand("Volver");
+        btnImprimir.setEnabled(false);
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.setActionCommand("Volver");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -205,22 +219,30 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame{
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnGenerarCSV)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(32, 32, 32)
                 .addComponent(btnImprimir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(51, 51, 51)
                 .addComponent(btnCancelar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 6, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGenerarCSV)
                     .addComponent(btnImprimir)
-                    .addComponent(btnCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCancelar)))
         );
+
+        btnFiltrar.setText("Filtrar");
+        btnFiltrar.setActionCommand("Volver");
+        btnFiltrar.setEnabled(false);
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Archivo");
 
@@ -243,11 +265,17 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame{
             .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnFiltrar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(btnFiltrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -255,25 +283,130 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnFechaInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaInicioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnFechaInicioActionPerformed
-
-    private void btnFechaFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaFinActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnFechaFinActionPerformed
-
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
-        // TODO add your handling code here:
+        long FI = tomarFechaInicio().getTime();
+        long FF = tomarFechaFin().getTime();
+        
+        java.sql.Date fechaInicio = new java.sql.Date(FI);
+        java.sql.Date fechaFin = new java.sql.Date(FF);
+        
+        Gestor.tomarPeriodo(fechaInicio, fechaFin);
+        /**El método tomarPeriodo() tiene que llamar a buscarLlamadasConEncuesta()
+        El método buscarLlamadasConEncuesta() tiene que:
+        - agregar los métodos determinarFechaInicioLlamada(), que va a llamar a getFechaHoraInicio() de CambioEstado
+        - llamar al método mostrarLlamadasConEncuestaParaSeleccion() de la pantalla*/
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
+    private void tblLlamadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLlamadasMouseClicked
+        Llamada llamadaSeleccionada = tomarSeleccionLlamadaConEncuesta();
+        Gestor.tomarSeleccionLlamadaConEncuesta(llamadaSeleccionada);
+        /** El método tomarSeleccionLlamadaConEncuesta() del Gestor tiene que llamar a obtenerDatosLlamada() 
+         Fijarse los nombres de los métodos en obtenerDatosLlamada() y llamar a obtenerDatosEncuesta()
+         obtenerDatosEncuesta tiene que llamar a buscarEncuestaAsociada()
+         buscarEncuestaAsociada() debe llamar a armarEncuesta()
+         armarEncuesta() tiene que llamar a mostrarEncuesta() de la pantalla 
+         */
+    }//GEN-LAST:event_tblLlamadasMouseClicked
+
+    private void btnGenerarCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarCSVActionPerformed
+        tomarOpcionSalida("CSV");
+    }//GEN-LAST:event_btnGenerarCSVActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        tomarOpcionSalida("Imprimir");
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+     
+    public void tomarOpcionConsultarEncuesta() {
+        habilitarVentana();
+    }
+    
+    public void habilitarVentana() {
+        setVisible(true);
+        //Gestor.ConsultarEncuesta();   Agregar método en el gestor que simplemente llame a habilitarFiltroPorPeriodo()
+    }
+    
+    public void habilitarFiltroPorPeriodo() {
+        lblFechaInicio.setEnabled(true);
+        lblFechaFin.setEnabled(true);
+        jdcFechaInicio.setEnabled(true);
+        jdcFechaFin.setEnabled(true);
+        btnFiltrar.setEnabled(true);
+    }
+    
+    public Date tomarFechaInicio() { 
+        return jdcFechaInicio.getDate();
+    }
+    
+    public Date tomarFechaFin() {
+        return jdcFechaFin.getDate();
+    }
+    
+    public void mostrarLlamadasConEncuestaParaSeleccion() {
+        jspLlamadas.setEnabled(true);
+        tblLlamadas.setEnabled(true);
+        
+        DefaultTableModel model = (DefaultTableModel) tblLlamadas.getModel();
+        List<Llamada> llamadas = Gestor.getListaLlamadas();
+        Object rowData[] = new Object[3];
+        for (int i = 0; i < llamadas.size(); i++) {
+            rowData[0] = llamadas.get(i).getCliente();
+            rowData[1] = llamadas.get(i).getDuracion();
+            rowData[2] = llamadas.get(i).getCambioEstado();
+            rowData[3] = llamadas.get(i).getRespuestaDeCliente();
+            model.addRow(rowData);
+        }
+    }
+    
+    public Llamada tomarSeleccionLlamadaConEncuesta() {
+        int llamadaSeleccionada = tblLlamadas.getSelectedRow();
+        return Gestor.getListaLlamadas().get(llamadaSeleccionada);
+    }
+    
+    public void mostrarEncuesta() {
+        lblEncuestaRealizada.setEnabled(true);
+        lblDescripcionEncuesta.setEnabled(true);
+        
+        String descEncuesta = Gestor.getDescripcionEncuesta();
+        lblDescripcionEncuesta.setText(descEncuesta);
+        
+        jspEncuestas.setEnabled(true);
+        tblEncuestas.setEnabled(true);
+        
+        DefaultTableModel model = (DefaultTableModel) tblEncuestas.getModel();
+        List<String> respuestas = Gestor.getRespuestas();
+        List<String> descPreguntas = Gestor.getPreguntas();
+        Object rowData[] = new Object[1];
+        for (int i = 0; i < respuestas.size(); i++) {
+            String respuestaCompleta = respuestas.get(i);
+            String[] respuestaPartida = respuestaCompleta.split("_");
+            String respuesta = respuestaPartida[0];
+            rowData[0] = descPreguntas.get(i);
+            rowData[1] = respuesta;
+            model.addRow(rowData);
+        }
+        
+        mostrarOpcionesSalida();
+    }
+    
+    public void mostrarOpcionesSalida() {
+        btnGenerarCSV.setEnabled(true);
+        btnImprimir.setEnabled(true);
+    }
+    
+    public void tomarOpcionSalida(String salida) {
+        Gestor.tomarSalida(salida);
+    }
     /**
      * @param args the command line arguments
      */
@@ -315,12 +448,10 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame{
             }
         });
     }
-
+       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JMenuItem btnConsultarEncuesta;
-    private javax.swing.JButton btnFechaFin;
-    private javax.swing.JButton btnFechaInicio;
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnGenerarCSV;
     private javax.swing.JButton btnImprimir;
@@ -332,12 +463,15 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame{
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable3;
+    private com.toedter.calendar.JDateChooser jdcFechaFin;
+    private com.toedter.calendar.JDateChooser jdcFechaInicio;
+    private javax.swing.JScrollPane jspEncuestas;
+    private javax.swing.JScrollPane jspLlamadas;
+    private javax.swing.JLabel lblDescripcionEncuesta;
+    private javax.swing.JLabel lblEncuestaRealizada;
     private javax.swing.JLabel lblFechaFin;
     private javax.swing.JLabel lblFechaInicio;
-    private javax.swing.JLabel lblLlamadaSeleccionada;
+    private javax.swing.JTable tblEncuestas;
+    private javax.swing.JTable tblLlamadas;
     // End of variables declaration//GEN-END:variables
 }
