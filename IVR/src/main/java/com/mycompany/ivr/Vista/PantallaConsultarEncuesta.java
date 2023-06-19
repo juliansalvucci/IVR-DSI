@@ -341,6 +341,17 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         this.mostrarEncuesta(); //PROVISORIO
     }// GEN-LAST:event_tomarSeleccionLlamadaConEncuesta
 
+    private void tblLlamadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLlamadasMouseClicked
+        Llamada llamadaSeleccionada = tomarSeleccionLlamadaConEncuesta();
+        this.getGestor().tomarSeleccionLlamadaConEncuesta(llamadaSeleccionada);
+        /** El método tomarSeleccionLlamadaConEncuesta() del Gestor tiene que llamar a obtenerDatosLlamada() 
+         Fijarse los nombres de los métodos en obtenerDatosLlamada() y llamar a obtenerDatosEncuesta()
+         obtenerDatosEncuesta tiene que llamar a buscarEncuestaAsociada()
+         buscarEncuestaAsociada() debe llamar a armarEncuesta()
+         armarEncuesta() tiene que llamar a mostrarEncuesta() de la pantalla 
+         */
+    }//GEN-LAST:event_tblLlamadasMouseClicked
+
     private void btnGenerarCSVActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGenerarCSVActionPerformed
         tomarOpcionSalida("CSV");
     }// GEN-LAST:event_btnGenerarCSVActionPerformed
