@@ -42,8 +42,8 @@ public class ControladorConsultarEncuesta {
     public String ultimoEstadoLlamada;
     public String duracionLlamada;
     public String descripcionEncuesta;
-    public List<String> respuestas;
-    public List<String> preguntas;
+    public List<String> respuestas = new ArrayList<>();
+    public List<String> preguntas = new ArrayList<>();
     public Encuesta encuesta;
     // public PantallaConsultarEncuesta pantallaConsultarEncuesta = new
     // PantallaConsultarEncuesta();
@@ -192,6 +192,10 @@ public class ControladorConsultarEncuesta {
     }
 
     public void tomarSeleccionLlamadaConEncuesta(Llamada llamada) { // Tomar selección de llamada con encuesta.
+
+        this.getRespuestas().clear();
+        this.getPreguntas().clear();
+
         this.setLlamadaSeleccionada(llamada);
         this.obtenerDatosLlamada();
         this.obtenerDatosEncuesta();
