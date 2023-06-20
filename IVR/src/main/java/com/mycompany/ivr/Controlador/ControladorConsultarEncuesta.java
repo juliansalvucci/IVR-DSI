@@ -47,7 +47,6 @@ public class ControladorConsultarEncuesta {
     public List<String> preguntas = new ArrayList<>();
     public Encuesta encuesta;
     public PantallaConsultarEncuesta pantallaConsultarEncuesta;
-    // PantallaConsultarEncuesta();
 
     // Métodos GET y SET
     public Date getFechaInicio() {
