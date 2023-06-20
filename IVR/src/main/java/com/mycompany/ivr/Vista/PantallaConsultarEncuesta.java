@@ -415,7 +415,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                  * - llamar al método mostrarLlamadasConEncuestaParaSeleccion() de la pantalla
                  */
 
-                this.mostrarLlamadasConEncuestaParaSeleccion();
+                // this.mostrarLlamadasConEncuestaParaSeleccion();
         }// GEN-LAST:event_btnFiltrarActionPerformed
 
         private void tomarSeleccionLlamadaConEncuesta(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tomarSeleccionLlamadaConEncuesta
@@ -430,7 +430,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                  * buscarEncuestaAsociada() debe llamar a armarEncuesta()
                  * armarEncuesta() tiene que llamar a mostrarEncuesta() de la pantalla
                  */
-                //this.mostrarEncuesta(); // PROVISORIO
+                // this.mostrarEncuesta(); // PROVISORIO
         }// GEN-LAST:event_tomarSeleccionLlamadaConEncuesta
 
         private void btnGenerarCSVActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGenerarCSVActionPerformed
@@ -453,7 +453,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                 setVisible(true);
                 // gestor.ConsultarEncuesta(); Agregar método en el gestor que simplemente llame
                 // a habilitarFiltroPorPeriodo()
-                Boolean habilitarFiltro = true;
+                Boolean habilitarFiltro = this.getGestor().opcionConsultarEncuesta();
                 if (habilitarFiltro) {
                         this.habilitarFiltroPorPeriodo();
                 }
@@ -487,6 +487,8 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                         lblCliente.setText("");
                         lblEstadoLlamada.setText("");
                         lblDuracionLlamada.setText("");
+                        btnGenerarCSV.setEnabled(false);
+                        btnImprimir.setEnabled(false);
                         DefaultTableModel modelEncuesta = (DefaultTableModel) tblEncuestas.getModel();
                         modelEncuesta.setRowCount(0);
                 } else {
@@ -537,8 +539,6 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                         rowData[2] = respuestaSeleccionada;
                         model.addRow(rowData);
                 }
-
-                mostrarOpcionesSalida();
         }
 
         public void mostrarOpcionesSalida() {

@@ -156,7 +156,7 @@ public class ControladorConsultarEncuesta {
 
     // LÓGICA DE NEGOCIO.
 
-    public Boolean solicitarPeriodoDeFechas() {
+    public Boolean opcionConsultarEncuesta() {
         return true;
     }
 
@@ -188,6 +188,7 @@ public class ControladorConsultarEncuesta {
         }
 
         this.setListaLlamadas(listaLlamadas);
+        this.getPantallaConsultarEncuesta().mostrarLlamadasConEncuestaParaSeleccion();
     }
 
     public void tomarSeleccionLlamadaConEncuesta(Llamada llamada) { // Tomar selección de llamada con encuesta.
@@ -201,6 +202,7 @@ public class ControladorConsultarEncuesta {
         this.buscarEncuestaAsociada();
         this.armarEncuesta();
         this.getPantallaConsultarEncuesta().mostrarEncuesta();
+        this.getPantallaConsultarEncuesta().mostrarOpcionesSalida();
 
     }
 
