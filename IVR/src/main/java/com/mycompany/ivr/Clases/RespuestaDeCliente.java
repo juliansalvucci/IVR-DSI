@@ -73,9 +73,8 @@ public class RespuestaDeCliente {
         this.llamada = llamada;
     }
 
-    public String getDescripcionRTA() {
+    public String getDescripcionRTA() { //Método para obtener respuestas del cliente y la respuesta asignada por el mismo.
         String descripcionRespuestaSeleccionada = this.getRespuestaSeleccionada().getDescripcionRTA();
-        System.out.println("ACA LA PEDIMOSSSSSSSSSSSSSSSSSSSSSSSS" + getRespuestaSeleccionada());
-        return descripcion + " - " + descripcionRespuestaSeleccionada + "_" + this.getRespuestaSeleccionada();
+        return descripcion + " - " + descripcionRespuestaSeleccionada + "_" + this.getRespuestaSeleccionada(); //Se agrega dirección de memoria para luego obtener la encuesta correspondiente.
     }
 }

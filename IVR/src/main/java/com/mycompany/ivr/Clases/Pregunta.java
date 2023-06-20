@@ -75,10 +75,9 @@ public class Pregunta {
         this.encuesta = encuesta;
     }
 
-    public Boolean tieneRespuestaPosible(String respuestaPosible) {
+    public Boolean tieneRespuestaPosible(String respuestaPosible) {  //Método para determinar las preguntas relacionadas con la respuesta posible ingresada por parámetro.
         List<RespuestaPosible> respuestasPosibles = this.getRespuestas();
         for (RespuestaPosible respuesta : respuestasPosibles) {
-            System.out.println("COMPARAAAAAAAAAAAAAAAAAAAAAAA" + respuesta + "-" + respuestaPosible);
             if (respuesta.toString().equals(respuestaPosible)) {
                 return true;
             } else {

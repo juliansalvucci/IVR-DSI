@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import com.mycompany.ivr.Clases.Encuesta;
 import com.mycompany.ivr.Clases.Llamada;
+import com.mycompany.ivr.Vista.PantallaConsultarEncuesta;
 import com.opencsv.CSVWriter;
 
 import javax.persistence.EntityManager;
@@ -34,6 +35,7 @@ import java.awt.Desktop;
  * @author jlssa
  */
 public class ControladorConsultarEncuesta {
+    //ATRIBUTOS
     public Date fechaInicio;
     public Date fechaFin;
     public List<Llamada> listaLlamadas = new ArrayList<>();
@@ -45,8 +47,7 @@ public class ControladorConsultarEncuesta {
     public List<String> respuestas = new ArrayList<>();
     public List<String> preguntas = new ArrayList<>();
     public Encuesta encuesta;
-    // public PantallaConsultarEncuesta pantallaConsultarEncuesta = new
-    // PantallaConsultarEncuesta();
+    public PantallaConsultarEncuesta pantallaConsultarEncuesta;
 
     // Métodos GET y SET
     public Date getFechaInicio() {
@@ -137,79 +138,79 @@ public class ControladorConsultarEncuesta {
         this.encuesta = encuesta;
     }
 
-    /*
-     * public PantallaConsultarEncuesta getPantallaConsultarEncuesta() {
-     * return pantallaConsultarEncuesta;
-     * }
-     * 
-     * public void setPantallaConsultarEncuesta(PantallaConsultarEncuesta
-     * pantallaConsultarEncuesta) {
-     * this.pantallaConsultarEncuesta = pantallaConsultarEncuesta;
-     * }
-     */
+    public PantallaConsultarEncuesta getPantallaConsultarEncuesta() {
+        return pantallaConsultarEncuesta;
+    }
+
+    public void setPantallaConsultarEncuesta(PantallaConsultarEncuesta pantallaConsultarEncuesta) {
+        this.pantallaConsultarEncuesta = pantallaConsultarEncuesta;
+    }
 
     // PERSISTENCIA.
     EntityManager em; // Entity manager para materializar objetos desde base de datos.
 
-    public ControladorConsultarEncuesta(EntityManager em) {
+    //CONSTRUCTOR.
+    public ControladorConsultarEncuesta(EntityManager em, PantallaConsultarEncuesta pantallaConsultarEncuesta) {
         this.em = em;
+        this.setPantallaConsultarEncuesta(pantallaConsultarEncuesta);
     }
 
     // LÓGICA DE NEGOCIO.
 
-    public Boolean solicitarPeriodoDeFechas() {
+    public Boolean opcionConsultarEncuesta() { //Método que acciona el filtro por periódo.
         return true;
     }
 
-    public void tomarPeriodo(Date fechaInicio, Date fechaFin) { // Tomar periodo para filtar la consulta de registros de
-                                                                // llamadas.
+    public void tomarPeriodo(Date fechaInicio, Date fechaFin) {  //Método que establece las fechas del periódo para el filtrado de llamadas.
         this.setFechaInicio(fechaInicio);
         this.setFechaFin(fechaFin);
 
-        this.buscarLlamadasConEncuesta();
+        this.buscarLlamadasConEncuesta(); //Invocación de método para buscar las llamadas con encuesta.
     }
 
-    public void buscarLlamadasConEncuesta() {
-        this.getListaLlamadas().clear();
+    public void buscarLlamadasConEncuesta() { 
+        this.getListaLlamadas().clear(); //Vaciar lista de llamadas para no mezclar con contenido previo.
+        //Levantar desde BD a memoria todos los objetos de tipo llamada.//
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Llamada> cq = cb.createQuery(Llamada.class);
         Root<Llamada> root = cq.from(Llamada.class);
 
-        cq.select(root); // Obtener llamadas desde base de datos.
+        cq.select(root); 
 
         TypedQuery<Llamada> query = em.createQuery(cq);
         List<Llamada> llamadas = query.getResultList();
+        //Fin desmaterialización llamadas//
 
-        for (Llamada llamada : llamadas) {
-            System.out.println(llamada);
+        for (Llamada llamada : llamadas) { //Recorrer cada llamada del listado obtenido.
             if (llamada.esDePeriodo(this.getFechaInicio(), this.getFechaFin()) && llamada.tieneEncuestaRespondida()) {
-                this.getListaLlamadas().add(llamada);
-                System.out.println("LLAMDA ENCONTRADA");
+                this.getListaLlamadas().add(llamada); //Si la llamada esta comprendida en el periódo establecido y tiene encuesta asociada, agregarla a la lista de llamadas.
             }
         }
 
-        this.setListaLlamadas(listaLlamadas);
+        this.setListaLlamadas(listaLlamadas);  //Establecer valor de la lista de llamadas.
+        this.getPantallaConsultarEncuesta().mostrarLlamadasConEncuestaParaSeleccion(); //Solicitar a la pantalla que muestre el listado de llamadas obtenido.
     }
 
     public void tomarSeleccionLlamadaConEncuesta(Llamada llamada) { // Tomar selección de llamada con encuesta.
 
-        this.getRespuestas().clear();
-        this.getPreguntas().clear();
+        this.getRespuestas().clear(); //Vaciar lista de respuestas para no mezclar con contenido previo.
+        this.getPreguntas().clear(); //Vaciar lista de preguntas para no mezclar con contenido previo.
 
-        this.setLlamadaSeleccionada(llamada);
-        this.obtenerDatosLlamada();
-        this.obtenerDatosEncuesta();
-        this.buscarEncuestaAsociada();
-        this.armarEncuesta();
-        // this.getPantallaConsultarEncuesta().mostrarEncuesta();
+        this.setLlamadaSeleccionada(llamada); //Establecer llamada seleccionada.
+        this.obtenerDatosLlamada(); //Invocar método para obtener datos de llamada.
+        this.obtenerDatosEncuesta(); //Invocar método para obtener datos de la encuesta correspondiente a la llamada.
+        this.buscarEncuestaAsociada(); //Buscar la encuesta correspondiente a los datos de encuesta obtenidos.
+        this.armarEncuesta(); //Obtener datos restantes de la encuesta para completar su contenido.
+
+
+        this.getPantallaConsultarEncuesta().mostrarEncuesta();  //Solicitar a la pantalla que muestre la encuesta finalmente formada.
+        this.getPantallaConsultarEncuesta().mostrarOpcionesSalida(); //Solicitar a la pantalla que ahbilite las opciones de salida.
 
     }
 
     public void obtenerDatosLlamada() {
-        String nombreCliente = this.getLlamadaSeleccionada().getCliente().getNombreCompleto(); // Obtener nombre de
-                                                                                               // cliente.
-        String ultimoEstadoLlamada = this.getLlamadaSeleccionada().determinarUltimoEstado(); // Obtener nombre del
-                                                                                             // último estado.
+        String nombreCliente = this.getLlamadaSeleccionada().getCliente().getNombreCompleto(); // Obtener nombre de cliente.
+        String ultimoEstadoLlamada = this.getLlamadaSeleccionada().determinarUltimoEstado(); // Obtener nombre del último estado.
         String duracionLlamada = this.getLlamadaSeleccionada().getDuracion(); // Obtener duración.
 
         this.setNombreCliente(nombreCliente);
@@ -218,10 +219,8 @@ public class ControladorConsultarEncuesta {
     }
 
     public void obtenerDatosEncuesta() {
-
-        List<String> respuestas = this.getLlamadaSeleccionada().getRespuestas(); // Obtener respuestas del cliente y
-                                                                                 // posibles.
-        this.setRespuestas(respuestas);
+        List<String> respuestas = this.getLlamadaSeleccionada().getRespuestas(); // Obtener respuestas del cliente y posibles.
+        this.setRespuestas(respuestas); //Establecer atributo de gestor "respuestas".
     }
 
     public void buscarEncuestaAsociada() {
@@ -230,7 +229,7 @@ public class ControladorConsultarEncuesta {
         String respuestaPosible = partes[1]; // Toma la parte siguiente del caracter "_", la cual representa a una
                                              // respuesta posible y nos permitirá, a través de su instancia, identificar
                                              // la encuesta correspondiente.
-
+        //Levantar desde BD a memoria todos los objetos de tipo Encuesta.//
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Encuesta> cq = cb.createQuery(Encuesta.class);
         Root<Encuesta> root = cq.from(Encuesta.class);
@@ -239,32 +238,33 @@ public class ControladorConsultarEncuesta {
 
         TypedQuery<Encuesta> query = em.createQuery(cq);
         List<Encuesta> encuestas = query.getResultList();
+        //Fin desmaterialización encuestas//
 
-        for (Encuesta encuesta : encuestas) { // Recorrer cada encuesta.
+        for (Encuesta encuesta : encuestas) { // Recorrer listado de encuestas obtenido.
             Boolean esEncuesta = encuesta.esEncuestaDeCliente(respuestaPosible); // Verificar si es encuesta de cliente,
                                                                                  // a partir del espacio en memoria de
                                                                                  // respuesta posible.
             if (esEncuesta) { // Si es encuesta de cliente.
-                this.setEncuesta(encuesta); // Guardarla como atributo del gestor.
+                this.setEncuesta(encuesta); //Establcer atributo de gestor "encuesta".
             }
         }
     }
 
     public void armarEncuesta() { // Obtengo la información restante para obtener la encuesta completa.
 
-        String descripcionEncuesta = this.getEncuesta().getDescripcionEncuesta();
-        List<String> preguntas = this.getEncuesta().getDescripcionPreguntas();
-
+        String descripcionEncuesta = this.getEncuesta().getDescripcionEncuesta(); //Obtener descripción de encuesta.
+        List<String> preguntas = this.getEncuesta().getDescripcionPreguntas(); //Obtener preguntas de la encuesta.
+        //Establecer atributos de gestor "descripcionEncuesta" y "preguntas".
         this.setDescripcionEncuesta(descripcionEncuesta);
         this.setPreguntas(preguntas);
     }
 
     public void tomarSalida(String opcion) { // Obtiene la opción de generación de informe.
         switch (opcion) {
-            case "CSV":
+            case "CSV": //Si la opción es CSV, invocar método para generar archivo CSV.
                 generarCSV();
                 break;
-            case "Imprimir":
+            case "Imprimir": //Si la opción es imprimir. invocar método imprimir.
                 imprimir();
                 break;
             default:
@@ -273,7 +273,7 @@ public class ControladorConsultarEncuesta {
         }
     }
 
-    public void generarCSV() { // Método para generar archivo excel.
+    public void generarCSV() { // Método para generar archivo CSV.
         String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
         try {
             FileWriter writer = new FileWriter(csvFile);
@@ -286,6 +286,7 @@ public class ControladorConsultarEncuesta {
 
             ArrayList<String> datos = new ArrayList<>();
 
+            //Escribir celdas de archivo CSV.
             for (int i = 0; i < this.getRespuestas().size(); i++) {
 
                 String respuesta = this.getRespuestas().get(i);
@@ -306,8 +307,7 @@ public class ControladorConsultarEncuesta {
         }
     }
 
-    public void imprimir() {
-        // Ruta del archivo PDF de salida
+    public void imprimir() { //Método para generar archivo PDF para impresión.
         String filePath = "C:\\Users\\jlssa\\Documents\\archivo.pdf";
 
         try (PDDocument document = new PDDocument()) {
@@ -326,6 +326,7 @@ public class ControladorConsultarEncuesta {
             float startY = 700; // Posición vertical inicial
             float lineHeight = 15; // Altura de línea
 
+            //Establecer cabecera de PDF.
             contentStream.newLineAtOffset(100, startY);
             contentStream.showText("#################### DATOS DE LLAMADA ####################");
             contentStream.newLineAtOffset(0, -lineHeight);
@@ -336,6 +337,7 @@ public class ControladorConsultarEncuesta {
             contentStream.newLineAtOffset(0, -lineHeight);
             contentStream.showText("Duración: " + this.getDuracionLlamada());
 
+            //Establecer detalle con las preguntas y respuestas respectivas.
             contentStream.newLineAtOffset(0, -lineHeight);
             contentStream.newLineAtOffset(0, -lineHeight);
             contentStream.showText("########### DETALLE DE PREGUNTAS Y RESPUESTAS ###########");
@@ -363,7 +365,7 @@ public class ControladorConsultarEncuesta {
             e.printStackTrace();
         }
 
-        try {
+        try {  //Abrir PDF en pestaña de navegador.
             File file = new File(filePath);
             Desktop.getDesktop().browse(file.toURI());
         } catch (IOException e) {
