@@ -8,7 +8,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.swing.ListSelectionModel;
+//import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 public class PantallaConsultarEncuesta extends javax.swing.JFrame {
