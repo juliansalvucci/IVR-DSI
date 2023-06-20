@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import com.mycompany.ivr.Clases.Encuesta;
 import com.mycompany.ivr.Clases.Llamada;
+import com.mycompany.ivr.Vista.PantallaConsultarEncuesta;
 import com.opencsv.CSVWriter;
 
 import javax.persistence.EntityManager;
@@ -45,7 +46,7 @@ public class ControladorConsultarEncuesta {
     public List<String> respuestas = new ArrayList<>();
     public List<String> preguntas = new ArrayList<>();
     public Encuesta encuesta;
-    // public PantallaConsultarEncuesta pantallaConsultarEncuesta = new
+    public PantallaConsultarEncuesta pantallaConsultarEncuesta;
     // PantallaConsultarEncuesta();
 
     // Métodos GET y SET
@@ -137,22 +138,20 @@ public class ControladorConsultarEncuesta {
         this.encuesta = encuesta;
     }
 
-    /*
-     * public PantallaConsultarEncuesta getPantallaConsultarEncuesta() {
-     * return pantallaConsultarEncuesta;
-     * }
-     * 
-     * public void setPantallaConsultarEncuesta(PantallaConsultarEncuesta
-     * pantallaConsultarEncuesta) {
-     * this.pantallaConsultarEncuesta = pantallaConsultarEncuesta;
-     * }
-     */
+    public PantallaConsultarEncuesta getPantallaConsultarEncuesta() {
+        return pantallaConsultarEncuesta;
+    }
+
+    public void setPantallaConsultarEncuesta(PantallaConsultarEncuesta pantallaConsultarEncuesta) {
+        this.pantallaConsultarEncuesta = pantallaConsultarEncuesta;
+    }
 
     // PERSISTENCIA.
     EntityManager em; // Entity manager para materializar objetos desde base de datos.
 
-    public ControladorConsultarEncuesta(EntityManager em) {
+    public ControladorConsultarEncuesta(EntityManager em, PantallaConsultarEncuesta pantallaConsultarEncuesta) {
         this.em = em;
+        this.setPantallaConsultarEncuesta(pantallaConsultarEncuesta);
     }
 
     // LÓGICA DE NEGOCIO.
@@ -201,7 +200,7 @@ public class ControladorConsultarEncuesta {
         this.obtenerDatosEncuesta();
         this.buscarEncuestaAsociada();
         this.armarEncuesta();
-        // this.getPantallaConsultarEncuesta().mostrarEncuesta();
+        this.getPantallaConsultarEncuesta().mostrarEncuesta();
 
     }
 

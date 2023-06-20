@@ -15,7 +15,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit");
         EntityManager em = emf.createEntityManager();
 
-        ControladorConsultarEncuesta gestor = new ControladorConsultarEncuesta(em);
+        ControladorConsultarEncuesta gestor = new ControladorConsultarEncuesta(em, this);
 
         public ControladorConsultarEncuesta getGestor() {
                 return gestor;
@@ -430,7 +430,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                  * buscarEncuestaAsociada() debe llamar a armarEncuesta()
                  * armarEncuesta() tiene que llamar a mostrarEncuesta() de la pantalla
                  */
-                this.mostrarEncuesta(); // PROVISORIO
+                //this.mostrarEncuesta(); // PROVISORIO
         }// GEN-LAST:event_tomarSeleccionLlamadaConEncuesta
 
         private void btnGenerarCSVActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGenerarCSVActionPerformed
@@ -489,7 +489,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                         lblDuracionLlamada.setText("");
                         DefaultTableModel modelEncuesta = (DefaultTableModel) tblEncuestas.getModel();
                         modelEncuesta.setRowCount(0);
-                }else{
+                } else {
                         lblDescripcionEncuesta.setText("");
                 }
                 Object rowData[] = new Object[1];
