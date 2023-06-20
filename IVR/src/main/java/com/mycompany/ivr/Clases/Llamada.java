@@ -75,35 +75,34 @@ public class Llamada {
         this.respuestaDeCliente = respuestaDeCliente;
     }
 
-    public Date determinarFechaInicioLlamada()
+    public Date determinarFechaInicioLlamada() //Método para obtener fecha de inicio de una llamada.
     {
-        List<CambioEstado> cambiosEstado = this.getCambioEstado();
-        CambioEstado primerCambioEstado = null;
-        if (!cambiosEstado.isEmpty()) {
-            primerCambioEstado = cambiosEstado.get(0);
+        List<CambioEstado> cambiosEstado = this.getCambioEstado(); //La fecha de inicio la contiene la primer instancia de cambioEstado asociada.
+        CambioEstado primerCambioEstado = null;  //Inicializar objeto auxiliar de cambio de estado.
+        if (!cambiosEstado.isEmpty()) {  
+            primerCambioEstado = cambiosEstado.get(0); //Tomar la primer instancia de cambio de estado asociada.
         }
 
-        Date fechaHoraInicio = primerCambioEstado.getFechaHoraInicio();
+        Date fechaHoraInicio = primerCambioEstado.getFechaHoraInicio(); //Tomar la fecha y hora de incio del cambio de estado encontrado.
 
-        return fechaHoraInicio;
+        return fechaHoraInicio; //Retornar la fecha y hora encontrada.
     }
 
-    public String determinarUltimoEstado() {
+    public String determinarUltimoEstado() { //Método para obtener el nombre del último estado de la llamada.
         List<CambioEstado> cambiosEstado = this.getCambioEstado();
         CambioEstado ultimoCambioEstado = null;
         if (!cambiosEstado.isEmpty()) {
             int lastIndex = cambiosEstado.size() - 1;
-            ultimoCambioEstado = cambiosEstado.get(lastIndex);
+            ultimoCambioEstado = cambiosEstado.get(lastIndex); //Obtener el último cambio de estado asociado.
         }
-        // DESCARTARÍA EL MÉTODO getFechaHoraInicio porque estoy tomando precisamente el
-        return ultimoCambioEstado.getEstado().getNombre();
+        return ultimoCambioEstado.getEstado().getNombre(); //Retornar el nombre de estado asociado al cambio de estado encontrado.
     }
 
-    public String getNombreClienteDeLlamada() {
-        return this.getCliente().getNombreCompleto();
+    public String getNombreClienteDeLlamada() { //Método para obtener el nombre completo del cliente asociado.
+        return this.getCliente().getNombreCompleto(); //Solicitar al cliente asociado que retorne su nombre completo.
     }
 
-    public List<String> getRespuestas() {
+    public List<String> getRespuestas() { //Obtener respuestas de cliente asociadas a la llamada.
         List<RespuestaDeCliente> respuestasDeCliente = this.getRespuestaDeCliente();
         List<String> respuestas = new ArrayList<String>();
         for (RespuestaDeCliente respuestaDeCliente : respuestasDeCliente) {
@@ -113,8 +112,8 @@ public class Llamada {
         return respuestas;
     }
 
-    public Boolean esDePeriodo(Date fechaInicio, Date fechaFin) {
-        Date fechaDeEstado = this.determinarFechaInicioLlamada();
+    public Boolean esDePeriodo(Date fechaInicio, Date fechaFin) { //Método para determinar si la llamada corresponde a un periódo establecido.
+        Date fechaDeEstado = this.determinarFechaInicioLlamada(); //Obtener la fecha inicial de la llamada para comparar con las establecidas en el periódo.
         if (fechaDeEstado.before(fechaFin) && fechaDeEstado.after(fechaInicio)) {
             return true;
         } else {
@@ -122,8 +121,8 @@ public class Llamada {
         }
     }
 
-    public Boolean tieneEncuestaRespondida() {
-        if (this.getRespuestaDeCliente().size() != 0) {
+    public Boolean tieneEncuestaRespondida() { //Método para consultar si una llamada tiene encuesta asociada.
+        if (this.getRespuestaDeCliente().size() != 0) { //Al no tener relación con la clase encuesta, deberá corroborarlo mediante si tiene respuestas de cliente asociadas.
             return true;
         } else {
             return false;

@@ -26,7 +26,7 @@ public class Encuesta {
     private Long id;
     public String fechaEncuesta;
     public String descripcion;
-
+    //Asociarción encuesta tiene 1...* preguntas.
     @OneToMany(mappedBy = "encuesta")
     public List<Pregunta> preguntas;
 
@@ -62,10 +62,11 @@ public class Encuesta {
         this.preguntas = preguntas;
     }
 
+    //Método para validar si la encuesta pertenece a una llamada a partir del espacio en memoria de una respuestaPosible.
     public Boolean esEncuestaDeCliente(String respuestaPosible) {
-        List<Pregunta> preguntas = getPreguntas();
+        List<Pregunta> preguntas = getPreguntas(); //Consultar los objetos de tipo pregunta asociados.
         for (Pregunta pregunta : preguntas) {
-            Boolean esEncuesta = pregunta.tieneRespuestaPosible(respuestaPosible);
+            Boolean esEncuesta = pregunta.tieneRespuestaPosible(respuestaPosible); //Verificar si la pregunta tiene como respuesta posible la ingresada por parámetro.
             if (esEncuesta) {
                 return true;
             } else {
@@ -75,11 +76,11 @@ public class Encuesta {
         return false;
     }
 
-    public List<String> getDescripcionPreguntas() {
+    public List<String> getDescripcionPreguntas() { //Obtener descripción de las preguntas asociadas a la encuesta.
         List<String> descripcionPreguntas = new ArrayList<String>();
         List<Pregunta> preguntas = getPreguntas();
         for (Pregunta pregunta : preguntas) {
-            descripcionPreguntas.add(pregunta.getDescripcion());
+            descripcionPreguntas.add(pregunta.getDescripcion()); //Delegar responsabilidad a cada pregunta de obtener su descripción.
         }
         return descripcionPreguntas;
     }

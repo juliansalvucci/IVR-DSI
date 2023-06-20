@@ -11,6 +11,7 @@ import javax.persistence.Persistence;
 
 import com.mycompany.ivr.Clases.Llamada;
 import com.mycompany.ivr.Controlador.ControladorConsultarEncuesta;
+import com.mycompany.ivr.Vista.PantallaConsultarEncuesta;
 
 public class TestSecuencia {
     public static void main(String[] args) {
@@ -19,9 +20,10 @@ public class TestSecuencia {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit");
         EntityManager em = emf.createEntityManager();
 
-        ControladorConsultarEncuesta gestor = new ControladorConsultarEncuesta(em);
+        PantallaConsultarEncuesta pantallaConsultarEncuesta = new PantallaConsultarEncuesta();
+        ControladorConsultarEncuesta gestor = new ControladorConsultarEncuesta(em, pantallaConsultarEncuesta);
 
-        Boolean habilitar = gestor.solicitarPeriodoDeFechas();
+        Boolean habilitar = gestor.opcionConsultarEncuesta();
 
         System.out.println("HABILITACION" + habilitar);
 
