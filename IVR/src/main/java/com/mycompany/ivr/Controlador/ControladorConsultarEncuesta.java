@@ -15,7 +15,6 @@ import com.mycompany.ivr.Clases.Encuesta;
 import com.mycompany.ivr.Clases.Llamada;
 import com.opencsv.CSVWriter;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -29,7 +28,6 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import java.awt.Desktop;
-
 
 /**
  *
@@ -47,8 +45,8 @@ public class ControladorConsultarEncuesta {
     public List<String> respuestas;
     public List<String> preguntas;
     public Encuesta encuesta;
-    //public PantallaConsultarEncuesta pantallaConsultarEncuesta = new PantallaConsultarEncuesta();
-    
+    // public PantallaConsultarEncuesta pantallaConsultarEncuesta = new
+    // PantallaConsultarEncuesta();
 
     // Métodos GET y SET
     public Date getFechaInicio() {
@@ -139,15 +137,16 @@ public class ControladorConsultarEncuesta {
         this.encuesta = encuesta;
     }
 
-    /* 
-    public PantallaConsultarEncuesta getPantallaConsultarEncuesta() {
-        return pantallaConsultarEncuesta;
-    }
-
-    public void setPantallaConsultarEncuesta(PantallaConsultarEncuesta pantallaConsultarEncuesta) {
-        this.pantallaConsultarEncuesta = pantallaConsultarEncuesta;
-    }
-    */
+    /*
+     * public PantallaConsultarEncuesta getPantallaConsultarEncuesta() {
+     * return pantallaConsultarEncuesta;
+     * }
+     * 
+     * public void setPantallaConsultarEncuesta(PantallaConsultarEncuesta
+     * pantallaConsultarEncuesta) {
+     * this.pantallaConsultarEncuesta = pantallaConsultarEncuesta;
+     * }
+     */
 
     // PERSISTENCIA.
     EntityManager em; // Entity manager para materializar objetos desde base de datos.
@@ -158,7 +157,7 @@ public class ControladorConsultarEncuesta {
 
     // LÓGICA DE NEGOCIO.
 
-    public Boolean solicitarPeriodoDeFechas(){
+    public Boolean solicitarPeriodoDeFechas() {
         return true;
     }
 
@@ -171,6 +170,7 @@ public class ControladorConsultarEncuesta {
     }
 
     public void buscarLlamadasConEncuesta() {
+        this.getListaLlamadas().clear();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Llamada> cq = cb.createQuery(Llamada.class);
         Root<Llamada> root = cq.from(Llamada.class);
@@ -197,8 +197,8 @@ public class ControladorConsultarEncuesta {
         this.obtenerDatosEncuesta();
         this.buscarEncuestaAsociada();
         this.armarEncuesta();
-        //this.getPantallaConsultarEncuesta().mostrarEncuesta();
-        
+        // this.getPantallaConsultarEncuesta().mostrarEncuesta();
+
     }
 
     public void obtenerDatosLlamada() {
@@ -214,6 +214,7 @@ public class ControladorConsultarEncuesta {
     }
 
     public void obtenerDatosEncuesta() {
+
         List<String> respuestas = this.getLlamadaSeleccionada().getRespuestas(); // Obtener respuestas del cliente y
                                                                                  // posibles.
         this.setRespuestas(respuestas);
@@ -246,6 +247,7 @@ public class ControladorConsultarEncuesta {
     }
 
     public void armarEncuesta() { // Obtengo la información restante para obtener la encuesta completa.
+
         String descripcionEncuesta = this.getEncuesta().getDescripcionEncuesta();
         List<String> preguntas = this.getEncuesta().getDescripcionPreguntas();
 
@@ -254,18 +256,18 @@ public class ControladorConsultarEncuesta {
     }
 
     public void tomarSalida(String opcion) { // Obtiene la opción de generación de informe.
-    switch (opcion) {
-        case "CSV":
-            generarCSV();
-            break;
-        case "Imprimir":
-            imprimir();
-            break;
-        default:
-            System.out.println("Opción no válida");
-            break;
+        switch (opcion) {
+            case "CSV":
+                generarCSV();
+                break;
+            case "Imprimir":
+                imprimir();
+                break;
+            default:
+                System.out.println("Opción no válida");
+                break;
+        }
     }
-}
 
     public void generarCSV() { // Método para generar archivo excel.
         String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
