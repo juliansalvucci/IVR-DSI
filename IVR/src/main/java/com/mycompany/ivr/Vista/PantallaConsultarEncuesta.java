@@ -462,12 +462,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
 
         public void habilitarVentana() { // Método para abrir la ventana del CU.
                 setVisible(true);
-                Boolean habilitarFiltro = this.getGestor().opcionConsultarEncuesta(); // Solicitar autorización al
-                                                                                      // gestor para habilitar el filtro
-                                                                                      // por periódo.
-                if (habilitarFiltro) {
-                        this.habilitarFiltroPorPeriodo();
-                }
+                this.getGestor().consultarEncuesta(); // Solicitar autorización al gestor para habilitar el filtro por periódo.   
         }
 
         public void habilitarFiltroPorPeriodo() { // Habilitar los componentes de la pantalla que hacen al
