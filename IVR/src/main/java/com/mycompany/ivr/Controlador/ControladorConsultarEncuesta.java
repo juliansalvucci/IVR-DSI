@@ -152,7 +152,7 @@ public class ControladorConsultarEncuesta {
     //CONSTRUCTOR.
     public ControladorConsultarEncuesta(EntityManager em, PantallaConsultarEncuesta pantallaConsultarEncuesta) {
         this.em = em;
-        this.setPantallaConsultarEncuesta(pantallaConsultarEncuesta);
+        this.setPantallaConsultarEncuesta(pantallaConsultarEncuesta); //Dependencia de gestor a pantalla.
     }
 
     // LÓGICA DE NEGOCIO.
