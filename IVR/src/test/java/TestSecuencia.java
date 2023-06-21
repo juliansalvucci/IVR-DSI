@@ -23,7 +23,7 @@ public class TestSecuencia {
         PantallaConsultarEncuesta pantallaConsultarEncuesta = new PantallaConsultarEncuesta();
         ControladorConsultarEncuesta gestor = new ControladorConsultarEncuesta(em, pantallaConsultarEncuesta);
 
-        Boolean habilitar = gestor.opcionConsultarEncuesta();
+        Boolean habilitar = gestor.consultarEncuesta();
 
         System.out.println("HABILITACION" + habilitar);
 
