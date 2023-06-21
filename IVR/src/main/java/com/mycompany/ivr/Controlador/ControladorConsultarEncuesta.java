@@ -157,8 +157,8 @@ public class ControladorConsultarEncuesta {
 
     // LÓGICA DE NEGOCIO.
 
-    public Boolean opcionConsultarEncuesta() { //Método que acciona el filtro por periódo.
-        return true;
+    public void consultarEncuesta() { //Método que acciona el filtro por periódo.
+        this.getPantallaConsultarEncuesta().habilitarFiltroPorPeriodo();
     }
 
     public void tomarPeriodo(Date fechaInicio, Date fechaFin) {  //Método que establece las fechas del periódo para el filtrado de llamadas.
