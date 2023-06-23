@@ -148,11 +148,20 @@ public class ControladorConsultarEncuesta {
 
     // PERSISTENCIA.
     EntityManager em; // Entity manager para materializar objetos desde base de datos.
+    private static ControladorConsultarEncuesta instance;
 
     //CONSTRUCTOR.
     public ControladorConsultarEncuesta(EntityManager em, PantallaConsultarEncuesta pantallaConsultarEncuesta) {
         this.em = em;
         this.setPantallaConsultarEncuesta(pantallaConsultarEncuesta); //Dependencia de gestor a pantalla.
+    }
+
+    //aSINGLETON DE INSTANCIA DE CONTROLADOR.
+    public static ControladorConsultarEncuesta getInstancia(EntityManager em, PantallaConsultarEncuesta pantallaConsultarEncuesta) {
+        if (instance == null) {
+            instance = new ControladorConsultarEncuesta(em, pantallaConsultarEncuesta);
+        }
+        return instance;    
     }
 
     // LÓGICA DE NEGOCIO.

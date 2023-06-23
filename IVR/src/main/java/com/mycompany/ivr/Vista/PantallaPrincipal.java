@@ -102,7 +102,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEncuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncuestaActionPerformed
-        PantallaConsultarEncuesta pantalla = new PantallaConsultarEncuesta();
+        PantallaConsultarEncuesta pantalla = PantallaConsultarEncuesta.getInstancia();
         pantalla.opcionConsultarEncuesta();
     }//GEN-LAST:event_btnEncuestaActionPerformed
 
