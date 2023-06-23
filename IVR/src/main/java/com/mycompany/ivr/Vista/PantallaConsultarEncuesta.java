@@ -15,10 +15,11 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit");
         EntityManager em = emf.createEntityManager();
 
-        ControladorConsultarEncuesta gestor = new ControladorConsultarEncuesta(em, this); // this, se pasa pantalla como
+        ControladorConsultarEncuesta gestor = ControladorConsultarEncuesta.getInstancia(em,this); // this, se pasa pantalla como
                                                                                           // parámetro, relación de
                                                                                           // dependencia entre pantalla
                                                                                           // y gestor.
+                                                                                          //getInstancia es un método estático programado como singleton.
 
         public ControladorConsultarEncuesta getGestor() {
                 return gestor;
@@ -31,6 +32,15 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         public PantallaConsultarEncuesta() {
                 initComponents();
         }
+
+        //Instancia única de pantalla, es decir, solo se podrá tener abierta una única ventana.
+        private static PantallaConsultarEncuesta instance;
+        public static PantallaConsultarEncuesta getInstancia() {
+        if (instance == null) {
+            instance = new PantallaConsultarEncuesta();
+        }
+        return instance;    
+    }
 
         /**
          * This method is called from within the constructor to initialize the form.
