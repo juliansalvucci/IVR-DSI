@@ -30,14 +30,21 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        btnEncuesta.setBackground(new java.awt.Color(238, 69, 40));
+        btnEncuesta.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
+        btnEncuesta.setForeground(new java.awt.Color(255, 255, 255));
         btnEncuesta.setText("Consultar Encuesta");
+        btnEncuesta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnEncuesta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEncuestaActionPerformed(evt);
             }
         });
 
+        btnSalir.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/ivr/Imagenes/salir.png"))); // NOI18N
         btnSalir.setText("Salir");
+        btnSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -70,6 +77,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenu1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         jMenuItem1.setText("Salir");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -77,6 +89,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Ver");
 
         jMenuItem2.setText("Encuestas");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
@@ -105,6 +122,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         PantallaConsultarEncuesta pantalla = PantallaConsultarEncuesta.getInstancia();
         pantalla.opcionConsultarEncuesta();
     }//GEN-LAST:event_btnEncuestaActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        PantallaConsultarEncuesta pantalla = PantallaConsultarEncuesta.getInstancia();
+        pantalla.opcionConsultarEncuesta();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
