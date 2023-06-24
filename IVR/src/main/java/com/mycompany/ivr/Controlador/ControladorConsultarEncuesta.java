@@ -218,7 +218,7 @@ public class ControladorConsultarEncuesta {
     }
 
     public void obtenerDatosLlamada() {
-        String nombreCliente = this.getLlamadaSeleccionada().getCliente().getNombreCompleto(); // Obtener nombre de cliente.
+        String nombreCliente = this.getLlamadaSeleccionada().getNombreClienteDeLlamada(); // Obtener nombre de cliente.
         String ultimoEstadoLlamada = this.getLlamadaSeleccionada().determinarUltimoEstado(); // Obtener nombre del último estado.
         String duracionLlamada = this.getLlamadaSeleccionada().getDuracion(); // Obtener duración.
 
