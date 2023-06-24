@@ -424,7 +424,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
     }// </editor-fold>                        
 
         private void jmiCancelarActionPerformed(java.awt.event.ActionEvent evt) {                                            
-                System.exit(0);
+                this.dispose();
         }                                           
 
         // Lógica botón filtrar.
