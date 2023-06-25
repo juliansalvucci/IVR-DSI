@@ -479,8 +479,8 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
 
         private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelarActionPerformed
                 this.dispose();
-                this.jdcFechaInicio.cleanup();
-                this.jdcFechaFin.cleanup();
+                this.jdcFechaInicio.setDate(null);
+                this.jdcFechaFin.setDate(null);
                 DefaultTableModel modelTableLlamadas = (DefaultTableModel) tblLlamadas.getModel();
                 modelTableLlamadas.setRowCount(0);
                 DefaultTableModel modelTableEncuestas = (DefaultTableModel) tblEncuestas.getModel();
