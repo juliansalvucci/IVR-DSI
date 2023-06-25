@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 //import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -423,8 +424,8 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-        private void jmiCancelarActionPerformed(java.awt.event.ActionEvent evt) {                                            
-                this.dispose();
+        private void jmiCancelarActionPerformed(java.awt.event.ActionEvent evt) {   
+                this.setVisible(false);
         }                                           
 
         // Lógica botón filtrar.
@@ -477,7 +478,18 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         }// GEN-LAST:event_btnImprimirActionPerformed
 
         private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelarActionPerformed
-                System.exit(0);
+                this.dispose();
+                this.jdcFechaInicio.cleanup();
+                this.jdcFechaFin.cleanup();
+                DefaultTableModel modelTableLlamadas = (DefaultTableModel) tblLlamadas.getModel();
+                modelTableLlamadas.setRowCount(0);
+                DefaultTableModel modelTableEncuestas = (DefaultTableModel) tblEncuestas.getModel();
+                modelTableEncuestas.setRowCount(0);
+                txtDescripcionEncuesta.setText("");
+                txtCliente.setText("");
+                txtEstadoLlamada.setText("");
+                txtDuracionLlamada.setText("");
+
         }// GEN-LAST:event_btnCancelarActionPerformed
 
         public void opcionConsultarEncuesta() {
