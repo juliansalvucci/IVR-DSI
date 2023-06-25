@@ -46,7 +46,7 @@ public class ControladorConsultarEncuesta {
     public String descripcionEncuesta;
     public List<String> respuestas = new ArrayList<>();
     public List<String> preguntas = new ArrayList<>();
-    public Encuesta encuesta;
+    public Encuesta encuestaDeLalamada;
     public PantallaConsultarEncuesta pantallaConsultarEncuesta;
 
     // Métodos GET y SET
@@ -130,12 +130,12 @@ public class ControladorConsultarEncuesta {
         this.preguntas = preguntas;
     }
 
-    public Encuesta getEncuesta() {
-        return encuesta;
+    public Encuesta getEncuestaDeLaLlamada() {
+        return encuestaDeLalamada;
     }
 
-    public void setEncuesta(Encuesta encuesta) {
-        this.encuesta = encuesta;
+    public void setEncuestaDeLaLlamada(Encuesta encuestaDeLalamada ) {
+        this.encuestaDeLalamada = encuestaDeLalamada;
     }
 
     public PantallaConsultarEncuesta getPantallaConsultarEncuesta() {
@@ -148,6 +148,7 @@ public class ControladorConsultarEncuesta {
 
     // PERSISTENCIA.
     EntityManager em; // Entity manager para materializar objetos desde base de datos.
+    private static ControladorConsultarEncuesta instance;
 
     //CONSTRUCTOR.
     public ControladorConsultarEncuesta(EntityManager em, PantallaConsultarEncuesta pantallaConsultarEncuesta) {
@@ -155,10 +156,18 @@ public class ControladorConsultarEncuesta {
         this.setPantallaConsultarEncuesta(pantallaConsultarEncuesta); //Dependencia de gestor a pantalla.
     }
 
+    //aSINGLETON DE INSTANCIA DE CONTROLADOR.
+    public static ControladorConsultarEncuesta getInstancia(EntityManager em, PantallaConsultarEncuesta pantallaConsultarEncuesta) {
+        if (instance == null) {
+            instance = new ControladorConsultarEncuesta(em, pantallaConsultarEncuesta);
+        }
+        return instance;    
+    }
+
     // LÓGICA DE NEGOCIO.
 
-    public Boolean opcionConsultarEncuesta() { //Método que acciona el filtro por periódo.
-        return true;
+    public void consultarEncuesta() { //Método que acciona el filtro por periódo.
+        this.getPantallaConsultarEncuesta().habilitarFiltroPorPeriodo();
     }
 
     public void tomarPeriodo(Date fechaInicio, Date fechaFin) {  //Método que establece las fechas del periódo para el filtrado de llamadas.
@@ -209,7 +218,7 @@ public class ControladorConsultarEncuesta {
     }
 
     public void obtenerDatosLlamada() {
-        String nombreCliente = this.getLlamadaSeleccionada().getCliente().getNombreCompleto(); // Obtener nombre de cliente.
+        String nombreCliente = this.getLlamadaSeleccionada().getNombreClienteDeLlamada(); // Obtener nombre de cliente.
         String ultimoEstadoLlamada = this.getLlamadaSeleccionada().determinarUltimoEstado(); // Obtener nombre del último estado.
         String duracionLlamada = this.getLlamadaSeleccionada().getDuracion(); // Obtener duración.
 
@@ -245,15 +254,15 @@ public class ControladorConsultarEncuesta {
                                                                                  // a partir del espacio en memoria de
                                                                                  // respuesta posible.
             if (esEncuesta) { // Si es encuesta de cliente.
-                this.setEncuesta(encuesta); //Establcer atributo de gestor "encuesta".
+                this.setEncuestaDeLaLlamada(encuesta); //Establcer atributo de gestor "encuesta".
             }
         }
     }
 
     public void armarEncuesta() { // Obtengo la información restante para obtener la encuesta completa.
 
-        String descripcionEncuesta = this.getEncuesta().getDescripcionEncuesta(); //Obtener descripción de encuesta.
-        List<String> preguntas = this.getEncuesta().getDescripcionPreguntas(); //Obtener preguntas de la encuesta.
+        String descripcionEncuesta = this.getEncuestaDeLaLlamada().getDescripcionEncuesta(); //Obtener descripción de encuesta.
+        List<String> preguntas = this.getEncuestaDeLaLlamada().getDescripcionPreguntas(); //Obtener preguntas de la encuesta.
         //Establecer atributos de gestor "descripcionEncuesta" y "preguntas".
         this.setDescripcionEncuesta(descripcionEncuesta);
         this.setPreguntas(preguntas);
