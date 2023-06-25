@@ -8,12 +8,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-//import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-//import java.awt.Color;
-//import javax.swing.table.JTableHeader;
 
 public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-unit");
@@ -178,7 +174,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         tblLlamadas.setOpaque(false);
         tblLlamadas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tomarSeleccionLlamadaConEncuesta(evt);
+                tblLlamadasMouseClicked(evt);
             }
         });
         jspLlamadas.setViewportView(tblLlamadas);
@@ -425,7 +421,8 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
     }// </editor-fold>                        
 
         private void jmiCancelarActionPerformed(java.awt.event.ActionEvent evt) {   
-                this.setVisible(false);
+                //this.setVisible(false);
+                this.dispose(); // Cierra la ventana y la destruye
         }                                           
 
         // Lógica botón filtrar.
@@ -451,7 +448,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         }// GEN-LAST:event_btnFiltrarActionPerformed
 
         // Método encargado de tomar la selección de llamada por parte del coordinador.
-        private void tomarSeleccionLlamadaConEncuesta(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tomarSeleccionLlamadaConEncuesta
+        private void tblLlamadasMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tblLlamadasMouseClicked
                 Llamada llamadaSeleccionada = tomarSeleccionLlamadaConEncuesta();
                 this.getGestor().tomarSeleccionLlamadaConEncuesta(llamadaSeleccionada); // Invoca al método del gestor
                                                                                         // tomarSeleccionLlamadaConEncuesta
@@ -467,7 +464,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                  * armarEncuesta()
                  * mostrarEncuesta() método de la pantalla llamado por el gestor.
                  */
-        }// GEN-LAST:event_tomarSeleccionLlamadaConEncuesta
+        }// GEN-LAST:event_tblLlamadasMouseClicked
 
         private void btnGenerarCSVActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGenerarCSVActionPerformed
                 tomarOpcionSalida("CSV");
@@ -478,7 +475,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         }// GEN-LAST:event_btnImprimirActionPerformed
 
         private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelarActionPerformed
-                this.dispose();
+                this.dispose(); // Cierra la ventana y la destruye
                 this.jdcFechaInicio.setDate(null);
                 this.jdcFechaFin.setDate(null);
                 DefaultTableModel modelTableLlamadas = (DefaultTableModel) tblLlamadas.getModel();
@@ -510,11 +507,11 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                 btnFiltrar.setEnabled(true);
         }
 
-        public Date tomarFechaInicio() {
+        public Date tomarFechaInicio() { // Obtiene la fecha inicio que ingresó el usuario
                 return jdcFechaInicio.getDate();
         }
 
-        public Date tomarFechaFin() {
+        public Date tomarFechaFin() { // Obtiene la fecha fin que ingresó el usuario
                 return jdcFechaFin.getDate();
         }
 
@@ -524,24 +521,11 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
 
                 DefaultTableModel model = (DefaultTableModel) tblLlamadas.getModel();
                 model.setRowCount(0); // Permite refrescar la data cada vez que se actualice.
-                //JTableHeader tituloLlamada = tblLlamadas.getTableHeader();
-                //tituloLlamada.setForeground(Color.ORANGE);
                 List<Llamada> llamadas = this.getGestor().getListaLlamadas();
                 if (llamadas.isEmpty()) { // Si no se encontraron llamadas en el periódo definido.
-                        //lblDescripcionEncuesta.setText("NO SE ENCONTRARON LLAMADAS EN EL PERIÓDO ESTABLECIDO"); // Mostrar
-                                                                                                                // mensaje.
                         JOptionPane.showMessageDialog(null, "No se encontraron llamadas en el periodo establecido", "Error", JOptionPane.ERROR_MESSAGE);
-                        // Ocultar los labels.
-                        //lblCliente.setText("");
-                        //lblEstadoLlamada.setText("");
-                        //lblDuracionLlamada.setText("");
-                        // Deshabilitar las opciones de salida.
-                        //btnGenerarCSV.setEnabled(false);
-                        //btnImprimir.setEnabled(false);
                         DefaultTableModel modelEncuesta = (DefaultTableModel) tblEncuestas.getModel();
                         modelEncuesta.setRowCount(0);
-                } else {
-                        //lblDescripcionEncuesta.setText("");
                 }
                 Object rowData[] = new Object[1];
                 for (int i = 0; i < llamadas.size(); i++) { // Cargar las llamadas en la tabla de llamadas.
@@ -556,6 +540,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         }
 
         public void mostrarEncuesta() {
+                // Habilitar los componentes necesarios para mostrar las encuestas
                 lblDescripcionEncuesta.setEnabled(true);
                 txtDescripcionEncuesta.setEnabled(true);
                 lblCliente.setEnabled(true);
@@ -565,14 +550,14 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                 lblDuracionLlamada.setEnabled(true);
                 txtDuracionLlamada.setEnabled(true);
 
-                String descEncuesta = this.getGestor().getDescripcionEncuesta(); // Mostrar descripción de encuesta.
-                String nombreCliente = this.getGestor().getNombreCliente(); // Mostrar nombre de cliente.
-                String estadoLlamada = this.getGestor().getUltimoEstadoLlamada(); // Mostrar estado actual de llamada.
-                String duracionLlamada = this.getGestor().getDuracionLlamada(); // Mostrar duración de llamada.
-                txtDescripcionEncuesta.setText(descEncuesta);
-                txtCliente.setText(nombreCliente);
-                txtEstadoLlamada.setText(estadoLlamada);
-                txtDuracionLlamada.setText(duracionLlamada);
+                String descEncuesta = this.getGestor().getDescripcionEncuesta(); // Obtiene la descripción de encuesta.
+                String nombreCliente = this.getGestor().getNombreCliente(); // Obtiene el nombre del cliente.
+                String estadoLlamada = this.getGestor().getUltimoEstadoLlamada(); // Obtiene el estado actual de llamada.
+                String duracionLlamada = this.getGestor().getDuracionLlamada(); // Obtiene la duración de llamada.
+                txtDescripcionEncuesta.setText(descEncuesta); // Mostrar descripción de encuesta.
+                txtCliente.setText(nombreCliente); // Mostrar nombre de cliente.
+                txtEstadoLlamada.setText(estadoLlamada); // Mostrar estado actual de llamada.
+                txtDuracionLlamada.setText(duracionLlamada); // Mostrar duración de llamada.
 
                 jspEncuestas.setEnabled(true);
                 tblEncuestas.setEnabled(false);
