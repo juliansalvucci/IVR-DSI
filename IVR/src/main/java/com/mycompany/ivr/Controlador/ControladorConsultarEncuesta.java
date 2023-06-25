@@ -294,7 +294,8 @@ public class ControladorConsultarEncuesta {
     }
 
     public void generarCSV() { // Método para generar archivo CSV.
-        String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
+        //String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
+        String csvFile = "C:\\Users\\JulianSalvucci\\Desktop\\archivo.csv";
         try {
             FileWriter writer = new FileWriter(csvFile);
             CSVWriter csvWriter = new CSVWriter(writer);
@@ -328,7 +329,8 @@ public class ControladorConsultarEncuesta {
     }
 
     public void imprimir() { // Método para generar archivo PDF para impresión.
-        String filePath = "C:\\Users\\jlssa\\Documents\\archivo.pdf";
+        //String filePath = "C:\\Users\\jlssa\\Documents\\archivo.pdf";
+        String filePath = "C:\\Users\\JulianSalvucci\\Desktop\\archivo.pdf";
 
         try (PDDocument document = new PDDocument()) {
             // Crear una nueva página en el documento
