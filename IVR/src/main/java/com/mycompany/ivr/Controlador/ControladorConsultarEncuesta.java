@@ -279,7 +279,7 @@ public class ControladorConsultarEncuesta {
         this.setPreguntas(preguntas);
     }
 
-    public void tomarSalida(String opcion) { // Obtiene la opción de generación de informe.
+    public void tomarOpcionSalida(String opcion) { // Obtiene la opción de generación de informe.
         switch (opcion) {
             case "CSV": // Si la opción es CSV, invocar método para generar archivo CSV.
                 generarCSV();

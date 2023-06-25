@@ -590,7 +590,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
 
         public void tomarOpcionSalida(String salida) { // Tomar opción de salida para que el gestor genere el reporte
                                                        // correspondiente.
-                this.getGestor().tomarSalida(salida);
+                this.getGestor().tomarOpcionSalida(salida);
         }
 
         /**
