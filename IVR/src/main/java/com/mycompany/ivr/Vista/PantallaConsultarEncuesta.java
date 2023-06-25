@@ -8,7 +8,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-//import javax.swing.ListSelectionModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PantallaConsultarEncuesta extends javax.swing.JFrame {
@@ -16,10 +16,10 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         EntityManager em = emf.createEntityManager();
 
         ControladorConsultarEncuesta gestor = ControladorConsultarEncuesta.getInstancia(em,this); // this, se pasa pantalla como
-                                                                                          // parámetro, relación de
-                                                                                          // dependencia entre pantalla
-                                                                                          // y gestor.
-                                                                                          //getInstancia es un método estático programado como singleton.
+                                                                                     // parámetro, relación de
+                                                                                     // dependencia entre pantalla
+                                                                                     // y gestor.
+                                                                                     //getInstancia es un método estático programado como singleton.
 
         public ControladorConsultarEncuesta getGestor() {
                 return gestor;
@@ -27,7 +27,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
 
         public void setGestor(ControladorConsultarEncuesta gestor) {
                 this.gestor = gestor;
-        }
+        }  
 
         public PantallaConsultarEncuesta() {
                 initComponents();
@@ -37,10 +37,10 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         private static PantallaConsultarEncuesta instance;
         public static PantallaConsultarEncuesta getInstancia() {
         if (instance == null) {
-            instance = new PantallaConsultarEncuesta();
+        instance = new PantallaConsultarEncuesta();
         }
         return instance;    
-    }
+        }
 
         /**
          * This method is called from within the constructor to initialize the form.
@@ -50,393 +50,405 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         // @SuppressWarnings("unchecked")
         // <editor-fold defaultstate="collapsed" desc="Generated
         // <editor-fold defaultstate="collapsed" desc="Generated
-        // Code">//GEN-BEGIN:initComponents
-        private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+        jPanel1 = new javax.swing.JPanel();
+        lblFechaInicio = new javax.swing.JLabel();
+        lblFechaFin = new javax.swing.JLabel();
+        jdcFechaInicio = new com.toedter.calendar.JDateChooser();
+        jdcFechaFin = new com.toedter.calendar.JDateChooser();
+        btnFiltrar = new javax.swing.JButton();
+        imgLogo = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jspLlamadas = new javax.swing.JScrollPane();
+        tblLlamadas = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        lblLlamadaSeleccionada = new javax.swing.JLabel();
+        lblDescripcionEncuesta = new javax.swing.JLabel();
+        txtDescripcionEncuesta = new javax.swing.JTextField();
+        lblCliente = new javax.swing.JLabel();
+        txtCliente = new javax.swing.JTextField();
+        lblEstadoLlamada = new javax.swing.JLabel();
+        txtEstadoLlamada = new javax.swing.JTextField();
+        lblDuracionLlamada = new javax.swing.JLabel();
+        txtDuracionLlamada = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        jspEncuestas = new javax.swing.JScrollPane();
+        tblEncuestas = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        btnGenerarCSV = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        jmbArchivo = new javax.swing.JMenuBar();
+        jmMenu = new javax.swing.JMenu();
+        jmiCancelar = new javax.swing.JMenuItem();
 
-                jPanel1 = new javax.swing.JPanel();
-                lblFechaInicio = new javax.swing.JLabel();
-                lblFechaFin = new javax.swing.JLabel();
-                jdcFechaInicio = new com.toedter.calendar.JDateChooser();
-                jdcFechaFin = new com.toedter.calendar.JDateChooser();
-                jPanel2 = new javax.swing.JPanel();
-                jspLlamadas = new javax.swing.JScrollPane();
-                tblLlamadas = new javax.swing.JTable();
-                jPanel3 = new javax.swing.JPanel();
-                lblEncuestaRealizada = new javax.swing.JLabel();
-                lblDescripcionEncuesta = new javax.swing.JLabel();
-                jPanel4 = new javax.swing.JPanel();
-                jspEncuestas = new javax.swing.JScrollPane();
-                tblEncuestas = new javax.swing.JTable();
-                jPanel5 = new javax.swing.JPanel();
-                btnGenerarCSV = new javax.swing.JButton();
-                btnImprimir = new javax.swing.JButton();
-                btnCancelar = new javax.swing.JButton();
-                btnFiltrar = new javax.swing.JButton();
-                lblCliente = new javax.swing.JLabel();
-                lblEstadoLlamada = new javax.swing.JLabel();
-                lblDuracionLlamada = new javax.swing.JLabel();
-                jMenuBar1 = new javax.swing.JMenuBar();
-                jMenu1 = new javax.swing.JMenu();
-                btnConsultarEncuesta = new javax.swing.JMenuItem();
-                jMenuItem2 = new javax.swing.JMenuItem();
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Consultar Encuesta");
+        setBackground(new java.awt.Color(239, 133, 114));
 
-                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1.setPreferredSize(new java.awt.Dimension(464, 345));
 
-                jPanel1.setPreferredSize(new java.awt.Dimension(464, 345));
+        lblFechaInicio.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
+        lblFechaInicio.setText("Ingresar fecha de inicio:");
+        lblFechaInicio.setEnabled(false);
 
-                lblFechaInicio.setText("Ingresar fecha de inicio:");
-                lblFechaInicio.setEnabled(false);
+        lblFechaFin.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
+        lblFechaFin.setText("Ingresar fecha de fin:");
+        lblFechaFin.setEnabled(false);
 
-                lblFechaFin.setText("Ingresar fecha de fin:");
-                lblFechaFin.setEnabled(false);
+        jdcFechaInicio.setEnabled(false);
 
-                jdcFechaInicio.setEnabled(false);
+        jdcFechaFin.setEnabled(false);
 
-                jdcFechaFin.setEnabled(false);
+        btnFiltrar.setBackground(new java.awt.Color(238, 69, 40));
+        btnFiltrar.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
+        btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/ivr/Imagenes/filterAmarillo.png"))); // NOI18N
+        btnFiltrar.setText("Filtrar");
+        btnFiltrar.setActionCommand("Volver");
+        btnFiltrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
 
-                javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-                jPanel1.setLayout(jPanel1Layout);
-                jPanel1Layout.setHorizontalGroup(
-                                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addContainerGap()
-                                                                .addGroup(jPanel1Layout.createParallelGroup(
-                                                                                javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                                                jPanel1Layout
-                                                                                                                .createSequentialGroup()
-                                                                                                                .addGroup(jPanel1Layout
-                                                                                                                                .createParallelGroup(
-                                                                                                                                                javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                                                                                .addComponent(jdcFechaFin,
-                                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                                                Short.MAX_VALUE)
-                                                                                                                                .addComponent(jdcFechaInicio,
-                                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                                                Short.MAX_VALUE))
-                                                                                                                .addGap(292, 292,
-                                                                                                                                292))
-                                                                                .addGroup(jPanel1Layout
-                                                                                                .createSequentialGroup()
-                                                                                                .addGroup(jPanel1Layout
-                                                                                                                .createParallelGroup(
-                                                                                                                                javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                                                .addComponent(lblFechaInicio)
-                                                                                                                .addComponent(lblFechaFin))
-                                                                                                .addContainerGap(
-                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                Short.MAX_VALUE)))));
-                jPanel1Layout.setVerticalGroup(
-                                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout
-                                                                .createSequentialGroup()
-                                                                .addContainerGap()
-                                                                .addComponent(lblFechaInicio)
-                                                                .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jdcFechaInicio,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(lblFechaFin)
-                                                                .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE)
-                                                                .addComponent(jdcFechaFin,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(7, 7, 7)));
+        imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/ivr/Imagenes/logoPrincipal.png"))); // NOI18N
+        imgLogo.setText("jLabel1");
 
-                jspLlamadas.setEnabled(false);
-                // Crear modelo tabla de llamadas.
-                tblLlamadas.setModel(new javax.swing.table.DefaultTableModel(
-                                new Object[][] {
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jdcFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jdcFechaInicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(65, 65, 65))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFechaInicio)
+                            .addComponent(lblFechaFin)
+                            .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblFechaInicio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblFechaFin)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(imgLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
-                                },
-                                new String[] {
-                                                "Llamada"
-                                }) {
-                        Class[] types = new Class[] {
-                                        java.lang.Object.class, java.lang.String.class, java.lang.Object.class,
-                                        java.lang.Object.class
-                        };
+        jspLlamadas.setForeground(new java.awt.Color(249, 161, 38));
+        jspLlamadas.setEnabled(false);
 
-                        public Class getColumnClass(int columnIndex) {
-                                return types[columnIndex];
-                        }
-                });
-                tblLlamadas.setEnabled(false);
-                // tblLlamadas.setTableHeader(Llamada);
-                tblLlamadas.addMouseListener(new java.awt.event.MouseAdapter() {
-                        public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                tomarSeleccionLlamadaConEncuesta(evt);
-                        }
-                });
-                jspLlamadas.setViewportView(tblLlamadas);
+        tblLlamadas.setFont(new java.awt.Font("Nirmala UI", 0, 12)); // NOI18N
+        tblLlamadas.setForeground(new java.awt.Color(238, 69, 40));
+        tblLlamadas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-                javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-                jPanel2.setLayout(jPanel2Layout);
-                jPanel2Layout.setHorizontalGroup(
-                                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                                                .addComponent(jspLlamadas,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                600,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(0, 6, Short.MAX_VALUE)));
-                jPanel2Layout.setVerticalGroup(
-                                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jspLlamadas, javax.swing.GroupLayout.DEFAULT_SIZE, 205,
-                                                                Short.MAX_VALUE));
+            },
+            new String [] {
+                "Llamada"
+            }
+        ));
+        tblLlamadas.setEnabled(false);
+        tblLlamadas.setOpaque(false);
+        tblLlamadas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLlamadasMouseClicked(evt);
+            }
+        });
+        jspLlamadas.setViewportView(tblLlamadas);
+        if (tblLlamadas.getColumnModel().getColumnCount() > 0) {
+            tblLlamadas.getColumnModel().getColumn(0).setHeaderValue("Llamada");
+        }
 
-                lblEncuestaRealizada.setEnabled(false);
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jspLlamadas, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jspLlamadas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+        );
 
-                lblDescripcionEncuesta.setText("");
-                lblDescripcionEncuesta.setEnabled(false);
+        lblLlamadaSeleccionada.setBackground(new java.awt.Color(238, 69, 40));
+        lblLlamadaSeleccionada.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        lblLlamadaSeleccionada.setForeground(new java.awt.Color(255, 255, 255));
+        lblLlamadaSeleccionada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLlamadaSeleccionada.setText("LLAMADA SELECCIONADA");
+        lblLlamadaSeleccionada.setOpaque(true);
 
-                javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-                jPanel3.setLayout(jPanel3Layout);
-                jPanel3Layout.setHorizontalGroup(
-                                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                                                .addContainerGap()
-                                                                .addGroup(jPanel3Layout.createParallelGroup(
-                                                                                javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(lblEncuestaRealizada)
-                                                                                .addComponent(lblDescripcionEncuesta))
-                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE)));
-                jPanel3Layout.setVerticalGroup(
-                                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE)
-                                                                .addComponent(lblEncuestaRealizada)
-                                                                .addGap(12, 12, 12)
-                                                                .addComponent(lblDescripcionEncuesta)));
+        lblDescripcionEncuesta.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
+        lblDescripcionEncuesta.setText("Descripción de Encuesta:");
+        lblDescripcionEncuesta.setEnabled(false);
 
-                jspEncuestas.setEnabled(false);
-                // Crear modelo tabla de preguntas y respuestas.
-                tblEncuestas.setModel(new javax.swing.table.DefaultTableModel(
-                                new Object[][] {
+        txtDescripcionEncuesta.setEditable(false);
+        txtDescripcionEncuesta.setFont(new java.awt.Font("Nirmala UI", 0, 12)); // NOI18N
+        txtDescripcionEncuesta.setEnabled(false);
 
-                                },
-                                new String[] {
-                                                "Pregunta", "DescripciónPregunta", "RespuestaSeleccionada"
-                                }));
-                tblEncuestas.setEnabled(false);
-                jspEncuestas.setViewportView(tblEncuestas);
+        lblCliente.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
+        lblCliente.setText("Cliente:");
+        lblCliente.setEnabled(false);
 
-                javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-                jPanel4.setLayout(jPanel4Layout);
-                jPanel4Layout.setHorizontalGroup(
-                                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jspEncuestas,
-                                                                javax.swing.GroupLayout.Alignment.TRAILING));
-                jPanel4Layout.setVerticalGroup(
-                                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout
-                                                                .createSequentialGroup()
-                                                                .addComponent(jspEncuestas,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                206, Short.MAX_VALUE)
-                                                                .addContainerGap()));
+        txtCliente.setEditable(false);
+        txtCliente.setFont(new java.awt.Font("Nirmala UI", 0, 12)); // NOI18N
+        txtCliente.setEnabled(false);
 
-                jPanel5.setPreferredSize(new java.awt.Dimension(824, 161));
+        lblEstadoLlamada.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
+        lblEstadoLlamada.setText("Estado Actual:");
+        lblEstadoLlamada.setEnabled(false);
 
-                btnGenerarCSV.setText("Generar CSV");
-                btnGenerarCSV.setActionCommand("Volver");
-                btnGenerarCSV.setEnabled(false);
-                btnGenerarCSV.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                btnGenerarCSVActionPerformed(evt);
-                        }
-                });
+        txtEstadoLlamada.setEditable(false);
+        txtEstadoLlamada.setFont(new java.awt.Font("Nirmala UI", 0, 12)); // NOI18N
+        txtEstadoLlamada.setEnabled(false);
 
-                btnImprimir.setText("Imprimir");
-                btnImprimir.setActionCommand("Volver");
-                btnImprimir.setEnabled(false);
-                btnImprimir.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                btnImprimirActionPerformed(evt);
-                        }
-                });
+        lblDuracionLlamada.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
+        lblDuracionLlamada.setText("Duración:");
+        lblDuracionLlamada.setEnabled(false);
 
-                btnCancelar.setText("Cancelar");
-                btnCancelar.setActionCommand("Volver");
-                btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                btnCancelarActionPerformed(evt);
-                        }
-                });
+        txtDuracionLlamada.setEditable(false);
+        txtDuracionLlamada.setFont(new java.awt.Font("Nirmala UI", 0, 12)); // NOI18N
+        txtDuracionLlamada.setEnabled(false);
 
-                javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-                jPanel5.setLayout(jPanel5Layout);
-                jPanel5Layout.setHorizontalGroup(
-                                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(jPanel5Layout.createSequentialGroup()
-                                                                .addContainerGap()
-                                                                .addComponent(btnGenerarCSV)
-                                                                .addGap(32, 32, 32)
-                                                                .addComponent(btnImprimir)
-                                                                .addGap(51, 51, 51)
-                                                                .addComponent(btnCancelar)
-                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE)));
-                jPanel5Layout.setVerticalGroup(
-                                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout
-                                                                .createSequentialGroup()
-                                                                .addGap(0, 4, Short.MAX_VALUE)
-                                                                .addGroup(jPanel5Layout.createParallelGroup(
-                                                                                javax.swing.GroupLayout.Alignment.BASELINE)
-                                                                                .addComponent(btnGenerarCSV)
-                                                                                .addComponent(btnImprimir)
-                                                                                .addComponent(btnCancelar))));
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblLlamadaSeleccionada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDescripcionEncuesta)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblCliente)
+                            .addComponent(lblEstadoLlamada)
+                            .addComponent(lblDuracionLlamada))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCliente)
+                            .addComponent(txtEstadoLlamada)
+                            .addComponent(txtDuracionLlamada)
+                            .addComponent(txtDescripcionEncuesta))))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(lblLlamadaSeleccionada, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDescripcionEncuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescripcionEncuesta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCliente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEstadoLlamada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEstadoLlamada))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDuracionLlamada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDuracionLlamada))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-                btnFiltrar.setText("Filtrar");
-                btnFiltrar.setActionCommand("Volver");
-                btnFiltrar.setEnabled(false);
-                btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                btnFiltrarActionPerformed(evt);
-                        }
-                });
+        lblCliente.getAccessibleContext().setAccessibleName("lblCliente");
+        lblEstadoLlamada.getAccessibleContext().setAccessibleName("lblEstadoaLlamada");
+        lblDuracionLlamada.getAccessibleContext().setAccessibleName("lblDuracion");
 
-                lblCliente.setText("");
-                lblCliente.setEnabled(false);
+        jspEncuestas.setForeground(new java.awt.Color(249, 161, 38));
+        jspEncuestas.setEnabled(false);
 
-                lblEstadoLlamada.setText("");
-                lblEstadoLlamada.setEnabled(false);
+        tblEncuestas.setFont(new java.awt.Font("Nirmala UI", 0, 12)); // NOI18N
+        tblEncuestas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-                lblDuracionLlamada.setText("");
-                lblDuracionLlamada.setEnabled(false);
+            },
+            new String [] {
+                "Pregunta", "DescripciónPregunta", "RespuestaSeleccionada"
+            }
+        ));
+        tblEncuestas.setEnabled(false);
+        jspEncuestas.setViewportView(tblEncuestas);
 
-                jMenu1.setText("Archivo");
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jspEncuestas, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jspEncuestas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+        );
 
-                btnConsultarEncuesta.setText("Consultar Encuesta");
-                jMenu1.add(btnConsultarEncuesta);
+        jPanel5.setPreferredSize(new java.awt.Dimension(824, 161));
 
-                jMenuItem2.setText("Salir");
-                jMenu1.add(jMenuItem2);
+        btnGenerarCSV.setBackground(new java.awt.Color(238, 69, 40));
+        btnGenerarCSV.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
+        btnGenerarCSV.setForeground(new java.awt.Color(255, 255, 255));
+        btnGenerarCSV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/ivr/Imagenes/csvVerdeFinal.png"))); // NOI18N
+        btnGenerarCSV.setText("Generar CSV");
+        btnGenerarCSV.setActionCommand("Volver");
+        btnGenerarCSV.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnGenerarCSV.setEnabled(false);
+        btnGenerarCSV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarCSVActionPerformed(evt);
+            }
+        });
 
-                jMenuBar1.add(jMenu1);
+        btnImprimir.setBackground(new java.awt.Color(238, 69, 40));
+        btnImprimir.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
+        btnImprimir.setForeground(new java.awt.Color(255, 255, 255));
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/ivr/Imagenes/printer.png"))); // NOI18N
+        btnImprimir.setText("Imprimir");
+        btnImprimir.setActionCommand("Volver");
+        btnImprimir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnImprimir.setEnabled(false);
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
-                setJMenuBar(jMenuBar1);
+        btnCancelar.setBackground(new java.awt.Color(238, 69, 40));
+        btnCancelar.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/ivr/Imagenes/cancel.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setActionCommand("Volver");
+        btnCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
-                javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-                getContentPane().setLayout(layout);
-                layout.setHorizontalGroup(
-                                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 606,
-                                                                Short.MAX_VALUE)
-                                                .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, 606,
-                                                                Short.MAX_VALUE)
-                                                .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                Short.MAX_VALUE)
-                                                .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                Short.MAX_VALUE)
-                                                .addGroup(layout.createSequentialGroup()
-                                                                .addContainerGap()
-                                                                .addGroup(layout.createParallelGroup(
-                                                                                javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(btnFiltrar)
-                                                                                .addComponent(lblCliente)
-                                                                                .addComponent(lblEstadoLlamada)
-                                                                                .addComponent(lblDuracionLlamada))
-                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                Short.MAX_VALUE)));
-                layout.setVerticalGroup(
-                                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
-                                                                .createSequentialGroup()
-                                                                .addComponent(jPanel1,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                105,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(1, 1, 1)
-                                                                .addComponent(btnFiltrar)
-                                                                .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jPanel2,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jPanel3,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(lblCliente)
-                                                                .addGap(12, 12, 12)
-                                                                .addComponent(lblEstadoLlamada)
-                                                                .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(lblDuracionLlamada)
-                                                                .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                                                93,
-                                                                                Short.MAX_VALUE)
-                                                                .addComponent(jPanel4,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jPanel5,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                29,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addContainerGap()));
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnGenerarCSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(146, 146, 146)
+                .addComponent(btnImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(148, 148, 148)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGenerarCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-                lblCliente.getAccessibleContext().setAccessibleName("lblCliente");
-                lblEstadoLlamada.getAccessibleContext().setAccessibleName("lblEstadoaLlamada");
-                lblDuracionLlamada.getAccessibleContext().setAccessibleName("lblDuracion");
+        jmMenu.setText("Archivo");
+        jmMenu.setFont(new java.awt.Font("Nirmala UI", 0, 12)); // NOI18N
 
-                pack();
-        }// </editor-fold>//GEN-END:initComponents
+        jmiCancelar.setFont(new java.awt.Font("Nirmala UI", 0, 12)); // NOI18N
+        jmiCancelar.setText("Cancelar");
+        jmiCancelar.setToolTipText("");
+        jmiCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCancelarActionPerformed(evt);
+            }
+        });
+        jmMenu.add(jmiCancelar);
+
+        jmbArchivo.add(jmMenu);
+
+        setJMenuBar(jmbArchivo);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        pack();
+    }// </editor-fold>                        
+
+        private void jmiCancelarActionPerformed(java.awt.event.ActionEvent evt) {   
+                //this.setVisible(false);
+                this.dispose(); // Cierra la ventana y la destruye
+        }                                           
 
         // Lógica botón filtrar.
         private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnFiltrarActionPerformed
                 long FI = tomarFechaInicio().getTime();
                 long FF = tomarFechaFin().getTime();
-
                 Date fechaInicio = new Date(FI);
                 Date fechaFin = new Date(FF);
 
                 this.getGestor().tomarPeriodo(fechaInicio, fechaFin); // Invoca método de gestor tomar periodo
-                                                                      // ingresando como parámetros las fechas
-                                                                      // seleccionadas por el coordinador.
-                /**
-                 * El método tomarPeriodo() llama a buscarLlamadasConEncuesta()
-                 * El método buscarLlamadasConEncuesta() tiene que:
-                 * - agregar los métodos esDePeriodo() que llama a
-                 * getFechaHoraInicio() de CambioEstado.
-                 * Luego llamaba al método de Llamada tieneEncuestaAsociada.
-                 * - finalmente llama al método mostrarLlamadasConEncuestaParaSeleccion() de la
-                 * pantalla.
-                 */
+                                                                // ingresando como parámetros las fechas
+                                                                // seleccionadas por el coordinador.
+        /**
+        * El método tomarPeriodo() llama a buscarLlamadasConEncuesta()
+        * El método buscarLlamadasConEncuesta() tiene que:
+        * - agregar los métodos esDePeriodo() que llama a
+        * getFechaHoraInicio() de CambioEstado.
+        * Luego llamaba al método de Llamada tieneEncuestaAsociada.
+        * - finalmente llama al método mostrarLlamadasConEncuestaParaSeleccion() de la
+        * pantalla.
+        */
 
         }// GEN-LAST:event_btnFiltrarActionPerformed
 
         // Método encargado de tomar la selección de llamada por parte del coordinador.
-        private void tomarSeleccionLlamadaConEncuesta(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tomarSeleccionLlamadaConEncuesta
+        private void tblLlamadasMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tblLlamadasMouseClicked
                 Llamada llamadaSeleccionada = tomarSeleccionLlamadaConEncuesta();
                 this.getGestor().tomarSeleccionLlamadaConEncuesta(llamadaSeleccionada); // Invoca al método del gestor
                                                                                         // tomarSeleccionLlamadaConEncuesta
@@ -452,7 +464,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                  * armarEncuesta()
                  * mostrarEncuesta() método de la pantalla llamado por el gestor.
                  */
-        }// GEN-LAST:event_tomarSeleccionLlamadaConEncuesta
+        }// GEN-LAST:event_tblLlamadasMouseClicked
 
         private void btnGenerarCSVActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGenerarCSVActionPerformed
                 tomarOpcionSalida("CSV");
@@ -463,7 +475,18 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         }// GEN-LAST:event_btnImprimirActionPerformed
 
         private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelarActionPerformed
-                System.exit(0);
+                this.dispose(); // Cierra la ventana y la destruye
+                this.jdcFechaInicio.setDate(null);
+                this.jdcFechaFin.setDate(null);
+                DefaultTableModel modelTableLlamadas = (DefaultTableModel) tblLlamadas.getModel();
+                modelTableLlamadas.setRowCount(0);
+                DefaultTableModel modelTableEncuestas = (DefaultTableModel) tblEncuestas.getModel();
+                modelTableEncuestas.setRowCount(0);
+                txtDescripcionEncuesta.setText("");
+                txtCliente.setText("");
+                txtEstadoLlamada.setText("");
+                txtDuracionLlamada.setText("");
+
         }// GEN-LAST:event_btnCancelarActionPerformed
 
         public void opcionConsultarEncuesta() {
@@ -484,11 +507,11 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                 btnFiltrar.setEnabled(true);
         }
 
-        public Date tomarFechaInicio() {
+        public Date tomarFechaInicio() { // Obtiene la fecha inicio que ingresó el usuario
                 return jdcFechaInicio.getDate();
         }
 
-        public Date tomarFechaFin() {
+        public Date tomarFechaFin() { // Obtiene la fecha fin que ingresó el usuario
                 return jdcFechaFin.getDate();
         }
 
@@ -500,19 +523,9 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                 model.setRowCount(0); // Permite refrescar la data cada vez que se actualice.
                 List<Llamada> llamadas = this.getGestor().getListaLlamadas();
                 if (llamadas.isEmpty()) { // Si no se encontraron llamadas en el periódo definido.
-                        lblDescripcionEncuesta.setText("NO SE ENCONTRARON LLAMADAS EN EL PERIÓDO ESTABLECIDO"); // Mostrar
-                                                                                                                // mensaje.
-                        // Ocultar los labels.
-                        lblCliente.setText("");
-                        lblEstadoLlamada.setText("");
-                        lblDuracionLlamada.setText("");
-                        // Deshabilitar las opciones de salida.
-                        btnGenerarCSV.setEnabled(false);
-                        btnImprimir.setEnabled(false);
+                        JOptionPane.showMessageDialog(null, "No se encontraron llamadas en el periodo establecido", "Error", JOptionPane.ERROR_MESSAGE);
                         DefaultTableModel modelEncuesta = (DefaultTableModel) tblEncuestas.getModel();
                         modelEncuesta.setRowCount(0);
-                } else {
-                        lblDescripcionEncuesta.setText("");
                 }
                 Object rowData[] = new Object[1];
                 for (int i = 0; i < llamadas.size(); i++) { // Cargar las llamadas en la tabla de llamadas.
@@ -527,17 +540,24 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         }
 
         public void mostrarEncuesta() {
-                lblEncuestaRealizada.setEnabled(true);
+                // Habilitar los componentes necesarios para mostrar las encuestas
                 lblDescripcionEncuesta.setEnabled(true);
+                txtDescripcionEncuesta.setEnabled(true);
+                lblCliente.setEnabled(true);
+                txtCliente.setEnabled(true);
+                lblEstadoLlamada.setEnabled(true);
+                txtEstadoLlamada.setEnabled(true);
+                lblDuracionLlamada.setEnabled(true);
+                txtDuracionLlamada.setEnabled(true);
 
-                String descEncuesta = this.getGestor().getDescripcionEncuesta(); // Mostrar descripción de encuesta.
-                String nombreCliente = this.getGestor().getNombreCliente(); // Mostrar nombre de cliente.
-                String estadoLlamada = this.getGestor().getUltimoEstadoLlamada(); // Mostrar estado actual de llamada.
-                String duracionLlamada = this.getGestor().getDuracionLlamada(); // Mostrar duración de llamada.
-                lblDescripcionEncuesta.setText("Descripción de encuesta: " + descEncuesta);
-                lblCliente.setText("Cliente: " + nombreCliente);
-                lblEstadoLlamada.setText("Estado actual: " + estadoLlamada);
-                lblDuracionLlamada.setText("Duración: " + duracionLlamada);
+                String descEncuesta = this.getGestor().getDescripcionEncuesta(); // Obtiene la descripción de encuesta.
+                String nombreCliente = this.getGestor().getNombreCliente(); // Obtiene el nombre del cliente.
+                String estadoLlamada = this.getGestor().getUltimoEstadoLlamada(); // Obtiene el estado actual de llamada.
+                String duracionLlamada = this.getGestor().getDuracionLlamada(); // Obtiene la duración de llamada.
+                txtDescripcionEncuesta.setText(descEncuesta); // Mostrar descripción de encuesta.
+                txtCliente.setText(nombreCliente); // Mostrar nombre de cliente.
+                txtEstadoLlamada.setText(estadoLlamada); // Mostrar estado actual de llamada.
+                txtDuracionLlamada.setText(duracionLlamada); // Mostrar duración de llamada.
 
                 jspEncuestas.setEnabled(true);
                 tblEncuestas.setEnabled(false);
@@ -624,15 +644,12 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
                 });
         }
 
-        // Variables declaration - do not modify//GEN-BEGIN:variables
+        // Variables declaration - do not modify                     
         private javax.swing.JButton btnCancelar;
-        private javax.swing.JMenuItem btnConsultarEncuesta;
         private javax.swing.JButton btnFiltrar;
         private javax.swing.JButton btnGenerarCSV;
         private javax.swing.JButton btnImprimir;
-        private javax.swing.JMenu jMenu1;
-        private javax.swing.JMenuBar jMenuBar1;
-        private javax.swing.JMenuItem jMenuItem2;
+        private javax.swing.JLabel imgLogo;
         private javax.swing.JPanel jPanel1;
         private javax.swing.JPanel jPanel2;
         private javax.swing.JPanel jPanel3;
@@ -640,16 +657,23 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         private javax.swing.JPanel jPanel5;
         private com.toedter.calendar.JDateChooser jdcFechaFin;
         private com.toedter.calendar.JDateChooser jdcFechaInicio;
+        private javax.swing.JMenu jmMenu;
+        private javax.swing.JMenuBar jmbArchivo;
+        private javax.swing.JMenuItem jmiCancelar;
         private javax.swing.JScrollPane jspEncuestas;
         private javax.swing.JScrollPane jspLlamadas;
-        private javax.swing.JLabel lblDescripcionEncuesta;
         private javax.swing.JLabel lblCliente;
-        private javax.swing.JLabel lblEstadoLlamada;
+        private javax.swing.JLabel lblDescripcionEncuesta;
         private javax.swing.JLabel lblDuracionLlamada;
-        private javax.swing.JLabel lblEncuestaRealizada;
+        private javax.swing.JLabel lblEstadoLlamada;
         private javax.swing.JLabel lblFechaFin;
         private javax.swing.JLabel lblFechaInicio;
+        private javax.swing.JLabel lblLlamadaSeleccionada;
         private javax.swing.JTable tblEncuestas;
         private javax.swing.JTable tblLlamadas;
-        // End of variables declaration//GEN-END:variables
+        private javax.swing.JTextField txtCliente;
+        private javax.swing.JTextField txtDescripcionEncuesta;
+        private javax.swing.JTextField txtDuracionLlamada;
+        private javax.swing.JTextField txtEstadoLlamada;
+        // End of variables declaration                   
 }

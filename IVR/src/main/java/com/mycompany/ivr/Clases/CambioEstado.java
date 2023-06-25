@@ -65,4 +65,8 @@ public class CambioEstado {
     public void setLlamada(Llamada llamada) {
         this.llamada = llamada;
     }
+
+    public String getNombreEstado(){
+        return this.getEstado().getNombre();
+    }
 }

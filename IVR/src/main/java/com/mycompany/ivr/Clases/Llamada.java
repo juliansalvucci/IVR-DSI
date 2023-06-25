@@ -95,7 +95,7 @@ public class Llamada {
             int lastIndex = cambiosEstado.size() - 1;
             ultimoCambioEstado = cambiosEstado.get(lastIndex); //Obtener el último cambio de estado asociado.
         }
-        return ultimoCambioEstado.getEstado().getNombre(); //Retornar el nombre de estado asociado al cambio de estado encontrado.
+        return ultimoCambioEstado.getNombreEstado(); //Retornar el nombre de estado asociado al cambio de estado encontrado.
     }
 
     public String getNombreClienteDeLlamada() { //Método para obtener el nombre completo del cliente asociado.
