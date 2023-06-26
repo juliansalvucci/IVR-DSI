@@ -49,7 +49,7 @@ public class ControladorConsultarEncuesta {
     public Encuesta encuestaDeLalamada;
     public PantallaConsultarEncuesta pantallaConsultarEncuesta;
 
-    // Métodos GET y SET
+    // MÉTODOS GET y SET
     public Date getFechaInicio() {
         return fechaInicio;
     }
@@ -156,7 +156,7 @@ public class ControladorConsultarEncuesta {
         this.setPantallaConsultarEncuesta(pantallaConsultarEncuesta); // Dependencia de gestor a pantalla.
     }
 
-    // aSINGLETON DE INSTANCIA DE CONTROLADOR.
+    //SINGLETON DE INSTANCIA DE CONTROLADOR.
     public static ControladorConsultarEncuesta getInstancia(EntityManager em,
             PantallaConsultarEncuesta pantallaConsultarEncuesta) {
         if (instance == null) {
@@ -165,7 +165,7 @@ public class ControladorConsultarEncuesta {
         return instance;
     }
 
-    // LÓGICA DE NEGOCIO.
+    //LÓGICA DE NEGOCIO.
 
     public void consultarEncuesta() { // Método que acciona el filtro por periódo.
         this.getPantallaConsultarEncuesta().habilitarFiltroPorPeriodo();
@@ -279,7 +279,7 @@ public class ControladorConsultarEncuesta {
         this.setPreguntas(preguntas);
     }
 
-    public void tomarSalida(String opcion) { // Obtiene la opción de generación de informe.
+    public void tomarOpcionSalida(String opcion) { // Obtiene la opción de generación de informe.
         switch (opcion) {
             case "CSV": // Si la opción es CSV, invocar método para generar archivo CSV.
                 generarCSV();
@@ -294,7 +294,8 @@ public class ControladorConsultarEncuesta {
     }
 
     public void generarCSV() { // Método para generar archivo CSV.
-        String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
+        //String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
+        String csvFile = "C:\\Users\\JulianSalvucci\\Desktop\\archivo.csv";
         try {
             FileWriter writer = new FileWriter(csvFile);
             CSVWriter csvWriter = new CSVWriter(writer);
@@ -328,7 +329,8 @@ public class ControladorConsultarEncuesta {
     }
 
     public void imprimir() { // Método para generar archivo PDF para impresión.
-        String filePath = "C:\\Users\\jlssa\\Documents\\archivo.pdf";
+        //String filePath = "C:\\Users\\jlssa\\Documents\\archivo.pdf";
+        String filePath = "C:\\Users\\JulianSalvucci\\Desktop\\archivo.pdf";
 
         try (PDDocument document = new PDDocument()) {
             // Crear una nueva página en el documento

@@ -19,8 +19,9 @@ public class CambioEstado {
     private Long id;
     private Date fechaHoraInicio;
     private Date fechaHoraFin;
+    
     @OneToOne
-    private Estado estado;
+    private Estado estado;  //Asociación simple cambioEstado tiene 1 estado.
 
     @ManyToOne()
     @JoinColumn(name = "llamada_id")
@@ -66,7 +67,7 @@ public class CambioEstado {
         this.llamada = llamada;
     }
 
-    public String getNombreEstado(){
+    public String getNombreEstado(){ //Solicitud de nombre a objeto relacionado estado.
         return this.getEstado().getNombre();
     }
 }

@@ -1,0 +1,15 @@
+A TENER EN CUENTA:
+Compilar la clase IVR, que contiene el método main que ejecuta el programa.
+Puede que a veces moleste el archivo persistence.xml en cuanto a cambios de git, descartar y se arregla.
+
+A MEJORAR:
+Control en inputs de fechas, que la fecha de inicio sea menor que la de fin y evitar fechas futuras.
+
+En secuencia, que sea la misma encuesta la encargada de armarEncuesta.
+Secuencia:
+
+Luego de ejecutar el self en el gestor armarEncuesta()
+mensaje a objeto deLaLlamada:Encuesta con el método armarEncuesta() (Llamada ejecuta otro método con el mismo nombre)
+este ultimo ejecuta los métodos getDescripcionEncuesta() y getDescripcionPreguntas() como self en el objeto encuesta.
+
+getDescripcionPreguntas() encuesta pide colaboración a las preguntas para obtener su descripción. (Tal como esta ahora)

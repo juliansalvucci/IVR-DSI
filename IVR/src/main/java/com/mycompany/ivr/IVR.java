@@ -11,7 +11,7 @@ import com.mycompany.ivr.Controlador.ControladorPantallaPrincipal;
  */
 public class IVR {
     public static void main(String[] args) {
-        System.out.println("¡Hola Mundo!");
+        System.out.println("¡Hola Profe!");
         //Crear instanacia de PantallaPrincipal al ejecutar
         ControladorPantallaPrincipal gestorPantalla = ControladorPantallaPrincipal.getInstancia();
         gestorPantalla.mostrarPantallaPrincipal();

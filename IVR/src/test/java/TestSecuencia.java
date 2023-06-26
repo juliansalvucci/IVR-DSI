@@ -23,9 +23,7 @@ public class TestSecuencia {
         PantallaConsultarEncuesta pantallaConsultarEncuesta = new PantallaConsultarEncuesta();
         ControladorConsultarEncuesta gestor = new ControladorConsultarEncuesta(em, pantallaConsultarEncuesta);
 
-        Boolean habilitar = gestor.consultarEncuesta();
-
-        System.out.println("HABILITACION" + habilitar);
+        gestor.consultarEncuesta();
 
         Scanner scannerFechaInicio = new Scanner(System.in);
         System.out.print("Ingresa una fecha (formato: yyyy-MM-dd): ");
@@ -100,7 +98,7 @@ public class TestSecuencia {
 
         gestor.buscarEncuestaAsociada();
 
-        System.out.println("ENCUESTA" + " " + gestor.getEncuesta());
+        System.out.println("ENCUESTA" + " " + gestor.getEncuestaDeLaLlamada());
 
         gestor.armarEncuesta();
 
@@ -108,7 +106,7 @@ public class TestSecuencia {
 
         System.out.println("PREGUNTAS" + " " + gestor.getPreguntas().size());
 
-        gestor.tomarSalida("PDF");
+        gestor.tomarOpcionSalida("PDF");
 
         gestor.finCU();
 
