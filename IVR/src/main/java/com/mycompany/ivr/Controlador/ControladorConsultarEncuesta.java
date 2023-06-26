@@ -49,7 +49,7 @@ public class ControladorConsultarEncuesta {
     public Encuesta encuestaDeLalamada;
     public PantallaConsultarEncuesta pantallaConsultarEncuesta;
 
-    // Métodos GET y SET
+    // MÉTODOS GET y SET
     public Date getFechaInicio() {
         return fechaInicio;
     }
@@ -156,7 +156,7 @@ public class ControladorConsultarEncuesta {
         this.setPantallaConsultarEncuesta(pantallaConsultarEncuesta); // Dependencia de gestor a pantalla.
     }
 
-    // aSINGLETON DE INSTANCIA DE CONTROLADOR.
+    //SINGLETON DE INSTANCIA DE CONTROLADOR.
     public static ControladorConsultarEncuesta getInstancia(EntityManager em,
             PantallaConsultarEncuesta pantallaConsultarEncuesta) {
         if (instance == null) {
@@ -165,7 +165,7 @@ public class ControladorConsultarEncuesta {
         return instance;
     }
 
-    // LÓGICA DE NEGOCIO.
+    //LÓGICA DE NEGOCIO.
 
     public void consultarEncuesta() { // Método que acciona el filtro por periódo.
         this.getPantallaConsultarEncuesta().habilitarFiltroPorPeriodo();
