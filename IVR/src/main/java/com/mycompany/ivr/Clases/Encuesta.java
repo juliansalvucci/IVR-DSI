@@ -26,9 +26,9 @@ public class Encuesta {
     private Long id;
     public String fechaEncuesta;
     public String descripcion;
-    //Asociarción encuesta tiene 1...* preguntas.
+    
     @OneToMany(mappedBy = "encuesta")
-    public List<Pregunta> preguntas;
+    public List<Pregunta> preguntas;  //Asociarción encuesta tiene 1...* preguntas.
 
     public Long getId() {
         return id;

@@ -29,7 +29,7 @@ public class Pregunta {
     public String descripcion;
 
     @OneToMany(mappedBy = "pregunta")
-    public List<RespuestaPosible> respuesta;
+    public List<RespuestaPosible> respuesta; //pregunta tiene 1...* respuestaPosible
 
     @ManyToOne
     @JoinColumn(name = "encuesta_id")

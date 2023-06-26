@@ -27,7 +27,7 @@ public class RespuestaDeCliente {
 
     @ManyToOne
     @JoinColumn(name = "respuestaPosible_id")
-    public RespuestaPosible respuestaSeleccionada;
+    public RespuestaPosible respuestaSeleccionada;  
 
     @ManyToOne
     @JoinColumn(name = "llamada_id")

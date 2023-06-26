@@ -27,13 +27,14 @@ public class Llamada {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String duracion;
-    @OneToOne private Cliente cliente;
-
+    
+    @OneToOne private Cliente cliente; //llamada tiene 1 cliente.
+    
     @OneToMany(mappedBy = "llamada")
-    private List<CambioEstado> cambioEstado;
-
+    private List<CambioEstado> cambioEstado; //llamada tiene 1...* cambioEstado.
+   
     @OneToMany(mappedBy = "llamada")
-    private List<RespuestaDeCliente> respuestaDeCliente;
+    private List<RespuestaDeCliente> respuestaDeCliente;  //llamada tiene 0...* respuestaDeCliente.
 
     public Long getId() {
         return id;
