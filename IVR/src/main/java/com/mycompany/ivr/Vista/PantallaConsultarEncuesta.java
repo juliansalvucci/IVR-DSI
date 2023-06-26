@@ -462,7 +462,6 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jmiCancelarActionPerformed(java.awt.event.ActionEvent evt) {
-        // this.setVisible(false);
         this.dispose(); // Cierra la ventana y la destruye
     }
 
