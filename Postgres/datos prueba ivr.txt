@@ -1,0 +1,84 @@
+-- ingresar datos
+INSERT INTO public.estado(
+	id, nombre)
+	VALUES (1, 'iniciada'),
+		(2, 'cancelada'),
+		(3, 'finalizada'),
+		(4, 'en_curso'),
+		(5, 'pendiente_escucha'),
+		(6, 'escucha_con_observacion'),
+		(7, 'escucha_correcta'),
+		(8, 'descartada');
+
+INSERT INTO public.cliente(
+	id, dni, nombrecompleto, nrocelular)
+	VALUES (1, '41606040', 'Juan Perez', '3534138212'),
+		(2, '17045987', 'Maria Perelda','3533486889'),
+		(3, '25487963', 'Jose Terreno', '3536567571');
+
+INSERT INTO public.encuesta(
+	id, descripcion, fechaencuesta)
+	VALUES  (1, 'satisfaccion del cliente', '2019-06-25'),
+		(2, 'satisfaccion de necesidades', '2020-03-21'),
+		(3, 'preferencia y recurrencia', '2020-04-18'),
+		(4, 'evaluar competencia', '2023-05-15');
+
+INSERT INTO public.pregunta(
+	id, descripcion, pregunta, encuesta_id)
+	VALUES  (1, 'recomendacion empresa', '¿Cuál es la probabilidad de que recomiendes nuestra empresa a tus allegados?', 1),
+		(2, 'recomedacion prd/serv', '¿Cuál es la probabilidad de que recomiendes nuestro producto/servicio a tus allegados?', 1),
+		(3, 'satisfaccion prod/serv', '¿Consideras que el producto satisface tus necesidades?', 2),
+		(4, 'volver a adquirir prd/serv', '¿Cuán probable es que vuelvas a adquirir este producto/servicio?', 3),
+		(5, 'recibir informacion', '¿Estás interesado en recibir nueva información sobre nuestros futuros productos?', 3),
+		(6, 'competencia', 'Si piensas en productos o servicios similares, ¿cómo calificarías a nuestra empresa?', 4);
+
+INSERT INTO public.respuestaposible(
+	id, descripcion, valor, pregunta_id)
+	VALUES (1, 'satisfactorio', 'Muy probable', 1),
+		(2, 'satisfactorio', 'Muy probable', 2),
+		(3, 'satisfactorio', 'Muy probable', 4),
+		(4, 'satisfactorio', 'Probable', 1),
+		(5, 'satisfactorio', 'Probable', 2),
+		(6, 'satisfactorio', 'Probable', 4),
+		(7, 'no satisfactorio', 'Poco probable', 1),
+		(8, 'no satisfactorio', 'Poco probable', 2),
+		(9, 'no satisfactorio', 'Poco probable', 4),
+		(10, 'no satisfactorio', 'Nada probable', 1),
+		(11, 'no satisfactorio', 'Nada probable', 2),
+		(12, 'no satisfactorio', 'Nada probable', 4),
+		(13, 'satisfactorio', 'Si', 3),
+		(14, 'satisfactorio', 'Si', 5),
+		(15, 'no satisfactorio', 'No', 3),
+		(16, 'no satisfactorio', 'No', 5),
+		(17, 'no satisfactorio', 'Regular', 3),
+		(18, 'no satisfactorio', 'Regular', 5),
+		(19, 'no satisfactorio', 'Regular', 6),
+		(20, 'satisfactorio', 'Buena', 6),
+		(21, 'no satisfactorio', 'Mala', 6);
+
+
+
+INSERT INTO public.llamada(
+	id, duracion, cliente_id)
+	VALUES (1, '00:03:40.0970003', 1),
+		(2, '00:01:02.1859923', 2),
+		(3, '00:05:55.9278501', 3);
+
+
+INSERT INTO public.respuestadecliente(
+	id, descripcion, fechaencuesta, llamada_id, respuestaposible_id)
+	VALUES (1, 'imagen empresa no necesita revision', '2023-06-16', 1, 1),
+		(2, 'el prod/serv podria mejorar', '2023-06-16', 1, 5),
+		(3, 'cliente no satisfecho con el prod/serv, podria mejorar', '2023-05-09', 2, 15),
+		(4, 'prod/serv no necesita revision', '2023-06-10', 3, 3),
+		(5, 'la informacion sobre prod/serv, anteriormente brindada al cliente fue excesiva', '2023-06-10', 3, 16);
+
+
+INSERT INTO public.cambioestado(
+	id, fechahorafin, fechahorainicio, estado_id, llamada_id)
+	VALUES (1, '2023-04-15 09:32:11', '2023-04-23 16:13:59', 3, 1),
+		(2, '2023-04-28 18:15:05', '2023-04-30 10:25:34', 5, 2),
+		(1, '2023-05-17 11:01:11', '2023-05-20 17:49:22', 6, 3);
+
+
+
