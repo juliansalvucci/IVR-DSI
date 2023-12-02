@@ -12,26 +12,26 @@ public class IteradorLlamada implements IIterator {
 
     @Override
     public void primero() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'primero'");
+        this.actual = 0;
     }
 
     @Override
     public void siguiente() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'siguiente'");
+        this.actual = this.actual + 1;
     }
 
     @Override
     public Object actua() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actua'");
+        return this.elementos.get(actual);
     }
 
     @Override
     public boolean haTerminado() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'haTerminado'");
+        if (this.elementos.size() == this.actual) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
