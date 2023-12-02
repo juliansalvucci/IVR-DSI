@@ -193,9 +193,20 @@ public class ControladorConsultarEncuesta {
         List<Llamada> llamadas = query.getResultList();
         // Fin desmaterialización llamadas//
 
-        IteradorLlamada iteradorLlamada = new IteradorLlamada();
+
+        ArrayList<Object> filtros = new ArrayList<>();
+        filtros.add(this.getFechaInicio());
+        filtros.add(this.getFechaFin());
+
+    
+        IteradorLlamada iteradorLlamada = new IteradorLlamada(llamadas, this.getFechaInicio(), this.getFechaFin());
 
         iteradorLlamada.primero();
+
+        do {
+            // Bloque de código a ejecutar
+        } while (!iteradorLlamada.haTerminado());
+        
 
         for (Llamada llamada : llamadas) { // Recorrer cada llamada del listado obtenido.
             if (llamada.esDePeriodo(this.getFechaInicio(), this.getFechaFin()) && llamada.tieneEncuestaRespondida()) {

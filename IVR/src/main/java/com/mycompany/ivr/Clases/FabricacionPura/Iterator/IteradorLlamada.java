@@ -1,5 +1,7 @@
 package com.mycompany.ivr.Clases.FabricacionPura.Iterator;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.mycompany.ivr.Clases.Llamada;
@@ -8,7 +10,15 @@ import com.mycompany.ivr.Clases.FabricacionPura.Iterator.Interfaces.IIterator;
 public class IteradorLlamada implements IIterator {
 
     public int actual;
-    public List<Llamada> elementos;
+    public List<Llamada> elementos = new ArrayList<>();
+    public Date fechaInicio;
+    public Date fechaFin;
+
+    public IteradorLlamada(List<Llamada> elementos, Date fechaInicio, Date fechaFin) {
+        this.elementos = elementos;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+    }
 
     @Override
     public void primero() {
@@ -22,6 +32,7 @@ public class IteradorLlamada implements IIterator {
 
     @Override
     public Object actua() {
+        //this.cumpleFiltro(filtros);
         return this.elementos.get(actual);
     }
 
@@ -35,7 +46,7 @@ public class IteradorLlamada implements IIterator {
     }
 
     @Override
-    public boolean cumpleFiltro(Object filtros) {
+    public boolean cumpleFiltro(List<Object> filtros) {
         /* 
         for (Llamada llamada : elementos) { // Recorrer cada llamada del listado obtenido.
             if (llamada.esDePeriodo(filtros.fechaInicio, this.getFechaFin()) && llamada.tieneEncuestaRespondida()) {

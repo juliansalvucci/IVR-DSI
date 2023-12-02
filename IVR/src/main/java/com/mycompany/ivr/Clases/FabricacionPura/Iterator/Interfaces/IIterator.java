@@ -1,5 +1,7 @@
 package com.mycompany.ivr.Clases.FabricacionPura.Iterator.Interfaces;
 
+import java.util.List;
+
 public interface IIterator {
     public void primero();
 
@@ -9,5 +11,5 @@ public interface IIterator {
 
     public boolean haTerminado();
 
-    public boolean cumpleFiltro(Object filtros);
+    public boolean cumpleFiltro(List<Object> filtros);
 }
