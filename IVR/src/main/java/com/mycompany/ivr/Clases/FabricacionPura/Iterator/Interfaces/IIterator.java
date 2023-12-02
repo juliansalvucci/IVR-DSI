@@ -9,5 +9,5 @@ public interface IIterator {
 
     public boolean haTerminado();
 
-    public boolean cumpleFiltro(Object[] filtros);
+    public boolean cumpleFiltro(Object filtros);
 }

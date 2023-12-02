@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import com.mycompany.ivr.Clases.Encuesta;
 import com.mycompany.ivr.Clases.Llamada;
+import com.mycompany.ivr.Clases.FabricacionPura.Iterator.IteradorLlamada;
 import com.mycompany.ivr.Vista.PantallaConsultarEncuesta;
 import com.opencsv.CSVWriter;
 
@@ -156,7 +157,7 @@ public class ControladorConsultarEncuesta {
         this.setPantallaConsultarEncuesta(pantallaConsultarEncuesta); // Dependencia de gestor a pantalla.
     }
 
-    //SINGLETON DE INSTANCIA DE CONTROLADOR.
+    // SINGLETON DE INSTANCIA DE CONTROLADOR.
     public static ControladorConsultarEncuesta getInstancia(EntityManager em,
             PantallaConsultarEncuesta pantallaConsultarEncuesta) {
         if (instance == null) {
@@ -165,7 +166,7 @@ public class ControladorConsultarEncuesta {
         return instance;
     }
 
-    //LÓGICA DE NEGOCIO.
+    // LÓGICA DE NEGOCIO.
 
     public void consultarEncuesta() { // Método que acciona el filtro por periódo.
         this.getPantallaConsultarEncuesta().habilitarFiltroPorPeriodo();
@@ -191,6 +192,10 @@ public class ControladorConsultarEncuesta {
         TypedQuery<Llamada> query = em.createQuery(cq);
         List<Llamada> llamadas = query.getResultList();
         // Fin desmaterialización llamadas//
+
+        IteradorLlamada iteradorLlamada = new IteradorLlamada();
+
+        iteradorLlamada.primero();
 
         for (Llamada llamada : llamadas) { // Recorrer cada llamada del listado obtenido.
             if (llamada.esDePeriodo(this.getFechaInicio(), this.getFechaFin()) && llamada.tieneEncuestaRespondida()) {
@@ -294,7 +299,7 @@ public class ControladorConsultarEncuesta {
     }
 
     public void generarCSV() { // Método para generar archivo CSV.
-        //String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
+        // String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
         String csvFile = "C:\\Users\\JulianSalvucci\\Desktop\\archivo.csv";
         try {
             FileWriter writer = new FileWriter(csvFile);
@@ -329,12 +334,12 @@ public class ControladorConsultarEncuesta {
     }
 
     public void imprimir() { // Método para generar archivo PDF para impresión.
-        //String filePath = "C:\\Users\\jlssa\\Documents\\archivo.pdf";
+        // String filePath = "C:\\Users\\jlssa\\Documents\\archivo.pdf";
         String filePath = "C:\\Users\\JulianSalvucci\\Desktop\\archivo.pdf";
 
         try (PDDocument document = new PDDocument()) {
             // Crear una nueva página en el documento
-            PDRectangle pageSize = new PDRectangle(900,900); // Página personalizada de 1000x500 puntos
+            PDRectangle pageSize = new PDRectangle(900, 900); // Página personalizada de 1000x500 puntos
             PDPage page = new PDPage(pageSize);
 
             document.addPage(page);

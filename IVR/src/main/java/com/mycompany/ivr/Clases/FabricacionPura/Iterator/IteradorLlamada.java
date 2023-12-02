@@ -35,8 +35,15 @@ public class IteradorLlamada implements IIterator {
     }
 
     @Override
-    public boolean cumpleFiltro(Object[] filtros) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cumpleFiltro'");
+    public boolean cumpleFiltro(Object filtros) {
+        /* 
+        for (Llamada llamada : elementos) { // Recorrer cada llamada del listado obtenido.
+            if (llamada.esDePeriodo(filtros.fechaInicio, this.getFechaFin()) && llamada.tieneEncuestaRespondida()) {
+                return true;// Si la llamada esta comprendida en el periódo establecido y
+                                                      // tiene encuesta asociada, agregarla a la lista de llamadas.
+            }
+        }
+        */
+        return true;
     }
 }
