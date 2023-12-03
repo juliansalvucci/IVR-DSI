@@ -193,31 +193,31 @@ public class ControladorConsultarEncuesta {
         List<Llamada> llamadas = query.getResultList();
         // Fin desmaterialización llamadas//
 
-
         ArrayList<Object> filtros = new ArrayList<>();
         filtros.add(this.getFechaInicio());
         filtros.add(this.getFechaFin());
 
-    
         IteradorLlamada iteradorLlamada = new IteradorLlamada(llamadas, this.getFechaInicio(), this.getFechaFin());
 
         iteradorLlamada.primero();
-        
 
         do {
-           //Object llamadaActual = iteradorLlamada.actual();
-           //this.getListaLlamadas().add(llamadaActual);
-           iteradorLlamada.siguiente();
+            Llamada llamadaActual = (Llamada) iteradorLlamada.actual();
+            if (llamadaActual != null) {
+                this.getListaLlamadas().add(llamadaActual);
+            }
+            iteradorLlamada.siguiente();
         } while (!iteradorLlamada.haTerminado());
-        
 
+        /* 
         for (Llamada llamada : llamadas) { // Recorrer cada llamada del listado obtenido.
             if (llamada.esDePeriodo(this.getFechaInicio(), this.getFechaFin()) && llamada.tieneEncuestaRespondida()) {
                 this.getListaLlamadas().add(llamada); // Si la llamada esta comprendida en el periódo establecido y
                                                       // tiene encuesta asociada, agregarla a la lista de llamadas.
             }
         }
-
+        */
+        
         this.setListaLlamadas(listaLlamadas); // Establecer valor de la lista de llamadas.
         this.getPantallaConsultarEncuesta().mostrarLlamadasConEncuestaParaSeleccion(); // Solicitar a la pantalla que
                                                                                        // muestre el listado de llamadas

@@ -10,6 +10,7 @@ import com.mycompany.ivr.Clases.FabricacionPura.Iterator.Interfaces.IIterator;
 public class IteradorLlamada implements IIterator {
 
     public int actual;
+    public Llamada llamadaActual;
     public List<Llamada> llamadas = new ArrayList<>();
     public Date fechaInicio;
     public Date fechaFin;
@@ -48,8 +49,13 @@ public class IteradorLlamada implements IIterator {
 
     @Override
     public Object actual() {
-        this.cumpleFiltros();
-        return this.llamadas.get(actual);
+        this.llamadaActual = this.llamadas.get(actual);
+        if(this.cumpleFiltros()){
+            return this.llamadas.get(actual);
+        }else{
+            return null;
+        }
+        
     }
 
     @Override
@@ -63,11 +69,10 @@ public class IteradorLlamada implements IIterator {
 
     @Override
     public boolean cumpleFiltros() {
-        Llamada llamadaActual = this.llamadas.get(actual);
         if (llamadaActual.esDePeriodo(this.getFechaInicio(), this.getFechaFin())
                 && llamadaActual.tieneEncuestaRespondida()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
