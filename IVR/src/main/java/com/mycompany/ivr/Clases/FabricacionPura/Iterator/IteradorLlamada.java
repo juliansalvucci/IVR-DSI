@@ -10,13 +10,29 @@ import com.mycompany.ivr.Clases.FabricacionPura.Iterator.Interfaces.IIterator;
 public class IteradorLlamada implements IIterator {
 
     public int actual;
-    public List<Llamada> elementos = new ArrayList<>();
+    public List<Llamada> llamadas = new ArrayList<>();
     public Date fechaInicio;
     public Date fechaFin;
 
-    public IteradorLlamada(List<Llamada> elementos, Date fechaInicio, Date fechaFin) {
-        this.elementos = elementos;
+    public IteradorLlamada(List<Llamada> llamadas, Date fechaInicio, Date fechaFin) {
+        this.llamadas = llamadas;
         this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
 
@@ -31,14 +47,14 @@ public class IteradorLlamada implements IIterator {
     }
 
     @Override
-    public Object actua() {
-        //this.cumpleFiltro(filtros);
-        return this.elementos.get(actual);
+    public Object actual() {
+        this.cumpleFiltros();
+        return this.llamadas.get(actual);
     }
 
     @Override
     public boolean haTerminado() {
-        if (this.elementos.size() == this.actual) {
+        if (this.llamadas.size() == this.actual) {
             return true;
         } else {
             return false;
@@ -46,15 +62,13 @@ public class IteradorLlamada implements IIterator {
     }
 
     @Override
-    public boolean cumpleFiltro(List<Object> filtros) {
-        /* 
-        for (Llamada llamada : elementos) { // Recorrer cada llamada del listado obtenido.
-            if (llamada.esDePeriodo(filtros.fechaInicio, this.getFechaFin()) && llamada.tieneEncuestaRespondida()) {
-                return true;// Si la llamada esta comprendida en el periódo establecido y
-                                                      // tiene encuesta asociada, agregarla a la lista de llamadas.
-            }
+    public boolean cumpleFiltros() {
+        Llamada llamadaActual = this.llamadas.get(actual);
+        if (llamadaActual.esDePeriodo(this.getFechaInicio(), this.getFechaFin())
+                && llamadaActual.tieneEncuestaRespondida()) {
+            return true;
+        }else{
+            return false;
         }
-        */
-        return true;
     }
 }

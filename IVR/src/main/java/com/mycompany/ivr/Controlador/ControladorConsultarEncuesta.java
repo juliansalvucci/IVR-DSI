@@ -202,9 +202,12 @@ public class ControladorConsultarEncuesta {
         IteradorLlamada iteradorLlamada = new IteradorLlamada(llamadas, this.getFechaInicio(), this.getFechaFin());
 
         iteradorLlamada.primero();
+        
 
         do {
-            // Bloque de código a ejecutar
+           //Object llamadaActual = iteradorLlamada.actual();
+           //this.getListaLlamadas().add(llamadaActual);
+           iteradorLlamada.siguiente();
         } while (!iteradorLlamada.haTerminado());
         
 
