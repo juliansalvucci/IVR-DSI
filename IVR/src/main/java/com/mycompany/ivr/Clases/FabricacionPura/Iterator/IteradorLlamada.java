@@ -50,12 +50,12 @@ public class IteradorLlamada implements IIterator {
     @Override
     public Object actual() {
         this.llamadaActual = this.llamadas.get(actual);
-        if(this.cumpleFiltros()){
+        if (this.cumpleFiltros()) {
             return this.llamadas.get(actual);
-        }else{
+        } else {
             return null;
         }
-        
+
     }
 
     @Override

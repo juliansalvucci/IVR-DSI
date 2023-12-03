@@ -8,14 +8,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import com.mycompany.ivr.Clases.Encuesta;
 import com.mycompany.ivr.Clases.Llamada;
 import com.mycompany.ivr.Clases.FabricacionPura.Iterator.IteradorLlamada;
+import com.mycompany.ivr.Clases.FabricacionPura.Singleton.GeneradorCSV;
 import com.mycompany.ivr.Vista.PantallaConsultarEncuesta;
-import com.opencsv.CSVWriter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -209,15 +208,18 @@ public class ControladorConsultarEncuesta {
             iteradorLlamada.siguiente();
         } while (!iteradorLlamada.haTerminado());
 
-        /* 
-        for (Llamada llamada : llamadas) { // Recorrer cada llamada del listado obtenido.
-            if (llamada.esDePeriodo(this.getFechaInicio(), this.getFechaFin()) && llamada.tieneEncuestaRespondida()) {
-                this.getListaLlamadas().add(llamada); // Si la llamada esta comprendida en el periódo establecido y
-                                                      // tiene encuesta asociada, agregarla a la lista de llamadas.
-            }
-        }
-        */
-        
+        /*
+         * for (Llamada llamada : llamadas) { // Recorrer cada llamada del listado
+         * obtenido.
+         * if (llamada.esDePeriodo(this.getFechaInicio(), this.getFechaFin()) &&
+         * llamada.tieneEncuestaRespondida()) {
+         * this.getListaLlamadas().add(llamada); // Si la llamada esta comprendida en el
+         * periódo establecido y
+         * // tiene encuesta asociada, agregarla a la lista de llamadas.
+         * }
+         * }
+         */
+
         this.setListaLlamadas(listaLlamadas); // Establecer valor de la lista de llamadas.
         this.getPantallaConsultarEncuesta().mostrarLlamadasConEncuestaParaSeleccion(); // Solicitar a la pantalla que
                                                                                        // muestre el listado de llamadas
@@ -313,38 +315,45 @@ public class ControladorConsultarEncuesta {
     }
 
     public void generarCSV() { // Método para generar archivo CSV.
-        // String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
-        String csvFile = "C:\\Users\\JulianSalvucci\\Desktop\\archivo.csv";
-        try {
-            FileWriter writer = new FileWriter(csvFile);
-            CSVWriter csvWriter = new CSVWriter(writer);
 
-            // Escribir los encabezados
-            String[] encabezados = { this.getNombreCliente(), this.getUltimoEstadoLlamada(),
-                    this.getDuracionLlamada() };
-            csvWriter.writeNext(encabezados);
-
-            ArrayList<String> datos = new ArrayList<>();
-
-            // Escribir celdas de archivo CSV.
-            for (int i = 0; i < this.getRespuestas().size(); i++) {
-
-                String respuesta = this.getRespuestas().get(i);
-                String pregunta = this.getPreguntas().get(i);
-                String[] partes = respuesta.split("_");
-                String fila = pregunta + " | " + partes[0];
-
-                datos.add(fila);
-            }
-
-            for (String dato : datos) {
-                csvWriter.writeNext(new String[] { dato });
-            }
-
-            csvWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        GeneradorCSV generadorCSV = GeneradorCSV.getInstancia(this.getNombreCliente(), this.getUltimoEstadoLlamada(),
+                this.getDuracionLlamada(), this.getRespuestas(), this.getPreguntas());
+        generadorCSV.generar();
+        /*
+         * // String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
+         * String csvFile = "C:\\Users\\JulianSalvucci\\Desktop\\archivo.csv";
+         * try {
+         * FileWriter writer = new FileWriter(csvFile);
+         * CSVWriter csvWriter = new CSVWriter(writer);
+         * 
+         * // Escribir los encabezados
+         * String[] encabezados = { this.getNombreCliente(),
+         * this.getUltimoEstadoLlamada(),
+         * this.getDuracionLlamada() };
+         * csvWriter.writeNext(encabezados);
+         * 
+         * ArrayList<String> datos = new ArrayList<>();
+         * 
+         * // Escribir celdas de archivo CSV.
+         * for (int i = 0; i < this.getRespuestas().size(); i++) {
+         * 
+         * String respuesta = this.getRespuestas().get(i);
+         * String pregunta = this.getPreguntas().get(i);
+         * String[] partes = respuesta.split("_");
+         * String fila = pregunta + " | " + partes[0];
+         * 
+         * datos.add(fila);
+         * }
+         * 
+         * for (String dato : datos) {
+         * csvWriter.writeNext(new String[] { dato });
+         * }
+         * 
+         * csvWriter.close();
+         * } catch (IOException e) {
+         * e.printStackTrace();
+         * }
+         */
     }
 
     public void imprimir() { // Método para generar archivo PDF para impresión.
