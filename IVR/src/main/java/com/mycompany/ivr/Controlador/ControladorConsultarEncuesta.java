@@ -192,10 +192,6 @@ public class ControladorConsultarEncuesta {
         List<Llamada> llamadas = query.getResultList();
         // Fin desmaterialización llamadas//
 
-        ArrayList<Object> filtros = new ArrayList<>();
-        filtros.add(this.getFechaInicio());
-        filtros.add(this.getFechaFin());
-
         IteradorLlamada iteradorLlamada = new IteradorLlamada(llamadas, this.getFechaInicio(), this.getFechaFin());
 
         iteradorLlamada.primero();
@@ -316,9 +312,9 @@ public class ControladorConsultarEncuesta {
 
     public void generarCSV() { // Método para generar archivo CSV.
 
-        GeneradorCSV generadorCSV = GeneradorCSV.getInstancia(this.getNombreCliente(), this.getUltimoEstadoLlamada(),
+        GeneradorCSV generadorCSV = GeneradorCSV.getInstancia();
+        generadorCSV.generar(this.getNombreCliente(), this.getUltimoEstadoLlamada(),
                 this.getDuracionLlamada(), this.getRespuestas(), this.getPreguntas());
-        generadorCSV.generar();
         /*
          * // String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
          * String csvFile = "C:\\Users\\JulianSalvucci\\Desktop\\archivo.csv";

@@ -9,91 +9,37 @@ import com.opencsv.CSVWriter;
 
 public class GeneradorCSV {
 
-    private String nombreCliente;
-    private String ultimoEstadoLlamada;
-    private String duracionLlamada;
-    private List<String> respuestas = new ArrayList<>();
-    public List<String> preguntas = new ArrayList<>();
-
-    public String getNombreCliente() {
-        return nombreCliente;
-    }
-
-    public void setNombreCliente(String nombreCliente) {
-        this.nombreCliente = nombreCliente;
-    }
-
-     public String getUltimoEstadoLlamada() {
-        return ultimoEstadoLlamada;
-    }
-
-    public void setUltimoEstadoLlamada(String ultimoEstadoLlamada) {
-        this.ultimoEstadoLlamada = ultimoEstadoLlamada;
-    }
-    
-     public String getDuracionLlamada() {
-        return duracionLlamada;
-    }
-
-    public void setDuracionLlamada(String duracionLlamada) {
-        this.duracionLlamada = duracionLlamada;
-    }
-
-    public List<String> getRespuestas() {
-        return respuestas;
-    }
-
-    public void setRespuestas(List<String> respuestas) {
-        this.respuestas = respuestas;
-    }
-
-    public List<String> getPreguntas() {
-        return preguntas;
-    }
-
-    public void setPreguntas(List<String> preguntas) {
-        this.preguntas = preguntas;
-    }
-
-    public GeneradorCSV(String nombreCliente, String ultimoEstadoLlamada, String duracionLlamada,
-            List<String> respuestas, List<String> preguntas) {
-        this.nombreCliente = nombreCliente;
-        this.ultimoEstadoLlamada = ultimoEstadoLlamada;
-        this.duracionLlamada = duracionLlamada;
-        this.respuestas = respuestas;
-        this.preguntas = preguntas;
-    }
-
     private static GeneradorCSV generadorCSVInstancia;
-    public static GeneradorCSV getInstancia(String nombreCliente, String ultimoEstadoLlamada, String duracionLlamada,
-            List<String> respuestas, List<String> preguntas) {
-        //SINGLETON
-        if (generadorCSVInstancia == null){
-            generadorCSVInstancia = new GeneradorCSV(nombreCliente, ultimoEstadoLlamada, duracionLlamada, respuestas, preguntas);
+
+    public static GeneradorCSV getInstancia() {
+        // SINGLETON
+        if (generadorCSVInstancia == null) {
+            generadorCSVInstancia = new GeneradorCSV();
         }
         return generadorCSVInstancia;
     }
 
-    public void generar() {
-        
+    public void generar(String nombreCliente, String ultimoEstadoLlamada, String duracionLlamada,
+            List<String> respuestas, List<String> preguntas) {
+
         String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
-        
+
         try {
             FileWriter writer = new FileWriter(csvFile);
             CSVWriter csvWriter = new CSVWriter(writer);
 
             // Escribir los encabezados
-            String[] encabezados = { this.getNombreCliente(), this.getUltimoEstadoLlamada(),
-                    this.getDuracionLlamada() };
+            String[] encabezados = { nombreCliente, ultimoEstadoLlamada,
+                    duracionLlamada };
             csvWriter.writeNext(encabezados);
 
             ArrayList<String> datos = new ArrayList<>();
 
             // Escribir celdas de archivo CSV.
-            for (int i = 0; i < this.getRespuestas().size(); i++) {
+            for (int i = 0; i < respuestas.size(); i++) {
 
-                String respuesta = this.getRespuestas().get(i);
-                String pregunta = this.getPreguntas().get(i);
+                String respuesta = respuestas.get(i);
+                String pregunta = preguntas.get(i);
                 String[] partes = respuesta.split("_");
                 String fila = pregunta + " | " + partes[0];
 
@@ -108,6 +54,6 @@ public class GeneradorCSV {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }
 }
