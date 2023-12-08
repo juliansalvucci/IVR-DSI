@@ -4,39 +4,17 @@
  */
 package com.mycompany.ivr.EsquemasDePersistencia;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 /**
  *
  * @author jlssa
  */
 
-@Entity
-@Table(name = "respuestaPosible")
 public class RespuestaPosibleSchema {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     public String descripcion;
     public String valor; // Puede ser un puntaje del 1 al 10 o un SI o NO.
 
-    @ManyToOne
-    @JoinColumn(name = "pregunta_id")
     public PreguntaSchema pregunta;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getDescripcion() {
         return descripcion;

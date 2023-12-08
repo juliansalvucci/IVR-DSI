@@ -4,45 +4,22 @@
  */
 package com.mycompany.ivr.EsquemasDePersistencia;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 /**
  *
  * @author jlssa
  */
-@Entity
-@Table(name = "llamada")
+
 public class LlamadaSchema {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     private String duracion;
-    
-    @OneToOne private ClienteSchema cliente; //llamada tiene 1 cliente.
-    
-    @OneToMany(mappedBy = "llamada")
-    private List<CambioEstadoSchema> cambioEstado; //llamada tiene 1...* cambioEstado.
-   
-    @OneToMany(mappedBy = "llamada")
-    private List<RespuestaDeClienteSchema> respuestaDeCliente;  //llamada tiene 0...* respuestaDeCliente.
 
-    public Long getId() {
-        return id;
-    }
+    private ClienteSchema cliente; // llamada tiene 1 cliente.
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private List<CambioEstadoSchema> cambioEstado; // llamada tiene 1...* cambioEstado.
+
+    private List<RespuestaDeClienteSchema> respuestaDeCliente; // llamada tiene 0...* respuestaDeCliente.
 
     public String getDuracion() {
         return duracion;

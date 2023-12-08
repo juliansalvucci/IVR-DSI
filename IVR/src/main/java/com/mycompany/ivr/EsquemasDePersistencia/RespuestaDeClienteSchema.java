@@ -4,42 +4,19 @@
  */
 package com.mycompany.ivr.EsquemasDePersistencia;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 /**
  *
  * @author jlssa
  */
-@Entity
-@Table(name = "respuestaDeCliente")
+
 public class RespuestaDeClienteSchema {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     public String fechaEncuesta;
     public String descripcion;
 
-    @ManyToOne
-    @JoinColumn(name = "respuestaPosible_id")
     public RespuestaPosibleSchema respuestaSeleccionada;
 
-    @ManyToOne
-    @JoinColumn(name = "llamada_id")
     public LlamadaSchema llamada;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFechaEncuesta() {
         return fechaEncuesta;
@@ -71,6 +48,11 @@ public class RespuestaDeClienteSchema {
 
     public void setLlamada(LlamadaSchema llamada) {
         this.llamada = llamada;
+    }
+
+    public String getDescripcionRTA() { //Método para obtener respuestas del cliente y la respuesta asignada por el mismo.
+        String descripcionRespuestaSeleccionada = this.getRespuestaSeleccionada().getDescripcionRTA();
+        return descripcion + " - " + descripcionRespuestaSeleccionada + "_" + this.getRespuestaSeleccionada(); //Se agrega dirección de memoria para luego obtener la encuesta correspondiente.
     }
 
 }

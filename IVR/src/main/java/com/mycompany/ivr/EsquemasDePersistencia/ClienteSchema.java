@@ -4,34 +4,16 @@
  */
 package com.mycompany.ivr.EsquemasDePersistencia;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 /**
  *
  * @author jlssa
  */
 
-@Entity
-@Table(name = "cliente")
 public class ClienteSchema {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     private String dni;
     private String nombreCompleto;
     private String nroCelular;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getDni() {
         return dni;

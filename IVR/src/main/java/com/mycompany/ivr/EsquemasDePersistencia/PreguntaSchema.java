@@ -6,42 +6,21 @@ package com.mycompany.ivr.EsquemasDePersistencia;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import com.mycompany.ivr.Clases.RespuestaPosible;
 
 /**
  *
  * @author jlssa
  */
-@Entity
-@Table(name = "pregunta")
+
 public class PreguntaSchema {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     public String pregunta;
     public String descripcion;
 
-    @OneToMany(mappedBy = "pregunta")
-    public List<RespuestaPosibleSchema> respuesta; //pregunta tiene 1...* respuestaPosible
+    public List<RespuestaPosibleSchema> respuesta; // pregunta tiene 1...* respuestaPosible
 
-    @ManyToOne
-    @JoinColumn(name = "encuesta_id")
     public EncuestaSchema encuesta;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getPregunta() {
         return pregunta;
@@ -73,5 +52,17 @@ public class PreguntaSchema {
 
     public void setEncuesta(EncuestaSchema encuesta) {
         this.encuesta = encuesta;
+    }
+
+    public Boolean tieneRespuestaPosible(String respuestaPosible) {  //Método para determinar las preguntas relacionadas con la respuesta posible ingresada por parámetro.
+        List<RespuestaPosibleSchema> respuestasPosibles = this.getRespuestas();
+        for (RespuestaPosibleSchema respuesta : respuestasPosibles) {
+            if (respuesta.toString().equals(respuestaPosible)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 }
