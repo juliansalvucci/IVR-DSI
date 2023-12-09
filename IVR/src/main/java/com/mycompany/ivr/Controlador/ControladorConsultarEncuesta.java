@@ -7,13 +7,12 @@ package com.mycompany.ivr.Controlador;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.io.File;
-import java.io.IOException;
 
 import com.mycompany.ivr.Clases.Encuesta;
 import com.mycompany.ivr.Clases.Llamada;
 import com.mycompany.ivr.Clases.FabricacionPura.Iterator.IteradorLlamada;
 import com.mycompany.ivr.Clases.FabricacionPura.Singleton.GeneradorCSV;
+import com.mycompany.ivr.Clases.FabricacionPura.Singleton.Impresor;
 import com.mycompany.ivr.Vista.PantallaConsultarEncuesta;
 
 import javax.persistence.EntityManager;
@@ -21,14 +20,6 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-
-import java.awt.Desktop;
 
 /**
  *
@@ -353,6 +344,10 @@ public class ControladorConsultarEncuesta {
     }
 
     public void imprimir() { // Método para generar archivo PDF para impresión.
+        Impresor impresor = Impresor.getInstancia();
+        impresor.imprimir(this.getNombreCliente(), this.getUltimoEstadoLlamada(),
+                this.getDuracionLlamada(), this.getRespuestas(), this.getPreguntas());
+        /* 
         // String filePath = "C:\\Users\\jlssa\\Documents\\archivo.pdf";
         String filePath = "C:\\Users\\JulianSalvucci\\Desktop\\archivo.pdf";
 
@@ -419,6 +414,7 @@ public class ControladorConsultarEncuesta {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
     }
 
     public void finCU() {
