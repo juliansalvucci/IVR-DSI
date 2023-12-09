@@ -22,7 +22,9 @@ public class GeneradorCSV {
     public void generar(String nombreCliente, String ultimoEstadoLlamada, String duracionLlamada,
             List<String> respuestas, List<String> preguntas) {
 
-        String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
+        //String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
+
+        String csvFile = "C:\\Users\\JulianSalvucci\\Desktop\\archivo.csv";
 
         try {
             FileWriter writer = new FileWriter(csvFile);
