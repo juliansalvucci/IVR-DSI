@@ -471,8 +471,15 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         long FF = tomarFechaFin().getTime();
         Date fechaInicio = new Date(FI);
         Date fechaFin = new Date(FF);
+        Date fechaActual = new Date();
 
-        this.getGestor().tomarPeriodo(fechaInicio, fechaFin); // Invoca método de gestor tomar periodo
+        if (fechaInicio.after(fechaFin)) { // Validación de Fechas
+            JOptionPane.showMessageDialog(null, "La Fecha de Inicio ingresada es posterior a la Fecha de Fin", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (fechaFin.after(fechaActual)) {
+            JOptionPane.showMessageDialog(null, "La Fecha de Fin ingresada es posterior a la Fecha actual", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            this.getGestor().tomarPeriodo(fechaInicio, fechaFin); // Invoca método de gestor tomar periodo
+        }
         // ingresando como parámetros las fechas
         // seleccionadas por el coordinador.
         /**
