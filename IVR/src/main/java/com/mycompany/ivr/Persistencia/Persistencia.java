@@ -13,11 +13,11 @@ import javax.persistence.criteria.Root;
 public class Persistencia {
     EntityManager em;
 
-    public Persistencia(EntityManager em){
+    public Persistencia(EntityManager em) {
         this.em = em;
     }
 
-    public List<Llamada> materializarLlamadas(){
+    public List<Llamada> materializarLlamadas() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Llamada> cq = cb.createQuery(Llamada.class);
         Root<Llamada> root = cq.from(Llamada.class);
@@ -28,7 +28,7 @@ public class Persistencia {
         return query.getResultList();
     }
 
-    public List<Encuesta> materializarEncuestas(){
+    public List<Encuesta> materializarEncuestas() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Encuesta> cq = cb.createQuery(Encuesta.class);
         Root<Encuesta> root = cq.from(Encuesta.class);
