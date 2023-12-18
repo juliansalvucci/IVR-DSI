@@ -11,6 +11,7 @@ import java.util.List;
 import com.mycompany.ivr.Clases.Encuesta;
 import com.mycompany.ivr.Clases.Llamada;
 import com.mycompany.ivr.Clases.FabricacionPura.Iterator.IteradorLlamada;
+import com.mycompany.ivr.Clases.FabricacionPura.Iterator.Interfaces.IIterator;
 import com.mycompany.ivr.Clases.FabricacionPura.Singleton.GeneradorCSV;
 import com.mycompany.ivr.Clases.FabricacionPura.Singleton.Impresor;
 import com.mycompany.ivr.Persistencia.Persistencia;
@@ -184,7 +185,7 @@ public class ControladorConsultarEncuesta {
         Persistencia persistencia = new Persistencia(em);
         List<Llamada> llamadas = persistencia.materializarLlamadas();
 
-        IteradorLlamada iteradorLlamada = new IteradorLlamada(llamadas, this.getFechaInicio(), this.getFechaFin());
+        IIterator iteradorLlamada = new IteradorLlamada(llamadas, this.getFechaInicio(), this.getFechaFin());
 
         iteradorLlamada.primero();
 
