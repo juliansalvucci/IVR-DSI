@@ -11,6 +11,7 @@ import java.util.List;
 import com.mycompany.ivr.Clases.Encuesta;
 import com.mycompany.ivr.Clases.Llamada;
 import com.mycompany.ivr.Clases.FabricacionPura.Iterator.IteradorLlamada;
+import com.mycompany.ivr.Clases.FabricacionPura.Iterator.Interfaces.IAgregado;
 import com.mycompany.ivr.Clases.FabricacionPura.Iterator.Interfaces.IIterator;
 import com.mycompany.ivr.Clases.FabricacionPura.Singleton.GeneradorCSV;
 import com.mycompany.ivr.Clases.FabricacionPura.Singleton.Impresor;
@@ -23,7 +24,7 @@ import javax.persistence.EntityManager;
  *
  * @author jlssa
  */
-public class ControladorConsultarEncuesta {
+public class ControladorConsultarEncuesta implements IAgregado {
     // ATRIBUTOS
     public Date fechaInicio;
     public Date fechaFin;
@@ -168,6 +169,20 @@ public class ControladorConsultarEncuesta {
         this.buscarLlamadasConEncuesta(); // Invocación de método para buscar las llamadas con encuesta.
     }
 
+    public IIterator crearIterador(List<Object> elementos) {
+        List<Llamada> llamadas = new ArrayList<>();
+        // Ahora tienes una lista de objetos que puedes utilizar
+        for (Object objeto : elementos) {
+            if (objeto instanceof Llamada) {
+                Llamada llamada = (Llamada) objeto;
+                llamadas.add(llamada);
+            }
+        }
+
+        IIterator iteradorLlamada = new IteradorLlamada(llamadas, this.getFechaInicio(), this.getFechaFin());
+        return iteradorLlamada;
+    }
+
     public void buscarLlamadasConEncuesta() {
         this.getListaLlamadas().clear(); // Vaciar lista de llamadas para no mezclar con contenido previo.
         // Levantar desde BD a memoria todos los objetos de tipo llamada.//
@@ -185,7 +200,13 @@ public class ControladorConsultarEncuesta {
         Persistencia persistencia = new Persistencia(em);
         List<Llamada> llamadas = persistencia.materializarLlamadas();
 
-        IIterator iteradorLlamada = new IteradorLlamada(llamadas, this.getFechaInicio(), this.getFechaFin());
+        // Convertir List<Llamada> a List<Object>
+        List<Object> elementos = new ArrayList<>();
+        for (Llamada llamada : llamadas) {
+            elementos.add(llamada);
+        }
+
+        IIterator iteradorLlamada = crearIterador(elementos);
 
         iteradorLlamada.primero();
 
