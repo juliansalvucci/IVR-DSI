@@ -186,19 +186,9 @@ public class ControladorConsultarEncuesta implements IAgregado {
     public void buscarLlamadasConEncuesta() {
         this.getListaLlamadas().clear(); // Vaciar lista de llamadas para no mezclar con contenido previo.
         // Levantar desde BD a memoria todos los objetos de tipo llamada.//
-        /*
-         * CriteriaBuilder cb = em.getCriteriaBuilder();
-         * CriteriaQuery<Llamada> cq = cb.createQuery(Llamada.class);
-         * Root<Llamada> root = cq.from(Llamada.class);
-         * 
-         * cq.select(root);
-         * 
-         * TypedQuery<Llamada> query = em.createQuery(cq);
-         * List<Llamada> llamadas = query.getResultList();
-         * // Fin desmaterialización llamadas//
-         */
         Persistencia persistencia = new Persistencia(em);
         List<Llamada> llamadas = persistencia.materializarLlamadas();
+        // Fin desmaterialización llamadas//
 
         // Convertir List<Llamada> a List<Object>
         List<Object> elementos = new ArrayList<>();
@@ -217,18 +207,6 @@ public class ControladorConsultarEncuesta implements IAgregado {
             }
             iteradorLlamada.siguiente();
         } while (!iteradorLlamada.haTerminado());
-
-        /*
-         * for (Llamada llamada : llamadas) { // Recorrer cada llamada del listado
-         * obtenido.
-         * if (llamada.esDePeriodo(this.getFechaInicio(), this.getFechaFin()) &&
-         * llamada.tieneEncuestaRespondida()) {
-         * this.getListaLlamadas().add(llamada); // Si la llamada esta comprendida en el
-         * periódo establecido y
-         * // tiene encuesta asociada, agregarla a la lista de llamadas.
-         * }
-         * }
-         */
 
         this.setListaLlamadas(listaLlamadas); // Establecer valor de la lista de llamadas.
         this.getPantallaConsultarEncuesta().mostrarLlamadasConEncuestaParaSeleccion(); // Solicitar a la pantalla que
@@ -279,16 +257,6 @@ public class ControladorConsultarEncuesta implements IAgregado {
                                              // respuesta posible y nos permitirá, a través de su instancia, identificar
                                              // la encuesta correspondiente.
         // Levantar desde BD a memoria todos los objetos de tipo Encuesta.//
-        /*
-         * CriteriaBuilder cb = em.getCriteriaBuilder();
-         * CriteriaQuery<Encuesta> cq = cb.createQuery(Encuesta.class);
-         * Root<Encuesta> root = cq.from(Encuesta.class);
-         * 
-         * cq.select(root); // Se levantan en memoria todas las encuestas.
-         * 
-         * TypedQuery<Encuesta> query = em.createQuery(cq);
-         * List<Encuesta> encuestas = query.getResultList();
-         */
         Persistencia persistencia = new Persistencia(em);
         List<Encuesta> encuestas = persistencia.materializarEncuestas();
         // Fin desmaterialización encuestas//
@@ -333,119 +301,12 @@ public class ControladorConsultarEncuesta implements IAgregado {
         GeneradorCSV generadorCSV = GeneradorCSV.getInstancia();
         generadorCSV.generar(this.getNombreCliente(), this.getUltimoEstadoLlamada(),
                 this.getDuracionLlamada(), this.getRespuestas(), this.getPreguntas());
-        /*
-         * // String csvFile = "C:\\Users\\jlssa\\Documents\\archivo.csv";
-         * String csvFile = "C:\\Users\\JulianSalvucci\\Desktop\\archivo.csv";
-         * try {
-         * FileWriter writer = new FileWriter(csvFile);
-         * CSVWriter csvWriter = new CSVWriter(writer);
-         * 
-         * // Escribir los encabezados
-         * String[] encabezados = { this.getNombreCliente(),
-         * this.getUltimoEstadoLlamada(),
-         * this.getDuracionLlamada() };
-         * csvWriter.writeNext(encabezados);
-         * 
-         * ArrayList<String> datos = new ArrayList<>();
-         * 
-         * // Escribir celdas de archivo CSV.
-         * for (int i = 0; i < this.getRespuestas().size(); i++) {
-         * 
-         * String respuesta = this.getRespuestas().get(i);
-         * String pregunta = this.getPreguntas().get(i);
-         * String[] partes = respuesta.split("_");
-         * String fila = pregunta + " | " + partes[0];
-         * 
-         * datos.add(fila);
-         * }
-         * 
-         * for (String dato : datos) {
-         * csvWriter.writeNext(new String[] { dato });
-         * }
-         * 
-         * csvWriter.close();
-         * } catch (IOException e) {
-         * e.printStackTrace();
-         * }
-         */
     }
 
     public void imprimir() { // Método para generar archivo PDF para impresión.
         Impresor impresor = Impresor.getInstancia();
         impresor.imprimir(this.getNombreCliente(), this.getUltimoEstadoLlamada(),
                 this.getDuracionLlamada(), this.getRespuestas(), this.getPreguntas());
-        /*
-         * // String filePath = "C:\\Users\\jlssa\\Documents\\archivo.pdf";
-         * String filePath = "C:\\Users\\JulianSalvucci\\Desktop\\archivo.pdf";
-         * 
-         * try (PDDocument document = new PDDocument()) {
-         * // Crear una nueva página en el documento
-         * PDRectangle pageSize = new PDRectangle(900, 900); // Página personalizada de
-         * 1000x500 puntos
-         * PDPage page = new PDPage(pageSize);
-         * 
-         * document.addPage(page);
-         * 
-         * // Crear un objeto PDPageContentStream para escribir el contenido en la
-         * página
-         * PDPageContentStream contentStream = new PDPageContentStream(document, page);
-         * 
-         * // Configurar la fuente y el tamaño del texto
-         * contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-         * 
-         * // Escribir texto en la página
-         * contentStream.beginText();
-         * float startY = 700; // Posición vertical inicial
-         * float lineHeight = 15; // Altura de línea
-         * 
-         * // Establecer cabecera de PDF.
-         * contentStream.newLineAtOffset(100, startY);
-         * contentStream.
-         * showText("#################### DATOS DE LLAMADA ####################");
-         * contentStream.newLineAtOffset(0, -lineHeight);
-         * contentStream.newLineAtOffset(0, -lineHeight);
-         * contentStream.showText("Cliente: " + this.getNombreCliente());
-         * contentStream.newLineAtOffset(0, -lineHeight);
-         * contentStream.showText("Estado actual: " + this.getUltimoEstadoLlamada());
-         * contentStream.newLineAtOffset(0, -lineHeight);
-         * contentStream.showText("Duración: " + this.getDuracionLlamada());
-         * 
-         * // Establecer detalle con las preguntas y respuestas respectivas.
-         * contentStream.newLineAtOffset(0, -lineHeight);
-         * contentStream.newLineAtOffset(0, -lineHeight);
-         * contentStream.
-         * showText("########### DETALLE DE PREGUNTAS Y RESPUESTAS ###########");
-         * for (int i = 0; i < this.getRespuestas().size(); i++) {
-         * 
-         * String respuesta = this.getRespuestas().get(i);
-         * String pregunta = this.getPreguntas().get(i);
-         * String[] partes = respuesta.split("_");
-         * 
-         * contentStream.newLineAtOffset(0, -lineHeight);
-         * contentStream.newLineAtOffset(0, -lineHeight);
-         * contentStream.showText(pregunta + " | " + partes[0]);
-         * }
-         * 
-         * contentStream.endText();
-         * 
-         * // Cerrar el objeto PDPageContentStream
-         * contentStream.close();
-         * 
-         * // Guardar el documento como archivo PDF
-         * document.save(filePath);
-         * 
-         * System.out.println("¡Archivo PDF generado correctamente!");
-         * } catch (IOException e) {
-         * e.printStackTrace();
-         * }
-         * 
-         * try { // Abrir PDF en pestaña de navegador.
-         * File file = new File(filePath);
-         * Desktop.getDesktop().browse(file.toURI());
-         * } catch (IOException e) {
-         * e.printStackTrace();
-         * }
-         */
     }
 
     public void finCU() {
