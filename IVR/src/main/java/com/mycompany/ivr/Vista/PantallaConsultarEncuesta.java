@@ -462,7 +462,10 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jmiCancelarActionPerformed(java.awt.event.ActionEvent evt) {
-        this.dispose(); // Cierra la ventana y la destruye
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas cancelar?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+                this.dispose(); // Cierra la ventana y la destruye
+        }
     }
 
     // Lógica botón filtrar.
@@ -507,25 +510,34 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
     }// GEN-LAST:event_tblLlamadasMouseClicked
 
     private void btnGenerarCSVActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnGenerarCSVActionPerformed
-        tomarOpcionSalida("CSV");
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas generar un archivo .csv?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+                tomarOpcionSalida("CSV");
+        }
     }// GEN-LAST:event_btnGenerarCSVActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnImprimirActionPerformed
-        tomarOpcionSalida("Imprimir");
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas imprimir?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+                tomarOpcionSalida("Imprimir");
+        }
     }// GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelarActionPerformed
-        this.dispose(); // Cierra la ventana y la destruye
-        this.jdcFechaInicio.setDate(null);
-        this.jdcFechaFin.setDate(null);
-        DefaultTableModel modelTableLlamadas = (DefaultTableModel) tblLlamadas.getModel();
-        modelTableLlamadas.setRowCount(0);
-        DefaultTableModel modelTableEncuestas = (DefaultTableModel) tblEncuestas.getModel();
-        modelTableEncuestas.setRowCount(0);
-        txtDescripcionEncuesta.setText("");
-        txtCliente.setText("");
-        txtEstadoLlamada.setText("");
-        txtDuracionLlamada.setText("");
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas cancelar?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+                this.dispose(); // Cierra la ventana y la destruye
+                this.jdcFechaInicio.setDate(null);
+                this.jdcFechaFin.setDate(null);
+                DefaultTableModel modelTableLlamadas = (DefaultTableModel) tblLlamadas.getModel();
+                modelTableLlamadas.setRowCount(0);
+                DefaultTableModel modelTableEncuestas = (DefaultTableModel) tblEncuestas.getModel();
+                modelTableEncuestas.setRowCount(0);
+                txtDescripcionEncuesta.setText("");
+                txtCliente.setText("");
+                txtEstadoLlamada.setText("");
+                txtDuracionLlamada.setText("");
+        }
 
     }// GEN-LAST:event_btnCancelarActionPerformed
 
