@@ -55,7 +55,6 @@ public class IteradorLlamada implements IIterator {
         } else {
             return null;
         }
-
     }
 
     @Override
