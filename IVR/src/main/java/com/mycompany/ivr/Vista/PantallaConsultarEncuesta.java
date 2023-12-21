@@ -24,7 +24,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
     
     // Variables para paginación de tblLlamadas
     private int pagActualLlamadas = 0;
-    private int numFilasLlamadas = 5;
+    private int numFilasLlamadas = 4;
     
     public ControladorConsultarEncuesta getGestor() {
         return gestor;
@@ -200,7 +200,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         jspLlamadas.setForeground(new java.awt.Color(249, 161, 38));
         jspLlamadas.setEnabled(false);
 
-        tblLlamadas.setFont(new java.awt.Font("Nirmala UI", 0, 12)); // NOI18N
+        tblLlamadas.setFont(new java.awt.Font("Nirmala UI", 0, 36)); // NOI18N
         tblLlamadas.setForeground(new java.awt.Color(238, 69, 40));
         tblLlamadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -212,6 +212,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         ));
         tblLlamadas.setEnabled(false);
         tblLlamadas.setOpaque(false);
+        tblLlamadas.getTableHeader().setReorderingAllowed(false);
         tblLlamadas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblLlamadasMouseClicked(evt);
@@ -227,7 +228,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jspLlamadas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jspLlamadas, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
         );
 
         lblLlamadaSeleccionada.setBackground(new java.awt.Color(238, 69, 40));
@@ -318,7 +319,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         jspEncuestas.setForeground(new java.awt.Color(249, 161, 38));
         jspEncuestas.setEnabled(false);
 
-        tblEncuestas.setFont(new java.awt.Font("Nirmala UI", 0, 12)); // NOI18N
+        tblEncuestas.setFont(new java.awt.Font("Nirmala UI", 0, 14)); // NOI18N
         tblEncuestas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -363,6 +364,8 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         btnImprimir.setActionCommand("Volver");
         btnImprimir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnImprimir.setEnabled(false);
+        btnImprimir.setMaximumSize(new java.awt.Dimension(105, 30));
+        btnImprimir.setMinimumSize(new java.awt.Dimension(105, 30));
         btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImprimirActionPerformed(evt);
@@ -376,6 +379,8 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         btnCancelar.setText("Cancelar");
         btnCancelar.setActionCommand("Volver");
         btnCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCancelar.setMaximumSize(new java.awt.Dimension(105, 30));
+        btnCancelar.setMinimumSize(new java.awt.Dimension(105, 30));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -389,10 +394,10 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnGenerarCSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(147, 147, 147)
-                .addComponent(btnImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(147, 147, 147)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(125, 125, 125)
+                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(123, 123, 123)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -452,7 +457,10 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCancelarActionPerformed
-        this.dispose(); // Cierra la ventana y la destruye
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas cancelar?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            this.dispose(); // Cierra la ventana y la destruye
+        }
     }//GEN-LAST:event_jmiCancelarActionPerformed
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
@@ -501,25 +509,34 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
     }//GEN-LAST:event_tblLlamadasMouseClicked
 
     private void btnGenerarCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarCSVActionPerformed
-        tomarOpcionSalida("CSV");
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas generar un archivo .csv?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            tomarOpcionSalida("CSV");
+        }
     }//GEN-LAST:event_btnGenerarCSVActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-        tomarOpcionSalida("Imprimir");
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas imprimir?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            tomarOpcionSalida("Imprimir");
+        }
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.dispose(); // Cierra la ventana y la destruye
-        this.jdcFechaInicio.setDate(null);
-        this.jdcFechaFin.setDate(null);
-        DefaultTableModel modelTableLlamadas = (DefaultTableModel) tblLlamadas.getModel();
-        modelTableLlamadas.setRowCount(0);
-        DefaultTableModel modelTableEncuestas = (DefaultTableModel) tblEncuestas.getModel();
-        modelTableEncuestas.setRowCount(0);
-        txtDescripcionEncuesta.setText("");
-        txtCliente.setText("");
-        txtEstadoLlamada.setText("");
-        txtDuracionLlamada.setText("");
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas cancelar?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            this.dispose(); // Cierra la ventana y la destruye
+            this.jdcFechaInicio.setDate(null);
+            this.jdcFechaFin.setDate(null);
+            DefaultTableModel modelTableLlamadas = (DefaultTableModel) tblLlamadas.getModel();
+            modelTableLlamadas.setRowCount(0);
+            DefaultTableModel modelTableEncuestas = (DefaultTableModel) tblEncuestas.getModel();
+            modelTableEncuestas.setRowCount(0);
+            txtDescripcionEncuesta.setText("");
+            txtCliente.setText("");
+            txtEstadoLlamada.setText("");
+            txtDuracionLlamada.setText("");
+        }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
