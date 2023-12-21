@@ -200,7 +200,7 @@ public class PantallaConsultarEncuesta extends javax.swing.JFrame {
         jspLlamadas.setForeground(new java.awt.Color(249, 161, 38));
         jspLlamadas.setEnabled(false);
 
-        tblLlamadas.setFont(new java.awt.Font("Nirmala UI", 0, 36)); // NOI18N
+        tblLlamadas.setFont(new java.awt.Font("Nirmala UI", 0, 14)); // NOI18N
         tblLlamadas.setForeground(new java.awt.Color(238, 69, 40));
         tblLlamadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
